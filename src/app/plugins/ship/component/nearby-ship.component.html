@@ -1,0 +1,9 @@
+<ion-list inset>
+    <ion-item *ngFor="let Ship of Ships">
+        <ion-icon name="boat" item-left [style.color]="'#387ef5'"></ion-icon>
+        {{Ship.DisplayName}}
+        <button ion-button item-right clear (click)="LocateShip(Ship)">
+            <ion-icon name="pin"></ion-icon>
+        </button>
+    </ion-item>
+</ion-list>

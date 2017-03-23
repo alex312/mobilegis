@@ -1,0 +1,8 @@
+<ion-grid>
+    <ion-row *ngFor="let row of _items">
+        <ion-col *ngFor="let cell of row" tappable (click)="openPage(cell)">
+            <img src="assets/imgs/menu/{{cell.Icon}}@{{iconSize}}x.png">
+            <div>{{cell.Name}}</div>
+        </ion-col>
+    </ion-row>
+</ion-grid>

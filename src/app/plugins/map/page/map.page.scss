@@ -1,0 +1,44 @@
+ion-content.cards-bg {
+  background-color: #f4f4f7;
+
+  scroll-content{
+    overflow-y:hidden;
+  }
+
+  div.map{
+    position:relative;
+    height:100%;
+  }
+
+  ion-grid, ion-row,ion-col{
+    padding:0;
+  }
+
+  ion-row{
+    height:auto;
+  }
+
+  ion-grid, .mapRow, .mapRow ion-col,mobile-app{
+    height:100%;
+  }  
+
+  button[fab].fab-map {
+    top: calc(100% - 35px);
+    z-index: 50;
+  }
+
+  .item-bold {
+    font-weight: bold;
+  }
+
+  div.summary{
+    background: white;
+    position: relative;
+    top: -10rem;
+    height: 10rem;
+  }
+
+  button.detail{
+    float: right;
+  }
+}

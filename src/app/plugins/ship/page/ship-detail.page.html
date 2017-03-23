@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>详细信息</ion-title>
+    </ion-navbar>
+    <ion-segment [(ngModel)]="pet" [attr.light]="isAndroid ? '' : null">
+        <ion-segment-button value="dynamic">
+            动态数据
+        </ion-segment-button>
+        <ion-segment-button value="archive">
+            船舶档案
+        </ion-segment-button>
+        <ion-segment-button value="nearbyShip">
+            周边船舶
+        </ion-segment-button>
+        <!--<ion-segment-button value="qdh">
+            船舶业务
+        </ion-segment-button>-->
+    </ion-segment>
+</ion-header>
+<ion-content [ngSwitch]="pet">
+    <ship-dynamic *ngSwitchCase="'dynamic'" [ship]="shipDynamic">loading</ship-dynamic>
+    <ship-archive *ngSwitchCase="'archive'" [shipId]="shipDynamic.featureData.id"></ship-archive>
+    <nearby-ship *ngSwitchCase="'nearbyShip'" [Ship]="shipDynamic"></nearby-ship>
+    <!--<qdh-ship-info *ngSwitchCase="'qdh'" [Ship]="shipDynamic.featureData.name"></qdh-ship-info>-->
+</ion-content>

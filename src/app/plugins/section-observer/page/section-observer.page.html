@@ -1,0 +1,20 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>观测截面</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <ion-refresher (ionRefresh)="Refresh($event)">
+        <ion-refresher-content pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新数据..."></ion-refresher-content>
+    </ion-refresher>
+    <ion-list inset>
+        <ion-item *ngFor="let section of SectionObservers">
+            {{section.Name}}
+            <ion-buttons outline item-right>
+                <button small clear (click)="GotoChart(section)">
+                    <ion-icon name="pie"></ion-icon>
+                </button>
+            </ion-buttons>
+        </ion-item>
+    </ion-list>
+</ion-content>
