@@ -6,7 +6,10 @@
     </ion-navbar>
 </ion-header>
 <ion-content>
-    <ion-segment [(ngModel)]="dynamicType">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content>下拉刷新</ion-refresher-content>
+    </ion-refresher>
+    <ion-segment [(ngModel)]="dynamicType" mode="md" (ionChange)="dynamicTypeChanged($event)">
         <ion-segment-button value='yqb'>
             预确报
         </ion-segment-button>
@@ -25,18 +28,21 @@
     </ion-segment>
     <div [ngSwitch]="dynamicType">
         <!--预确报-->
-        <port-visit-card-list *ngSwitchCase="'yqb'" [itemSource]="_portVisitList"></port-visit-card-list>
+        <port-visit-card-list *ngSwitchCase="'yqb'" [itemSource]="_portVisitModel.itemSource"></port-visit-card-list>
 
         <!--商业船舶-->
-        <vessel-dynamic-card-list *ngSwitchCase="'sycb'" [itemSource]="_vesselDynamicList"></vessel-dynamic-card-list>
+        <vessel-dynamic-card-list *ngSwitchCase="'sycb'" [itemSource]="_vesselDynamicModel.itemSource"></vessel-dynamic-card-list>
 
         <!--小船-->
-        <raw-boat-dynamic-card-list *ngSwitchCase="'xc'" [itemSource]="_rawBoatDynamicList"></raw-boat-dynamic-card-list>
+        <raw-boat-dynamic-card-list *ngSwitchCase="'xc'" [itemSource]="_rawBoatDynamicModel.itemSource"></raw-boat-dynamic-card-list>
 
         <!--靠泊-->
-        <berth-state-card-list *ngSwitchCase="'kb'" [itemSource]="_berthStateList"></berth-state-card-list>
+        <berth-state-card-list *ngSwitchCase="'kb'" [itemSource]="_berthStateModel.itemSource"></berth-state-card-list>
 
         <!--锚泊-->
-        <anchor-state-card-list *ngSwitchCase="'mb'" [itemSource]="_anchorStateList"></anchor-state-card-list>
+        <anchor-state-card-list *ngSwitchCase="'mb'" [itemSource]="_anchorStateModel.itemSource"></anchor-state-card-list>
     </div>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content>加载更多</ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

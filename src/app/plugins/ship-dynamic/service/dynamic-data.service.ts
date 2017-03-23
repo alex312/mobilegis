@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core'
 
-import { ApiClientService } from '../../../base';
+import { ApiClientService, Format } from '../../../base';
 
-import { PORTVISITS } from '../mock/port-visit.mock';
-import { VESSELDYNAMICS } from '../mock/vessel-dynamic.mock';
-import { RAWBOATDYNAMICS } from '../mock/raw-boat-dynamic.mock';
-import { BERTHSTATES } from '../mock/berth-state.mock';
-import { ANCHORSTATES } from '../mock/anchor-state.mock';
+// import { PORTVISITS } from '../mock/port-visit.mock';
+// import { VESSELDYNAMICS } from '../mock/vessel-dynamic.mock';
+// import { RAWBOATDYNAMICS } from '../mock/raw-boat-dynamic.mock';
+// import { BERTHSTATES } from '../mock/berth-state.mock';
+// import { ANCHORSTATES } from '../mock/anchor-state.mock';
+
+
 
 @Injectable()
 export class DynamicDataService {
@@ -14,38 +16,74 @@ export class DynamicDataService {
 
     }
 
-    private _portVisitUrl: string = "http://192.168.13.35:9007/api/PortVisit?shipKeyword=&shipTypeCode=&start=2016-12-02&end=2016-12-09&startIndex=0&count=20";
-    getPortVisit() {
-        // return Promise.resolve(PORTVISITS);
-        return this._apiClient.get(this._portVisitUrl).then(result => {
-            return result.data;
-        });
+    getData(url: string) {
+        return this._apiClient.get(url);
     }
 
-    private _vesselDynamicUrl: string = "http://192.168.13.35:9007/api/VesselDynamic?shipKeyword=&shipTypeCode=&start=2016-12-02&end=2016-12-09&startIndex=0&count=20&source=";
-    getVesselDynamic() {
-        return this._apiClient.get(this._vesselDynamicUrl).then(result => {
-            return result.data;
-        });
-    }
-    private _rawBoatDyanmicUrl: string = "http://192.168.13.35:9007/api/RawBoatDynamic4Approval?shipKeyword=&companyId=&start=2016-12-02&end=2016-12-09&startIndex=0&count=20";
-    getRawBoatDynamic() {
-        return this._apiClient.get(this._rawBoatDyanmicUrl).then(result => {
-            return result.data;
-        });
+}
+
+export class DynamicDataUrlCreater {
+
+    private _portVisitUrl: string = "http://mobile.com/tjvts/api/PortVisit";
+    portVisitUrl(param: IQueryParam) {
+
+
+        return `${this._portVisitUrl}?
+        shipKeywork=${param.shipKeyword}&
+        shipTypeCode=${param.shipTypeCode}&
+        start=${param.start}&
+        end=${param.end}&
+        startIndex=${param.startIndex}&
+        count=${param.count}`;
     }
 
-    private _berthStateUrl: string = "http://192.168.13.35:9007/api/BerthState?shipKeyword=&startIndex=0&count=20";
-    getBerthState() {
-        return this._apiClient.get(this._berthStateUrl).then(result => {
-            return result.data;
-        });
+    private _vesselDynamicUrl: string = "http://mobile.com/tjvts/api/VesselDynamic";
+    vessDynamicUrl(param: IQueryParam) {
+        return `${this._vesselDynamicUrl}?
+        shipKeyword=${param.shipKeyword}&
+        shipTypeCode=${param.shipTypeCode}&
+        start=${param.start}&
+        end=${param.end}&startIndex=${param.startIndex}&count=${param.count}&source=${param.source}`;
     }
 
-    private _anchorStateUrl: string = "http://192.168.13.35:9007/api/AnchorState?shipKeyword=&startIndex=0&count=20";
-    getAnchorState() {
-        return this._apiClient.get(this._anchorStateUrl).then(result => {
-            return result.data;
-        });
+    private _rawBoatDyanmicUrl: string = "http://mobile.com/tjvts/api/RawBoatDynamic4Approval";
+    rawBoatDynamicUrl(param: IQueryParam) {
+        return `${this._rawBoatDyanmicUrl}?
+        shipKeyword=${param.shipKeyword}&
+        companyId=${param.companyId}&
+        start=${param.start}&
+        end=${param.end}&
+        startIndex=${param.startIndex}&
+        count=${param.count}`;
     }
+
+    private _berthStateUrl: string = "http://mobile.com/tjvts/api/BerthState";
+    berthStateUrl(param: IQueryParam) {
+        return `${this._berthStateUrl}?
+        shipKeyword=${param.shipKeyword}&
+        startIndex=${param.shipTypeCode}&
+        count=${param.count}`;
+    }
+
+    private _anchorStateUrl: string = "http://192.168.13.35:9007/api/AnchorState";
+    anchorStateUrl(param: IQueryParam) {
+        return `${this._anchorStateUrl}?
+        shipKeyword=${param.shipKeyword}&
+        startIndex=${param.startIndex}&
+        count=${param.count}`;
+    }
+}
+
+export class IQueryParam {
+    shipKeyword: string;
+    startIndex: number;
+    count: number;
+
+    shipTypeCode: string;
+    start: string;
+    end: string;
+
+    source: string;
+
+    companyId: string;
 }
