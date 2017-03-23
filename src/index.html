@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
   <meta charset="UTF-8">
   <title>Ionic App</title>
@@ -10,7 +11,7 @@
   <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4e8ef7">
-  
+
   <!-- cordova.js required for cordova apps -->
   <script src="cordova.js"></script>
 
@@ -26,16 +27,79 @@
   <link href="build/main.css" rel="stylesheet">
 
 </head>
+
 <body>
 
   <!-- Ionic's root component and where the app will load -->
   <ion-app></ion-app>
 
   <!-- The polyfills js is generated during the build process -->
-  <script src="build/polyfills.js"></script>
+  <script src="build/bable/polyfill.js"></script>
+  <script src="build/Reflect.js"></script>
+  <script src="build/require.js"></script>
+  <!-- load wg5 libs -->
+  <script>
+    require.config({
+      baseUrl: "./wg5/",
+      paths: {
+        'css': '../build/css',
+        'text': '../build/text',
+        'jquery': '../build/jquery',
+        'openlayers': '../build/ol-debug',
+        'knockout': '../build/knockout-latest.debug',
+        'protobufjs': '../build/protobuf',
+        'long': '../build/long',
+        'bytebuffer': '../build/bytebuffer',
+        'fecha': '../build/fecha',
+        'fontawesome': '../build/font-awesome',
+      },
+      shim: {
+        'css!resources/ol-patch': {
+          deps: ['css!../../build/ol']
+        },
+        'openlayers': {
+          deps: ['css!resources/ol-patch'],
+          exports: 'ol'
+        }
+      }
+    });
+  </script>
 
   <!-- The bundle js is generated during the build process -->
+  <script>
+    function promiseRequire(moduleName) {
+      return new Promise(function (resolve, reject) {
+        require([moduleName], resolve, reject);
+      });
+    }
+    window["scmap"] = promiseRequire('loading/detection').then(function (ok) {
+      return promiseRequire(ok ? 'loading/index' : 'loading/incompatible');
+    }).then(function (moduleMain) {
+      return function (dom) {
+        var _apiInterface = null;
+        function _create() {
+          return moduleMain['default'](dom, 'wg5').then(function (webgis) {
+            _apiInterface = webgis;
+          });
+        }
+
+        function _getTool() {
+          return _apiInterface;
+        }
+
+        return {
+          create: _create,
+          getApi: _getTool,
+        }
+      }
+    });
+  </script>
+
+  <script src="build/polyfills.js"></script>
+  <script src="build/jquery.js"></script>
+  <script src="build/highcharts.src.js"></script>
   <script src="build/main.js"></script>
 
 </body>
+
 </html>

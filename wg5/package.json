@@ -1,0 +1,31 @@
+{
+  "name": "webgis",
+  "version": "6.0.0",
+  "description": "Webgis 6.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "asws": "^2.1.6",
+    "babel-polyfill": "^6.13.0",
+    "bootstrap": "^4.0.0-alpha.4",
+    "bytebuffer": "^5.0.1",
+    "fecha": "^2.3.0",
+    "font-awesome": "^4.6.3",
+    "jquery": "^2.2.4",
+    "knockout": "^3.4.0",
+    "long": "^3.2.0",
+    "openlayers": "^3.18.2",
+    "protobufjs": "^5.0.1",
+    "reflect-metadata": "^0.1.8",
+    "require-css": "^0.1.8",
+    "requirejs": "^2.3.1",
+    "requirejs-text": "^2.0.12"
+  },
+  "devDependencies": {
+    "asws": "^2.1.3"
+  }
+}

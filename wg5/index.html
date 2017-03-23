@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebGIS</title>
+    <link type="text/css" href="loading/loading.css" rel="stylesheet">
+</head>
+<body>
+<script src="node_modules/babel-polyfill/dist/polyfill.js"></script>
+<script src="node_modules/reflect-metadata/Reflect.js"></script>
+<script src="node_modules/requirejs/require.js"></script>
+<script>
+    require.config({
+        bundles:{
+            'highcharts':['highcharts','highcharts-exporting','highcharts-caultrue']
+        },
+        paths: {
+            'css': 'node_modules/require-css/css',
+            'text': 'node_modules/requirejs-text/text',
+            'jquery': 'node_modules/jquery/dist/jquery',
+            'bootstrap': 'node_modules/bootstrap/dist/js/bootstrap',
+            'tether': 'node_modules/tether/dist/js/tether',
+            'openlayers': 'node_modules/openlayers/dist/ol-debug',
+            'knockout': 'node_modules/knockout/build/output/knockout-latest.debug',
+            'protobufjs': 'node_modules/protobufjs/dist/protobuf',
+            'long': 'node_modules/long/dist/long',
+            'bytebuffer': 'node_modules/bytebuffer/dist/bytebuffer',
+            'fecha': 'node_modules/fecha/fecha',
+            'fontawesome': 'node_modules/font-awesome/css/font-awesome',
+            'kendo': 'lib/kendo/js/kendo.web',
+            'jquery-ui': 'node_modules/jquery-ui/jquery-ui',
+            'highcharts': 'lib/highcharts/highcharts',
+            'highcharts-exporting': 'lib/highcharts/exporting',
+            'highcharts-caultrue': 'lib/highcharts/highcharts.zh-Hans'
+        },
+        shim: {
+            'css!resources/ol-patch': {
+                deps: ['css!node_modules/openlayers/dist/ol']
+            },
+            'openlayers': {
+                deps: ['css!resources/ol-patch'],
+                exports: 'ol'
+            },
+            'tether': {
+                exports: function () {
+                    console.log(arguments);
+                    return arguments[0];
+                }
+            },
+            'bootstrap': {
+                deps: ['jquery', 'BootstrapTether', 'css!node_modules/bootstrap/dist/css/bootstrap'],
+                exports: 'jQuery'
+            },
+            'kendo': {
+                deps: ['jquery', 'css!lib/kendo/kendo.common.min.css', 'css!lib/kendo/kendo.default.min.css'],
+                exports: 'jQuery'
+            },
+            'jquery-ui': {
+                deps: ['jquery', 'css!node_modules/jquery-ui/themes/base/jquery-ui.css'],
+                exports: 'jQuery'
+            },
+            'highcharts': {
+                exports: 'highcharts'
+            },
+            'highcharts-exporting': {
+                deps: ['lib/highcharts/highcharts'],
+            },
+            'highcharts-caultrue': {
+                deps: ['lib/highcharts/highcharts'],
+            }
+        }
+    });
+    define('BootstrapTether', ['tether'], function (tether) {
+        return window.Tether = tether;
+    });
+</script>
+<script>
+    function promiseRequire(moduleName) {
+        return new Promise(function (resolve, reject) {
+            require([moduleName], resolve, reject);
+        });
+    }
+    promiseRequire('loading/detection').then(function (ok) {
+        return promiseRequire(ok ? 'loading/index' : 'loading/incompatible');
+    }).then(function (moduleMain) {
+        console.log(moduleMain);
+        moduleMain['default'](document.body, 'config');
+        document.body.classList.add('loaded');
+    }).catch(function (error) {
+        console.log(error);
+        alert('ERROR');
+    });
+</script>
+</body>
+</html>

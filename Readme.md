@@ -1,0 +1,2 @@
+#引入webgis
+引入webgis后，需要修改其中的plugins/maps/layers/ships/layers/ShiplayerShapeVts.js 中的projection.getPointResolution修改为projection.getPointResolutionFunc

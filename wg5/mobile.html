@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebGIS</title>
+    <link type="text/css" href="loading/loading.css" rel="stylesheet">
+</head>
+<body>
+<script src="node_modules/babel-polyfill/dist/polyfill.js"></script>
+<script src="node_modules/reflect-metadata/Reflect.js"></script>
+<script src="node_modules/requirejs/require.js"></script>
+<script>
+    require.config({
+        paths: {
+            'css': 'node_modules/require-css/css',
+            'text': 'node_modules/requirejs-text/text',
+            'jquery': 'node_modules/jquery/dist/jquery',
+            'openlayers': 'node_modules/openlayers/dist/ol-debug',
+            'knockout': 'node_modules/knockout/build/output/knockout-latest.debug',
+            'protobufjs': 'node_modules/protobufjs/dist/protobuf',
+            'long': 'node_modules/long/dist/long',
+            'bytebuffer': 'node_modules/bytebuffer/dist/bytebuffer',
+            'fecha': 'node_modules/fecha/fecha',
+            'fontawesome': 'node_modules/font-awesome/css/font-awesome',
+        },
+        shim: {
+            'css!resources/ol-patch': {
+                deps: ['css!node_modules/openlayers/dist/ol']
+            },
+            'openlayers': {
+                deps: ['css!resources/ol-patch'],
+                exports: 'ol'
+            }           
+        }
+    });
+</script>
+<script>
+    function promiseRequire(moduleName) {
+        return new Promise(function (resolve, reject) {
+            require([moduleName], resolve, reject);
+        });
+    }
+    promiseRequire('loading/detection').then(function (ok) {
+        return promiseRequire(ok ? 'loading/index' : 'loading/incompatible');
+    }).then(function (moduleMain) {
+        moduleMain['default'](document.body, '.');
+        document.body.classList.add('loaded');
+    }).catch(function (error) {
+        console.log(error);
+        alert('ERROR');
+    });
+</script>
+</body>
+</html>

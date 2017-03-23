@@ -1,0 +1,23 @@
+itemlabel img, item img{
+    width:26px;
+    height:26px;
+}
+
+itemlabel div.content,item div.content{
+    display:flex;
+    align-items:center;
+}
+
+itemlabel div.content span.label,item div.content span.label{
+    font-weight: bold;
+}
+
+itemlabel div.content span.value,item div.content span.value{
+    padding-left:20px;
+    flex-grow: 1;
+}
+
+itemlabel button.itembutton ,item  button.itembutton{
+    padding:0 0;
+}
+

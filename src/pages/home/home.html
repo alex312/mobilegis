@@ -1,17 +1,96 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-buttons #navButtons left style="opacity:0">
+      <button (click)="backToMainContent()" style="background-color:transparent">
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      <div #homeTitle style="height:27px;opacity:1">天津VTS服务平台</div>
+      <div #myDynamic style="height:0px">我的动态</div>
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content noScroll>
+  <div #mainContent style="position:relative; top:0px">
+    <!--轮播图-->
+    <ion-slides style="height:160px" autoplay="3000" loop="true" pager>
+      <ion-slide style="background-color:green">
+        <h2>
+          slide 1
+        </h2>
+      </ion-slide>
+      <ion-slide style="background-color:blue">
+        <h2>
+          slide 2
+        </h2>
+      </ion-slide>
+      <ion-slide style="background-color:red">
+        <h2>
+          slide 3
+        </h2>
+      </ion-slide>
+    </ion-slides>
+    <div (pan)="panEvent($event)">
+      <!--公告和气象-->
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div>
+              <ion-icon name="megaphone"></ion-icon><span>最新公告</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div>
+              <ion-icon name="partly-sunny"></ion-icon><span>今天</span>
+              <ion-badge>良</ion-badge>
+              <span>35/20℃</span>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <!--主要功能入口-->
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div>
+              <!--TODO 引入图片-->
+              <span>交通管制</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <!--TODO 引入图片-->
+            <span>预警信息</span>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <!--TODO 引入图片-->
+            <span>航行警告</span>
+          </ion-col>
+          <ion-col>
+            <!--TODO 引入图片-->
+            <span>航行通告</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <!--实时船舶-->
+      <ion-card-header>
+        <ion-icon name="pulse"></ion-icon>
+        <span>实时船舶</span>
+      </ion-card-header>
+      <ion-card-content>
+        <div style="height:50px">
+          此处放置海图
+        </div>
+      </ion-card-content>
+    </div>
+  </div>
+  <div #dynamic style="position: relative;top:0px">
+    <ion-card-header #dynamicTitle style="height:53px;padding-bottom:16px;padding-top:16px; border:1px solid red">
+      <ion-icon name="star"></ion-icon>
+      <span>我的动态</span>
+    </ion-card-header>
+  </div>
 </ion-content>
