@@ -1,0 +1,24 @@
+<ion-item-group *ngIf="videoNodes && videoNodes.length && videoNodes.length > 0">
+    <!--<ion-item-divider>
+        Video List
+    </ion-item-divider>-->
+    <button ion-item *ngFor="let video of videoNodes" (click)="openVideo(video)">
+        {{video.name}}
+    </button>
+</ion-item-group>
+<ion-item-group *ngIf="serverNodes && serverNodes.length && serverNodes.length > 0">
+    <!--<ion-item-divider>
+        Server Node List
+    </ion-item-divider>-->
+    <button ion-item *ngFor="let server of serverNodes">
+        {{server.name}}
+    </button>
+</ion-item-group>
+<ion-item-group *ngIf="frontNodes && frontNodes.length && frontNodes.length > 0">
+    <!--<ion-item-divider>
+        Front Node List
+    </ion-item-divider>-->
+    <button ion-item *ngFor="let front of frontNodes">
+        {{front.name}}
+    </button>
+</ion-item-group>

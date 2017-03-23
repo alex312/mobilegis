@@ -1,0 +1,15 @@
+<ion-header class="menu">
+    <ion-navbar>
+        <ion-title>{{Current.Name}}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content class="menu">
+    <ion-grid>
+        <ion-row *ngFor="let Row of Children">
+            <ion-col width-33 *ngFor="let Cell of Row" (click)="OpenPage(Cell)">
+                <img src="assets/imgs/menu/{{Cell.Icon}}{{IconSize}}x.png" width="70%">
+                <p>{{Cell.Name}}</p>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

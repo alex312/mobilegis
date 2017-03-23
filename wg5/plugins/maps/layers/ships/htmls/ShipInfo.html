@@ -1,0 +1,46 @@
+<div>
+    <div class="profile-user-info profile-user-info-striped">
+        <div class="profile-info-row">
+            <div class="profile-info-name">船舶名称</div>
+            <div class="profile-info-value" data-bind="text:ShipName"></div>
+        </div>
+        <div class="profile-info-row">
+            <div class="profile-info-name">船舶类型</div>
+            <div class="profile-info-value" data-bind="text:ShipType"></div>
+        </div>
+        <div class="profile-info-row">
+            <div class="profile-info-name">MMSI</div>
+            <div class="profile-info-value" data-bind="text:MMSI"></div>
+        </div>
+        <div class="profile-info-row">
+            <div class="profile-info-name">船首向</div>
+            <div class="profile-info-value" data-bind="text:Heading"></div>
+        </div>
+        <div class="profile-info-row">
+            <div class="profile-info-name">航速</div>
+            <div class="profile-info-value" data-bind="text:SOG"></div>
+        </div>
+        <div class="profile-info-row">
+            <div class="profile-info-name">航向</div>
+            <div class="profile-info-value" data-bind="text:COG"></div>
+        </div>
+        <div class="profile-info-row">
+            <div class="profile-info-name">经度</div>
+            <div class="profile-info-value" data-bind="text:Longitude"></div>
+        </div>
+        <div class="profile-info-row">
+            <div class="profile-info-name">纬度</div>
+            <div class="profile-info-value" data-bind="text:Latitude"></div>
+        </div>
+        <div class="profile-info-row">
+            <div class="profile-info-name">更新时间</div>
+            <div class="profile-info-value" data-bind="text:Time"></div>
+        </div>
+    </div>
+    <div style="text-align: center;padding:5px;background-color: #F9F9F9;">
+        <button class="btn btn-sm btn-default btn-white btn-round" data-bind="click:playback">回放</button>
+        <button class="btn btn-sm btn-default btn-white btn-round" data-bind="click:loadTrack_0">10分钟航迹</button>
+        <button class="btn btn-sm btn-default btn-white btn-round" data-bind="click:loadTrack_1">1小时航迹</button>
+        <button class="btn btn-sm btn-default btn-white btn-round" data-bind="click:loadTrack_2">1天航迹</button>
+    </div>
+</div>

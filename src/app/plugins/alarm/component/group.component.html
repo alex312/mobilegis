@@ -1,0 +1,32 @@
+<button ion-item large (click)="HideGroup(group)">
+	{{Group.Name}}
+	<ion-icon name="{{IconName}}" item-right></ion-icon>
+</button>
+<ion-item-group #group [hidden]="Group.Hidden" class="alarm">
+    <ion-item *ngFor="let Alarm of Group.Alarms ">
+        <table style="width:100%">
+            <colgroup>
+                <col width="48" />
+                <col>
+                <col width="30">
+            </colgroup>
+            <tr>
+                <td>船舶：</td>
+                <td>{{Alarm.VesselName||Alarm.TrackId}}</td>
+                <td rowspan="3" class="locate">
+                    <button clear small ion-button (click)="LocateShip(Alarm)">
+						<ion-icon name="pin"></ion-icon>
+					</button>
+                </td>
+            </tr>
+            <tr>
+                <td>区域：</td>
+                <td>{{Alarm.RegionName}}</td>
+            </tr>
+            <tr>
+                <td>时间：</td>
+                <td>{{Alarm.EventTimeDisplay}}</td>
+            </tr>
+        </table>
+    </ion-item>
+</ion-item-group>

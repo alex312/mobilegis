@@ -1,0 +1,18 @@
+<ion-list inset class="detail">
+    <item-label label="名称" [value]="thhj.Name"></item-label>
+    <item-label label="通航环境类型" [value]="thhj.TrafficEnvType"></item-label>
+    <!--<item-label label="Alias名称1" [value]="thhj.AliasName1"></item-label>-->
+    <!--<item-label label="Alias名称2" [value]="thhj.AliasName2"></item-label>-->
+    <!--<item-label label="组织结构" [value]="thhj.OrganizationId"></item-label>-->
+    <item-label label="全称" [value]="thhj.FullName"></item-label>
+    <item-label label="港口区域" [value]="thhj.PortAreaId"></item-label>
+    <!--<item-label label="备注" [value]="thhj.Comments"></item-label>-->
+    <ion-item-group>
+        <ion-item-divider light>
+            <span style="font-weight: bold;">备注</span>
+        </ion-item-divider>
+        <ion-item text-wrap>
+            {{thhj.Comments}}
+        </ion-item>
+    </ion-item-group>
+</ion-list>

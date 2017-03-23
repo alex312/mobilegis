@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            动态
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <ion-segment [(ngModel)]="dynamicType">
+        <ion-segment-button value='yqb'>
+            预确报
+        </ion-segment-button>
+        <ion-segment-button value='sycb'>
+            商业船舶
+        </ion-segment-button>
+        <ion-segment-button value='xc'>
+            小船
+        </ion-segment-button>
+        <ion-segment-button value='kb'>
+            靠泊
+        </ion-segment-button>
+        <ion-segment-button value='mb'>
+            锚泊
+        </ion-segment-button>
+    </ion-segment>
+    <div [ngSwitch]="dynamicType">
+        <!--预确报-->
+        <port-visit-card-list *ngSwitchCase="'yqb'" [itemSource]="_portVisitList"></port-visit-card-list>
+
+        <!--商业船舶-->
+        <vessel-dynamic-card-list *ngSwitchCase="'sycb'" [itemSource]="_vesselDynamicList"></vessel-dynamic-card-list>
+
+        <!--小船-->
+        <raw-boat-dynamic-card-list *ngSwitchCase="'xc'" [itemSource]="_rawBoatDynamicList"></raw-boat-dynamic-card-list>
+
+        <!--靠泊-->
+        <berth-state-card-list *ngSwitchCase="'kb'" [itemSource]="_berthStateList"></berth-state-card-list>
+
+        <!--锚泊-->
+        <anchor-state-card-list *ngSwitchCase="'mb'" [itemSource]="_anchorStateList"></anchor-state-card-list>
+    </div>
+</ion-content>

@@ -1,0 +1,22 @@
+<ion-list>
+    <ion-card *ngFor="let item of itemSource">
+        <ion-item>
+            <div item-left style="max-width:80px;margin-right:20px">
+                <img style="padding:0px 15px 0 20px" src="assets/imgs/ship-dynamic/ship@2x.png">
+                <p>{{item.ShipNameChn}}</p>
+            </div>
+            <p>
+                <span style="min-width:100px;display:inline-block">来港名称:</span>
+                <span>{{item.PrevPort}}</span>
+            </p>
+            <p>
+                <span style="min-width:100px;display:inline-block">下一港:</span>
+                <span>{{item.NextPort}}</span>
+            </p>
+            <p>
+                <span style="min-width:100px;display:inline-block">计划抵口时间:</span>
+                <span>{{item.EndTime && _format.FormatDate(item.EndTime)}}</span>
+            </p>
+        </ion-item>
+    </ion-card>
+</ion-list>
