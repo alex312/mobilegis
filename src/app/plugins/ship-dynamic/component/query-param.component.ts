@@ -45,7 +45,7 @@ export class QueryParamComponent implements OnInit {
     _shipTypeSelection: SelectionModel;
     private initShipTypeSelection() {
         let loaderPrmise = (() => {
-            return this._dataServer.getData("http://192.168.13.35:9007/api/MetaData?categoryId=0302").then(result => {
+            return this._dataServer.getData("api/MetaData?categoryId=0302").then(result => {
                 let types = <any[]>result.filter(type => {
                     return type.Code.indexOf("00") > 0
                 });
@@ -87,7 +87,7 @@ export class QueryParamComponent implements OnInit {
     _companySelection: SelectionModel;
     private initCompanySelection() {
         let loaderPromise = (() => {
-            return this._dataServer.getData("http://192.168.13.35:9007/api/DataSource?categoryId=小船公司").then(result => {
+            return this._dataServer.getData("npm api/DataSource?categoryId=小船公司").then(result => {
                 let comps = result.map(company => {
                     return <OptionModel>{
                         Name: company.Name,

@@ -15,7 +15,6 @@ export class DynamicDataService {
     constructor(private _apiClient: ApiClientService) {
 
     }
-
     getData(url: string) {
         return this._apiClient.get(url);
     }
@@ -24,27 +23,27 @@ export class DynamicDataService {
 
 export class DynamicDataUrlCreater {
 
-    private _portVisitUrl: string = "http://192.168.13.35:9007/api/PortVisit";
+    private _portVisitUrl: string = "api/PortVisit";
     portVisitUrl(param: IQueryParam) {
         return `${this._portVisitUrl}?shipKeyword=${param.shipKeyword}&shipTypeCode=${param.shipTypeCode}&start=${param.start}&end=${param.end}&startIndex=${param.startIndex}&count=${param.count}`;
     }
 
-    private _vesselDynamicUrl: string = "http://192.168.13.35:9007/api/VesselDynamic";
+    private _vesselDynamicUrl: string = "api/VesselDynamic";
     vessDynamicUrl(param: IQueryParam) {
         return `${this._vesselDynamicUrl}?shipKeyword=${param.shipKeyword}&shipTypeCode=${param.shipTypeCode}&start=${param.start}&end=${param.end}&startIndex=${param.startIndex}&count=${param.count}&source=${param.source}`;
     }
 
-    private _rawBoatDyanmicUrl: string = "http://192.168.13.35:9007/api/RawBoatDynamic4Approval";
+    private _rawBoatDyanmicUrl: string = "api/RawBoatDynamic4Approval";
     rawBoatDynamicUrl(param: IQueryParam) {
         return `${this._rawBoatDyanmicUrl}?shipKeyword=${param.shipKeyword}&companyId=${param.companyId}&start=${param.start}&end=${param.end}&startIndex=${param.startIndex}&count=${param.count}`;
     }
 
-    private _berthStateUrl: string = "http://192.168.13.35:9007/api/BerthState";
+    private _berthStateUrl: string = "api/BerthState";
     berthStateUrl(param: IQueryParam) {
         return `${this._berthStateUrl}?shipKeyword=${param.shipKeyword}&startIndex=${param.startIndex}&count=${param.count}`;
     }
 
-    private _anchorStateUrl: string = "http://192.168.13.35:9007/api/AnchorState";
+    private _anchorStateUrl: string = "api/AnchorState";
     anchorStateUrl(param: IQueryParam) {
         return `${this._anchorStateUrl}?shipKeyword=${param.shipKeyword}&startIndex=${param.startIndex}&count=${param.count}`;
     }

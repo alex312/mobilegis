@@ -1,7 +1,9 @@
 // import {TaskStatus} from './task/service/metadata.service';
 
 export const Config = {
-    proxy: "http://192.168.13.14:9006/",
+    //proxy: "http://192.168.13.14:9006/",
+    // proxy: "http://192.168.13.35:9007/",
+    proxy: "http://mobile.com/tjvts",
     CORDOVA_READY: false,
     needLogin: false,
 
