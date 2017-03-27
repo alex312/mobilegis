@@ -2,6 +2,8 @@ import { Component, ViewChild, OnInit, ElementRef, AfterViewInit, Renderer } fro
 
 import { NavController, Slides, Content } from 'ionic-angular';
 
+import { Transition } from '../../app/base';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -177,13 +179,7 @@ export class HomePage implements OnInit, AfterViewInit {
    * @param {number} timingFunction transition-timing-function, if value is cubic-bezier function you should pass 'cubic-bezier(.83,.97,.05,1.44)'
   */
   private transition(element: HTMLElement, duration: number, property: string, delay: number = 0, timingFunction: string = "") {
-    let transitionStyle = element.style.transition;
-    let transitionItems = transitionStyle.split(',').map(trans => {
-      if (trans.indexOf(property) < 0)
-        return trans;
-    })
-    transitionItems = transitionItems.concat(`${duration}s ${delay}s ${property} ${timingFunction} `);
-    var transitionStr = transitionItems.join(',').replace(/^(\s*,)+|(\s*,)+$/g, "").replace(/(,\s*,)+/, ",");
+    let transitionStr = Transition.MergeTransition(element.style.transition, duration, property, delay, timingFunction);
     this._renderer.setElementStyle(element, "transition", transitionStr);
   }
 }

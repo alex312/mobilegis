@@ -24,53 +24,29 @@ export class DynamicDataService {
 
 export class DynamicDataUrlCreater {
 
-    private _portVisitUrl: string = "http://mobile.com/tjvts/api/PortVisit";
+    private _portVisitUrl: string = "http://192.168.13.35:9007/api/PortVisit";
     portVisitUrl(param: IQueryParam) {
-
-
-        return `${this._portVisitUrl}?
-        shipKeywork=${param.shipKeyword}&
-        shipTypeCode=${param.shipTypeCode}&
-        start=${param.start}&
-        end=${param.end}&
-        startIndex=${param.startIndex}&
-        count=${param.count}`;
+        return `${this._portVisitUrl}?shipKeyword=${param.shipKeyword}&shipTypeCode=${param.shipTypeCode}&start=${param.start}&end=${param.end}&startIndex=${param.startIndex}&count=${param.count}`;
     }
 
-    private _vesselDynamicUrl: string = "http://mobile.com/tjvts/api/VesselDynamic";
+    private _vesselDynamicUrl: string = "http://192.168.13.35:9007/api/VesselDynamic";
     vessDynamicUrl(param: IQueryParam) {
-        return `${this._vesselDynamicUrl}?
-        shipKeyword=${param.shipKeyword}&
-        shipTypeCode=${param.shipTypeCode}&
-        start=${param.start}&
-        end=${param.end}&startIndex=${param.startIndex}&count=${param.count}&source=${param.source}`;
+        return `${this._vesselDynamicUrl}?shipKeyword=${param.shipKeyword}&shipTypeCode=${param.shipTypeCode}&start=${param.start}&end=${param.end}&startIndex=${param.startIndex}&count=${param.count}&source=${param.source}`;
     }
 
-    private _rawBoatDyanmicUrl: string = "http://mobile.com/tjvts/api/RawBoatDynamic4Approval";
+    private _rawBoatDyanmicUrl: string = "http://192.168.13.35:9007/api/RawBoatDynamic4Approval";
     rawBoatDynamicUrl(param: IQueryParam) {
-        return `${this._rawBoatDyanmicUrl}?
-        shipKeyword=${param.shipKeyword}&
-        companyId=${param.companyId}&
-        start=${param.start}&
-        end=${param.end}&
-        startIndex=${param.startIndex}&
-        count=${param.count}`;
+        return `${this._rawBoatDyanmicUrl}?shipKeyword=${param.shipKeyword}&companyId=${param.companyId}&start=${param.start}&end=${param.end}&startIndex=${param.startIndex}&count=${param.count}`;
     }
 
-    private _berthStateUrl: string = "http://mobile.com/tjvts/api/BerthState";
+    private _berthStateUrl: string = "http://192.168.13.35:9007/api/BerthState";
     berthStateUrl(param: IQueryParam) {
-        return `${this._berthStateUrl}?
-        shipKeyword=${param.shipKeyword}&
-        startIndex=${param.shipTypeCode}&
-        count=${param.count}`;
+        return `${this._berthStateUrl}?shipKeyword=${param.shipKeyword}&startIndex=${param.startIndex}&count=${param.count}`;
     }
 
     private _anchorStateUrl: string = "http://192.168.13.35:9007/api/AnchorState";
     anchorStateUrl(param: IQueryParam) {
-        return `${this._anchorStateUrl}?
-        shipKeyword=${param.shipKeyword}&
-        startIndex=${param.startIndex}&
-        count=${param.count}`;
+        return `${this._anchorStateUrl}?shipKeyword=${param.shipKeyword}&startIndex=${param.startIndex}&count=${param.count}`;
     }
 }
 

@@ -3,12 +3,12 @@
         <ion-title>
             动态
         </ion-title>
+        <ion-buttons right>
+            <button ion-button (click)="queryParamClick($event)">
+                <ion-icon name="funnel" mode="ios"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-navbar>
-</ion-header>
-<ion-content>
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content>下拉刷新</ion-refresher-content>
-    </ion-refresher>
     <ion-segment [(ngModel)]="dynamicType" mode="md" (ionChange)="dynamicTypeChanged($event)">
         <ion-segment-button value='yqb'>
             预确报
@@ -26,23 +26,30 @@
             锚泊
         </ion-segment-button>
     </ion-segment>
+</ion-header>
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)" [enabled]="_enableRefresher">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <query-param (reset)="resetParam()" (set)="setParam()" [paramSource]="_dataQueryPromiseDict[dynamicType].queryParam" ion-fixed></query-param>
     <div [ngSwitch]="dynamicType">
         <!--预确报-->
-        <port-visit-card-list *ngSwitchCase="'yqb'" [itemSource]="_portVisitModel.itemSource"></port-visit-card-list>
+        <port-visit-card-list *ngSwitchCase="'yqb'" [itemSource]="_dataQueryPromiseDict['yqb'].itemSource"></port-visit-card-list>
 
         <!--商业船舶-->
-        <vessel-dynamic-card-list *ngSwitchCase="'sycb'" [itemSource]="_vesselDynamicModel.itemSource"></vessel-dynamic-card-list>
+        <vessel-dynamic-card-list *ngSwitchCase="'sycb'" [itemSource]="_dataQueryPromiseDict['sycb'].itemSource"></vessel-dynamic-card-list>
 
         <!--小船-->
-        <raw-boat-dynamic-card-list *ngSwitchCase="'xc'" [itemSource]="_rawBoatDynamicModel.itemSource"></raw-boat-dynamic-card-list>
+        <raw-boat-dynamic-card-list *ngSwitchCase="'xc'" [itemSource]="_dataQueryPromiseDict['xc'].itemSource"></raw-boat-dynamic-card-list>
 
         <!--靠泊-->
-        <berth-state-card-list *ngSwitchCase="'kb'" [itemSource]="_berthStateModel.itemSource"></berth-state-card-list>
+        <berth-state-card-list *ngSwitchCase="'kb'" [itemSource]="_dataQueryPromiseDict['kb'].itemSource"></berth-state-card-list>
 
         <!--锚泊-->
-        <anchor-state-card-list *ngSwitchCase="'mb'" [itemSource]="_anchorStateModel.itemSource"></anchor-state-card-list>
+        <anchor-state-card-list *ngSwitchCase="'mb'" [itemSource]="_dataQueryPromiseDict['mb'].itemSource"></anchor-state-card-list>
     </div>
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-        <ion-infinite-scroll-content>加载更多</ion-infinite-scroll-content>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="_dataQueryPromiseDict[dynamicType].hasMore()">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 </ion-content>

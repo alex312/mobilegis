@@ -1,118 +1,143 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, Renderer } from '@angular/core';
+
+import { Content } from 'ionic-angular';
+
+import * as moment from 'moment';
+
 import { DynamicDataService, DynamicDataUrlCreater, IQueryParam } from '../service/dynamic-data.service';
+
+import { QueryParamComponent } from '../component/query-param.component';
 
 @Component({
     selector: 'ship-dynamic-page',
     templateUrl: './ship-dynamic.component.html'
 })
 export class ShipDynamicPage {
+    _enableRefresher: boolean = true;
     dynamicType: string = "yqb";
+    _dataQueryPromiseDict: { [key: string]: DynamicPageModel };
 
-    private _urlCreater: DynamicDataUrlCreater;
-    private _queryParam: IQueryParam;
+    constructor(_dataService: DynamicDataService, private _renderer: Renderer) {
+        let _urlCreater = new DynamicDataUrlCreater();
 
-    _portVisitModel = new DynamicPageModel();
-    _vesselDynamicModel = new DynamicPageModel();
-    _rawBoatDynamicModel = new DynamicPageModel();
-    _berthStateModel = new DynamicPageModel();
-    _anchorStateModel = new DynamicPageModel();
+        this._dataQueryPromiseDict = {
+            "yqb": new DynamicPageModel(_urlCreater.portVisitUrl.bind(_urlCreater), _dataService.getData.bind(_dataService)),
+            "sycb": new DynamicPageModel(_urlCreater.vessDynamicUrl.bind(_urlCreater), _dataService.getData.bind(_dataService)),
+            "xc": new DynamicPageModel(_urlCreater.rawBoatDynamicUrl.bind(_urlCreater), _dataService.getData.bind(_dataService)),
+            "kb": new DynamicPageModel(_urlCreater.berthStateUrl.bind(_urlCreater), _dataService.getData.bind(_dataService)),
+            "mb": new DynamicPageModel(_urlCreater.anchorStateUrl.bind(_urlCreater), _dataService.getData.bind(_dataService))
+        }
 
-    private _typeQueryDict = {
-        "yqb": (needReset: boolean) => {
-            if (needReset)
-                this._portVisitModel.resetQueryParam();
-            this._dataService.getData(this._urlCreater.portVisitUrl(this._portVisitModel.queryParam))
-                .then(result => {
-                    this._portVisitModel.itemSource = result.data;
-                    this._portVisitModel.totalCount = result.total;
-                    this._portVisitModel.queryParam.startIndex += result.data.length;
-                })
-        },
-        "sycb": (needReset: boolean) => {
-            if (needReset)
-                this._vesselDynamicModel.resetQueryParam();
-            this._dataService.getData(this._urlCreater.vessDynamicUrl(this._vesselDynamicModel.queryParam))
-                .then(result => {
-                    this._vesselDynamicModel.itemSource = result.data;
-                    this._vesselDynamicModel.totalCount = result.total;
-                    this._vesselDynamicModel.queryParam.startIndex += result.data.length;
-                })
-        },
-        "xc": (needReset: boolean) => {
-            if (needReset)
-                this._rawBoatDynamicModel.resetQueryParam();
-            this._dataService.getData(this._urlCreater.rawBoatDynamicUrl(this._rawBoatDynamicModel.queryParam))
-                .then(result => {
-                    this._rawBoatDynamicModel.itemSource = result.data;
-                    this._rawBoatDynamicModel.totalCount = result.total;
-                    this._rawBoatDynamicModel.queryParam.startIndex += result.data.length;
-                })
-        },
-        "kb": (needReset: boolean) => {
-            if (needReset)
-                this._berthStateModel.resetQueryParam();
-            this._dataService.getData(this._urlCreater.berthStateUrl(this._berthStateModel.queryParam))
-                .then(result => {
-                    this._berthStateModel.itemSource = result.data;
-                    this._berthStateModel.totalCount = result.total;
-                    this._berthStateModel.queryParam.startIndex += result.data.length;
-                })
-        },
-        "mb": (needReset: boolean) => {
-            if (needReset)
-                this._anchorStateModel.resetQueryParam();
-            this._dataService.getData(this._urlCreater.anchorStateUrl(this._anchorStateModel.queryParam))
-                .then(result => {
-                    this._anchorStateModel.itemSource = result.data;
-                    this._anchorStateModel.totalCount = result.total;
-                    this._anchorStateModel.queryParam.startIndex += result.data.length;
-                })
+        for (let key in this._dataQueryPromiseDict) {
+            this._dataQueryPromiseDict[key].requery().then();
         }
     }
 
-    constructor(private _dataService: DynamicDataService) {
-        this._urlCreater = new DynamicDataUrlCreater();
-        this._portVisitModel = new DynamicPageModel();
-        this._vesselDynamicModel = new DynamicPageModel();
-        this._rawBoatDynamicModel = new DynamicPageModel();
-        this._berthStateModel = new DynamicPageModel();
-        this._anchorStateModel = new DynamicPageModel();
-        this._typeQueryDict[this.dynamicType](true);
-    }
-
     dynamicTypeChanged(event) {
-        // this._typeQueryDict[this.dynamicType]();
     }
 
     doRefresh(event) {
-        this._typeQueryDict[this.dynamicType](true);
+        this._dataQueryPromiseDict[this.dynamicType].requery().then(() => {
+            event.complete();
+        });
+    }
+
+    canInfinite() {
+        return this._dataQueryPromiseDict[this.dynamicType].hasMore()
     }
 
     doInfinite(event) {
-        this._typeQueryDict[this.dynamicType]();
+        this._dataQueryPromiseDict[this.dynamicType].queryMore().then(() => {
+            event.complete();
+        });
     }
 
+
+    @ViewChild(QueryParamComponent)
+    _queryParamPanel: QueryParamComponent;
+    private _queryParamShowing: boolean = false;
+    @ViewChild(Content)
+    _content: Content;
+
+    queryParamClick(event) {
+        if (this._queryParamShowing) {
+            this._queryParamPanel.moveOut();
+            this._content.setScrollElementStyle("overflow-y", "auto");
+        }
+        else {
+            this._queryParamPanel.moveIn();
+            this._content.setScrollElementStyle("overflow-y", "hidden");
+
+        }
+        this._queryParamShowing = !this._queryParamShowing;
+        this._enableRefresher = !this._queryParamShowing;
+    }
+
+    resetParam() {
+        this.queryParamClick(null);
+        this._dataQueryPromiseDict[this.dynamicType].requery().then();
+    }
+
+    setParam() {
+        this.queryParamClick(null);
+        this._dataQueryPromiseDict[this.dynamicType].requery().then();
+    }
 }
 
 class DynamicPageModel {
-    itemSource;
+    itemSource: any[];
     queryParam: IQueryParam;
     totalCount;
 
-    constructor() {
-        this.resetQueryParam();
+
+    private _urlCreater;
+    get url() {
+        return this._urlCreater(this.queryParam);
     }
 
-    resetQueryParam() {
+    private _queryFunc;
+
+    constructor(urlCreater, queryFunc) {
+        this.itemSource = [];
+        this.totalCount = 0
+        this.reset();
+        this._urlCreater = urlCreater;
+        this._queryFunc = queryFunc;
+    }
+
+    reset() {
+        let startDate = moment(new Date());
+        let endDate = moment(new Date()).day(startDate.day() + 1);
+
         this.queryParam = {
             shipKeyword: "",
             startIndex: 0,
             count: 50,
             shipTypeCode: "",
-            start: null,
-            end: null,
+            start: startDate.format("YYYY-MM-DD"),
+            end: endDate.format("YYYY-MM-DD"),
             source: "",
             companyId: ""
         }
+    }
+
+    requery() {
+        this.itemSource.splice(0, this.itemSource.length);
+        this.queryParam.startIndex = 0;
+        return this.queryMore();
+
+    }
+
+    queryMore() {
+        return this._queryFunc(this.url).then(result => {
+            this.itemSource.splice(this.itemSource.length, 0, ...result.data);
+            this.totalCount = result.total;
+            this.queryParam.startIndex += result.data.length;
+        });
+
+    }
+
+    hasMore() {
+        return this.totalCount > this.itemSource.length;
     }
 }

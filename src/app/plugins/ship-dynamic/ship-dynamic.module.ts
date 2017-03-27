@@ -13,6 +13,7 @@ import { VesselDyanmicCardListComponent } from './component/vessel-dynamic-card-
 import { RawBoatDynamicCardListComponent } from './component/raw-boat-dynamic-card-list.component';
 import { BerthStateCardListComponent } from './component/berth-state-card-list.component';
 import { AnchorStateCardListComponent } from './component/anchor-state-card-list.component';
+import { QueryParamComponent } from './component/query-param.component';
 
 import { DynamicDataService } from './service/dynamic-data.service';
 
@@ -28,7 +29,8 @@ import { DynamicDataService } from './service/dynamic-data.service';
         VesselDyanmicCardListComponent,
         RawBoatDynamicCardListComponent,
         BerthStateCardListComponent,
-        AnchorStateCardListComponent
+        AnchorStateCardListComponent,
+        QueryParamComponent
     ],
     exports: [ShipDynamicPage],
     entryComponents: [ShipDynamicPage],

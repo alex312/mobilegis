@@ -1,0 +1,33 @@
+<div #panel style="background:white">
+    <ion-item>
+        <ion-buttons>
+            <button ion-button #timeButton clear small (click)="setTime($event,'day',1)">当天</button><button ion-button #timeButton
+                clear small (click)="setTime($event,'week',1)">最近一周</button>
+            <button ion-button #timeButton clear small (click)="setTime($event,'months',1)">最近一月</button>
+        </ion-buttons>
+    </ion-item>
+    <ion-item>
+        <ion-select style="width:100%;max-width:100%" [(ngModel)]="_shipTypeSelection.selectedOption" (ionChange)="shipTypeSelected($event)"
+            placeholder="全部船舶类型" cancelText="取消" okText="确定">
+            <ion-option *ngFor="let type of _shipTypeSelection.options" [selected]="type.Selected" [value]="type">{{type.Name}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-select style="width:100%;max-width:100%" [(ngModel)]="_sourceSelection.selectedOption" (ionChange)="sourceSelected($event)"
+            placeholder="全部计划来源" cancelText="取消" okText="确定">
+            <ion-option *ngFor="let source of _sourceSelection.options" [selected]="source.Selected" [value]="source">{{source.Name}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-select style="width:100%;max-width:100%" [(ngModel)]="_companySelection.selectedOption" (ionChange)="companySelected($event)"
+            placeholder="全部计划来源" cancelText="取消" okText="确定">
+            <ion-option *ngFor="let company of _companySelection.options" [selected]="company.Selected" [value]="company">{{company.Name}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-input type="text" [(ngModel)]="paramSource.shipKeyword" placeholder="输入查询关键字"></ion-input>
+    </ion-item>
+    <ion-buttons>
+        <button ion-button small (click)="resetClick($event)">重置</button><button ion-button small (click)="setClick()">确认</button>
+    </ion-buttons>
+</div>
