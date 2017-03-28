@@ -22,6 +22,7 @@ import { GroupComponent, AlarmService, Alarm_Config, AlarmPage } from './plugins
 import { CCTVComponent, CCTVNodeListComponent, CCTVDataService } from './plugins/cctv';
 
 import { ShipDynamicModule } from './plugins/ship-dynamic';
+import { ArticleModule } from './plugins/article';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { ShipDynamicModule } from './plugins/ship-dynamic';
     AlarmPage, CCTVComponent, CCTVNodeListComponent,
   ],
   imports: [
+    ArticleModule,
     ShipDynamicModule,
     IonicModule.forRoot(MyApp)
   ],

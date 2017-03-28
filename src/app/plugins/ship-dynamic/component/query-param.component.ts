@@ -87,7 +87,7 @@ export class QueryParamComponent implements OnInit {
     _companySelection: SelectionModel;
     private initCompanySelection() {
         let loaderPromise = (() => {
-            return this._dataServer.getData("npm api/DataSource?categoryId=小船公司").then(result => {
+            return this._dataServer.getData("api/DataSource?categoryId=小船公司").then(result => {
                 let comps = result.map(company => {
                     return <OptionModel>{
                         Name: company.Name,
