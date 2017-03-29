@@ -21,6 +21,12 @@ export class ElegantSlideComponent implements OnInit {
         })
     }
 
+    get paginationContainerHeight() {
+        if (this.slides._paginationContainer)
+            return this.slides._paginationContainer.offsetHeight + "px";
+        return "0px";
+    }
+
     ngOnInit() {
         this.slidesAutoPlay();
     }
