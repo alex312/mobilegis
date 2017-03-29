@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            交通信息
+        </ion-title>
+    </ion-navbar>
+    <ion-segment [(ngModel)]="articleType" mode="md">
+        <ion-segment-button value={{articleTypeList.ARTICLE_GG}}>
+            最新公告
+        </ion-segment-button>
+        <ion-segment-button value={{articleTypeList.ARTICLE_JGJX}}>
+            交通管制
+        </ion-segment-button>
+        <ion-segment-button value={{articleTypeList.ARTICLE_YJXX}}>
+            预警信息
+        </ion-segment-button>
+        <ion-segment-button value={{articleTypeList.ARTICLE_WARNING}}>
+            航行通告
+        </ion-segment-button>
+        <ion-segment-button value={{articleTypeList.ARTICLE_NOTICE}}>
+            航行警告
+        </ion-segment-button>
+    </ion-segment>
+</ion-header>
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <div [ngSwitch]="articleType">
+        <!--最新公告-->
+        <article-card-list *ngSwitchCase="articleTypeList.ARTICLE_GG" [itemSource]="articleModelDict[articleTypeList.ARTICLE_GG].itemSource"
+            [detailPage]="articlePage"></article-card-list>
+        <!--交通管制-->
+        <article-list *ngSwitchCase="articleTypeList.ARTICLE_JGJX" [itemSource]="articleModelDict[articleTypeList.ARTICLE_JGJX].itemSource"
+            [detailPage]="articlePage"></article-list>
+        <!--预警信息-->
+        <article-list *ngSwitchCase="articleTypeList.ARTICLE_YJXX" [itemSource]="articleModelDict[articleTypeList.ARTICLE_YJXX].itemSource"
+            [detailPage]="articlePage"></article-list>
+        <!--航行通告-->
+        <article-list *ngSwitchCase="articleTypeList.ARTICLE_WARNING" [itemSource]="articleModelDict[articleTypeList.ARTICLE_WARNING].itemSource"
+            [detailPage]="warningPage"></article-list>
+        <!--航行警告-->
+        <article-list *ngSwitchCase="articleTypeList.ARTICLE_NOTICE" [itemSource]="articleModelDict[articleTypeList.ARTICLE_NOTICE].itemSource"
+            [detailPage]="warningPage"></article-list>
+    </div>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="currentPageModel().hasMore()">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

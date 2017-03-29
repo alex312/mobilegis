@@ -15,7 +15,9 @@
 <ion-content noScroll>
   <div #mainContent style="position:relative; top:0px">
     <!--轮播图-->
-    <ion-slides style="height:160px" autoplay="3000" loop="true" pager>
+    <elegant-slide>
+    </elegant-slide>
+    <!--<ion-slides style="height:160px" autoplay="3000" loop="true" pager="true">
       <ion-slide style="background-color:green">
         <h2>
           slide 1
@@ -31,13 +33,13 @@
           slide 3
         </h2>
       </ion-slide>
-    </ion-slides>
+      </ion-slides>-->
     <div (pan)="panEvent($event)">
       <!--公告和气象-->
       <ion-grid>
         <ion-row>
           <ion-col>
-            <div>
+            <div (click)="showArticle($event,articleTypes.ARTICLE_GG)">
               <ion-icon name="megaphone"></ion-icon><span>最新公告</span>
             </div>
           </ion-col>
@@ -53,26 +55,27 @@
       <!--主要功能入口-->
       <ion-grid>
         <ion-row>
-          <ion-col>
+          <ion-col (click)="showArticle($event,articleTypes.ARTICLE_JGJX)">
             <div>
               <!--TODO 引入图片-->
               <span>交通管制</span>
             </div>
           </ion-col>
-          <ion-col>
+          <ion-col (click)="showArticle($event,articleTypes.ARTICLE_YJXX)">
             <!--TODO 引入图片-->
             <span>预警信息</span>
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col>
-            <!--TODO 引入图片-->
-            <span>航行警告</span>
-          </ion-col>
-          <ion-col>
+          <ion-col (click)="showArticle($event,articleTypes.ARTICLE_WARNING)">
             <!--TODO 引入图片-->
             <span>航行通告</span>
           </ion-col>
+          <ion-col (click)="showArticle($event,articleTypes.ARTICLE_NOTICE)">
+            <!--TODO 引入图片-->
+            <span>航行警告</span>
+          </ion-col>
+
         </ion-row>
       </ion-grid>
       <!--实时船舶-->

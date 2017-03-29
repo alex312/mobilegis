@@ -1,3 +1,7 @@
 <ion-list>
-
+    <button ion-item (click)="openArticle(item)" *ngFor="let item of itemSource">
+        <div>
+            {{item.title}}
+        </div>
+    </button>
 </ion-list>

@@ -1,0 +1,32 @@
+elegant-slide{
+    .swiper-pagination{
+        text-align: right;
+        padding-right:10px;
+    }
+.swiper-pagination{
+    background:rgba(0,0,0,.4);
+}
+.swiper-pagination-bullet{
+background:white;
+opacity: 0.3;
+}
+
+.swiper-pagination-bullet-active{
+    opacity: 1;
+    
+}
+    .swiper-pagination-fraction, .swiper-pagination-custom, .swiper-container-horizontal > .swiper-pagination-bullets{
+        bottom:0px;
+    }
+
+    .slideInfo{
+        position: absolute;
+        color: white;
+        background-color: rgba(0,0,0,.4);
+        width: 100%;
+        bottom: 17px;
+        text-align: left;
+        font-size: 14px;
+        font-family: "苹芳";
+    }
+}

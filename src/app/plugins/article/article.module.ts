@@ -4,16 +4,38 @@ import { CommonModule } from '@angular/common';
 
 import { IonicModule } from 'ionic-angular';
 
+import { ApiClientService } from '../../base';
+
+import { ArticleHomePage } from './page/article-home.component';
+import { ArticlePage } from './page/article.component';
+import { WarningPage } from './page/warning.component';
+
+import { ArtileListComponent } from './component/article-list.component';
+import { ArticleCardListComponent } from './component/article-card-list.component';
+import { ElegantSlideComponent } from './component/elegant-slide.component';
+
+import { ArticleService } from './service/article.service';
+
 
 @NgModule({
-    declarations: [],
+    declarations: [
+        ArtileListComponent,
+        ArticleCardListComponent,
+        ArticleHomePage,
+        ArticlePage,
+        WarningPage,
+        ElegantSlideComponent
+    ],
     imports: [
         CommonModule,
         FormsModule,
         IonicModule
     ],
-    exports: [],
-    entryComponents: [],
-    providers: [],
+    exports: [
+        ArticleHomePage,
+        ElegantSlideComponent
+    ],
+    entryComponents: [ArticleHomePage, ArticlePage, WarningPage],
+    providers: [ArticleService, ApiClientService],
 })
 export class ArticleModule { }

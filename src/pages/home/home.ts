@@ -1,8 +1,10 @@
 import { Component, ViewChild, OnInit, ElementRef, AfterViewInit, Renderer } from '@angular/core';
 
-import { NavController, Slides, Content } from 'ionic-angular';
+import { Slides, Content, App } from 'ionic-angular';
 
 import { Transition } from '../../app/base';
+
+import { ArticleHomePage, ARTICLE_TYPES } from '../../app/plugins/article';
 
 @Component({
   selector: 'page-home',
@@ -35,17 +37,21 @@ export class HomePage implements OnInit, AfterViewInit {
   private _myDynamicRef: ElementRef;
   private _myDynamicElement: HTMLElement;
 
+  articleTypes = ARTICLE_TYPES;
+  constructor(
+    private _renderer: Renderer,
+    private _app: App) {
 
-  constructor(private _navCtrl: NavController,
-    private _renderer: Renderer) {
+  }
 
+  showArticle(event, category) {
+    this._app.getRootNav().push(ArticleHomePage, category);
   }
 
   /**
    * OnInit
   */
   ngOnInit() {
-    this.slidesAutoPlay();
     this._mainContentElement = this._mainContentElementRef.nativeElement;
     this._dynamicContentElement = this._dynamicContentRef.nativeElement;
     this._navButtonsElement = this._navButtonsRef.nativeElement;
@@ -58,14 +64,8 @@ export class HomePage implements OnInit, AfterViewInit {
     this._content.setScrollElementStyle("overflow-y", "hidden");
   }
 
-  /** 
-   * Slides Control
-   */
-  @ViewChild(Slides) slides: Slides;
 
-  slidesAutoPlay() {
-    this.slides.startAutoplay();
-  }
+
 
   /** 
    * Gestures Event Handler

@@ -1,0 +1,8 @@
+<ion-slides style="height:160px" autoplay="3000" loop="true" pager>
+    <ion-slide *ngFor="let item of slideItems">
+        <div>
+            <img src="{{item.url}}" />
+            <div class="slideInfo">{{item.content}}</div>
+        </div>
+    </ion-slide>
+</ion-slides>
