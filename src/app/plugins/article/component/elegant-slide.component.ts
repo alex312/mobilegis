@@ -10,7 +10,9 @@ import { ArticleService } from '../service/article.service';
     templateUrl: './elegant-slide.component.html'
 })
 export class ElegantSlideComponent implements OnInit {
-    slideItems = []
+    slideItems = [
+
+    ]
 
     constructor(private _articleService: ArticleService) {
         _articleService.getElegant().then(result => {

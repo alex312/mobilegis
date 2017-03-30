@@ -8,7 +8,7 @@ import { ArticleHomePage, ARTICLE_TYPES } from '../../app/plugins/article';
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
 })
 export class HomePage implements OnInit, AfterViewInit {
 

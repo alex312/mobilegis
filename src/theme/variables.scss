@@ -12,7 +12,7 @@ $font-path: "../assets/fonts";
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 
-
+$toolbar-background: #50b5eb;
 
 
 // Named Color Variables
@@ -35,20 +35,23 @@ $colors: (
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
-
-
+$badge-ios-background-color: #50b5eb;
+$badge-ios-text-color: #fff;
 
 
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
-
-
+$badge-md-background-color: #50b5eb;
+$badge-md-text-color: #fff;
+$badge-md-border-radius: 10px;
 
 
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here
+$badge-wp-background-color: #50b5eb;
+$badge-wp-text-color: #fff;
 
 
 

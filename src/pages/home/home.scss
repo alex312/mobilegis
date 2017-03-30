@@ -1,3 +1,42 @@
 page-home {
-    
+    .grid{
+        padding:0px;
+    }
+    .row{
+        background-color:#f0f0f0;
+        padding:0px;
+        margin-bottom:1px;
+    }
+    .row:last-child{
+        margin-bottom:0px;
+        margin-top:1px;
+    }
+    .col{
+        background-color:white;
+        margin-right:1px;
+    }
+    .col:last-child{
+        margin-right:0px;
+        margin-left:1px;
+    }
+    .item{
+        height:100%;
+        text-align:center;
+    }
+
+    .item-md.item-block .item-inner{
+        border-width:0px;
+    }
+    .sub-feature{
+        img{
+            width:20px;
+            margin-left:16px;
+        }
+    }
+    .main-feature {
+        img {
+            width:50px;
+        }
+    }
+
 }

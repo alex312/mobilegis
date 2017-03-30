@@ -17,83 +17,79 @@
     <!--轮播图-->
     <elegant-slide>
     </elegant-slide>
-    <!--<ion-slides style="height:160px" autoplay="3000" loop="true" pager="true">
-      <ion-slide style="background-color:green">
-        <h2>
-          slide 1
-        </h2>
-      </ion-slide>
-      <ion-slide style="background-color:blue">
-        <h2>
-          slide 2
-        </h2>
-      </ion-slide>
-      <ion-slide style="background-color:red">
-        <h2>
-          slide 3
-        </h2>
-      </ion-slide>
-      </ion-slides>-->
     <div (pan)="panEvent($event)">
       <!--公告和气象-->
-      <ion-grid>
+      <ion-grid class="sub-feature">
         <ion-row>
           <ion-col>
-            <div (click)="showArticle($event,articleTypes.ARTICLE_GG)">
-              <ion-icon name="megaphone"></ion-icon><span>最新公告</span>
-            </div>
+            <button mode="md" ion-item (click)="showArticle($event,articleTypes.ARTICLE_GG)">
+              <img src="assets/imgs/icons/gg@2x.png" /><span>最新公告</span>
+            </button>
           </ion-col>
           <ion-col>
-            <div>
-              <ion-icon name="partly-sunny"></ion-icon><span>今天</span>
-              <ion-badge>良</ion-badge>
-              <span>35/20℃</span>
-            </div>
+            <button mode="md" ion-item>
+              <img src="assets/imgs/icons/gg@2x.png" />
+              <div>
+                <div><span>今天</span><ion-badge style="margin-left:1.5vw">良</ion-badge></div>
+                <span style="display:inline-block">35/20℃</span>
+              </div>
+            </button>
           </ion-col>
         </ion-row>
       </ion-grid>
       <!--主要功能入口-->
-      <ion-grid>
+      <ion-grid class="main-feature" style="margin-top:10px">
         <ion-row>
-          <ion-col (click)="showArticle($event,articleTypes.ARTICLE_JGJX)">
-            <div>
-              <!--TODO 引入图片-->
+          <ion-col>
+            <button mode="md" ion-item (click)="showArticle($event,articleTypes.ARTICLE_JGJX)">
+              <img src="assets/imgs/icons/jgjx@2x.png"/>
               <span>交通管制</span>
-            </div>
+            </button>
           </ion-col>
-          <ion-col (click)="showArticle($event,articleTypes.ARTICLE_YJXX)">
-            <!--TODO 引入图片-->
+          <ion-col>
+            <button mode="md" ion-item (click)="showArticle($event,articleTypes.ARTICLE_YJXX)">
+            <img src="assets/imgs/icons/yjxx@2x.png"/>
             <span>预警信息</span>
+            </button>
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col (click)="showArticle($event,articleTypes.ARTICLE_WARNING)">
-            <!--TODO 引入图片-->
+          <ion-col>
+            <button mode="md" ion-item (click)="showArticle($event,articleTypes.ARTICLE_WARNING)">
+            <img src="assets/imgs/icons/notice@2x.png"/>
             <span>航行通告</span>
+            </button>
           </ion-col>
-          <ion-col (click)="showArticle($event,articleTypes.ARTICLE_NOTICE)">
-            <!--TODO 引入图片-->
+          <ion-col>
+            <button mode="md" ion-item (click)="showArticle($event,articleTypes.ARTICLE_NOTICE)">
+            <img src="assets/imgs/icons/warning@2x.png"/>
             <span>航行警告</span>
+            </button>
           </ion-col>
 
         </ion-row>
       </ion-grid>
+
       <!--实时船舶-->
-      <ion-card-header>
-        <ion-icon name="pulse"></ion-icon>
-        <span>实时船舶</span>
-      </ion-card-header>
-      <ion-card-content>
-        <div style="height:50px">
-          此处放置海图
-        </div>
-      </ion-card-content>
+      <ion-grid style="background-color:white;margin-top:10px">
+        <ion-card-header>
+          <img src="assets/imgs/icons/sscb@2x.png" style="width:20px" item-left/>
+          <span>实时船舶</span>
+        </ion-card-header>
+        <ion-card-content>
+          <div style="height:50px">
+            <img src="assets/imgs/other/sscbback@2x.png" style="height:60px;width:100%" />
+          </div>
+        </ion-card-content>
+      </ion-grid>
     </div>
   </div>
   <div #dynamic style="position: relative;top:0px">
-    <ion-card-header #dynamicTitle style="height:53px;padding-bottom:16px;padding-top:16px; border:1px solid red">
-      <ion-icon name="star"></ion-icon>
-      <span>我的动态</span>
-    </ion-card-header>
+    <ion-grid style="background-color:white;margin-top:10px">
+      <ion-card-header #dynamicTitle style="height:53px;padding-bottom:16px;padding-top:16px;">
+        <img src="assets/imgs/icons/mydynamic@2x.png" style="width:20px" item-left />
+        <span>我的动态</span>
+      </ion-card-header>
+    </ion-grid>
   </div>
 </ion-content>
