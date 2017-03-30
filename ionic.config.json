@@ -2,5 +2,12 @@
   "name": "MobileGIS2",
   "app_id": "",
   "v2": true,
-  "typescript": true
+  "typescript": true,
+  "proxies": [
+    {
+      "proxyUrl": "http://mobile.com/tjvts/api",
+      "path": "/api",
+      "proxyNoAgent": false
+    }
+  ]
 }

@@ -10,7 +10,8 @@
     "ionic:serve": "ionic-app-scripts serve"
   },
   "config": {
-    "ionic_copy": "copy.config.js"
+    "ionic_copy": "copy.config.js",
+    "ionic_browser": "chrome"
   },
   "dependencies": {
     "@angular/common": "2.4.8",

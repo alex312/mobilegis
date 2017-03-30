@@ -21,21 +21,39 @@ page-home {
     }
     .item{
         height:100%;
-        text-align:center;
+        // text-align:center;
     }
 
     .item-md.item-block .item-inner{
         border-width:0px;
     }
     .sub-feature{
+        .col{
+            padding:0;
+        }
+
+        .item-md{
+            font-size:1.2rem;
+        }
+        .item{
+            text-align: left;
+        }
+        .item-md [item-left]{
+            margin-left:35px;
+        }
+
         img{
-            width:20px;
+            width:3vw;
+            height:3vw;
             margin-left:16px;
         }
     }
     .main-feature {
+        .item-md [item-left]{
+            margin-left:20px;
+        }
         img {
-            width:50px;
+            width:40px;
         }
     }
 

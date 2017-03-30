@@ -23,14 +23,14 @@
         <ion-row>
           <ion-col>
             <button mode="md" ion-item (click)="showArticle($event,articleTypes.ARTICLE_GG)">
-              <img src="assets/imgs/icons/gg@2x.png" /><span>最新公告</span>
+              <img src="assets/imgs/icons/gg@2x.png" item-left /><span>最新公告</span>
             </button>
           </ion-col>
           <ion-col>
             <button mode="md" ion-item>
-              <img src="assets/imgs/icons/gg@2x.png" />
+              <img src="assets/imgs/icons/gg@2x.png" item-left  />
               <div>
-                <div><span>今天</span><ion-badge style="margin-left:1.5vw">良</ion-badge></div>
+                <div><span>今天</span><ion-badge style="font-size:1.2rem;margin-left:1.5vw">良</ion-badge></div>
                 <span style="display:inline-block">35/20℃</span>
               </div>
             </button>
@@ -38,17 +38,17 @@
         </ion-row>
       </ion-grid>
       <!--主要功能入口-->
-      <ion-grid class="main-feature" style="margin-top:10px">
+      <ion-grid class="main-feature" style="margin-top:5px">
         <ion-row>
           <ion-col>
             <button mode="md" ion-item (click)="showArticle($event,articleTypes.ARTICLE_JGJX)">
-              <img src="assets/imgs/icons/jgjx@2x.png"/>
+              <img src="assets/imgs/icons/jgjx@2x.png" item-left/>
               <span>交通管制</span>
             </button>
           </ion-col>
           <ion-col>
             <button mode="md" ion-item (click)="showArticle($event,articleTypes.ARTICLE_YJXX)">
-            <img src="assets/imgs/icons/yjxx@2x.png"/>
+            <img src="assets/imgs/icons/yjxx@2x.png" item-left/>
             <span>预警信息</span>
             </button>
           </ion-col>
@@ -56,13 +56,13 @@
         <ion-row>
           <ion-col>
             <button mode="md" ion-item (click)="showArticle($event,articleTypes.ARTICLE_WARNING)">
-            <img src="assets/imgs/icons/notice@2x.png"/>
+            <img src="assets/imgs/icons/notice@2x.png" item-left/>
             <span>航行通告</span>
             </button>
           </ion-col>
           <ion-col>
             <button mode="md" ion-item (click)="showArticle($event,articleTypes.ARTICLE_NOTICE)">
-            <img src="assets/imgs/icons/warning@2x.png"/>
+            <img src="assets/imgs/icons/warning@2x.png" item-left/>
             <span>航行警告</span>
             </button>
           </ion-col>
@@ -71,7 +71,7 @@
       </ion-grid>
 
       <!--实时船舶-->
-      <ion-grid style="background-color:white;margin-top:10px">
+      <ion-grid style="background-color:white;margin-top:5px">
         <ion-card-header>
           <img src="assets/imgs/icons/sscb@2x.png" style="width:20px" item-left/>
           <span>实时船舶</span>
@@ -85,7 +85,7 @@
     </div>
   </div>
   <div #dynamic style="position: relative;top:0px">
-    <ion-grid style="background-color:white;margin-top:10px">
+    <ion-grid style="background-color:white;">
       <ion-card-header #dynamicTitle style="height:53px;padding-bottom:16px;padding-top:16px;">
         <img src="assets/imgs/icons/mydynamic@2x.png" style="width:20px" item-left />
         <span>我的动态</span>
