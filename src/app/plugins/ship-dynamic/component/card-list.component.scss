@@ -1,0 +1,24 @@
+port-visit-card-list,
+anchor-state-card-list,
+berth-state-card-list,
+raw-boat-dynamic-card-list,
+vessel-dynamic-card-list{
+    .card-md,.card-ios,.card-wp{
+        margin:0px;
+        width:100%;
+        border-bottom:1px solid #e5e5e5;
+    }
+
+    .ship-name{
+        text-align: center;
+        background-repeat:round;
+        background-position:center;
+        background-size:auto 40%;
+        height:100%;
+        margin: 0,5px;
+    }
+
+    .item-md [item-left]{
+        margin: 0 8px 0 0;
+    }
+}
