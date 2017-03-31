@@ -5,7 +5,7 @@
   "typescript": true,
   "proxies": [
     {
-      "proxyUrl": "http://mobile.com/tjvts/api",
+      "proxyUrl": "http://192.168.13.35:9007/api",
       "path": "/api",
       "proxyNoAgent": false
     }

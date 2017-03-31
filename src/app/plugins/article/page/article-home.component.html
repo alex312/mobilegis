@@ -30,8 +30,8 @@
 
     <div [ngSwitch]="articleType">
         <!--最新公告-->
-        <article-card-list *ngSwitchCase="articleTypeList.ARTICLE_GG" [itemSource]="articleModelDict[articleTypeList.ARTICLE_GG].itemSource"
-            [detailPage]="articlePage"></article-card-list>
+        <article-list *ngSwitchCase="articleTypeList.ARTICLE_GG" [itemSource]="articleModelDict[articleTypeList.ARTICLE_GG].itemSource"
+            [detailPage]="articlePage"></article-list>
         <!--交通管制-->
         <article-list *ngSwitchCase="articleTypeList.ARTICLE_JGJX" [itemSource]="articleModelDict[articleTypeList.ARTICLE_JGJX].itemSource"
             [detailPage]="articlePage"></article-list>

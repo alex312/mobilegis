@@ -1,0 +1,68 @@
+user-setting-page{
+
+    .toolbar-background-ios,
+    .toolbar-background-md,
+    .toolbar-background-wp{
+            background-color:transparent;
+    }
+
+    .header-ios .toolbar-ios:last-child .toolbar-background-ios,
+    .header-md .toolbar-md:last-child .toolbar-background-md
+    .header-wp .toolbar-wp:last-child .toolbar-background-wp{
+        border-width:0px;
+    }
+    
+    .scroll-content{
+        margin-top:0px !important;
+        background-color:#ffffff;
+    }
+    .grid{
+        padding:0;
+    }
+
+    .row{
+        padding:0;
+    }
+
+    .col{
+        padding:0;
+    }
+
+    .item-md.item-block .item-inner{
+        border:0;
+    }
+
+    .item{
+        border-bottom:1px solid #e5e5e5
+    }
+
+    .userIdContent{
+         
+        background-repeat: round;
+        background-size:100%;
+        height:calc(40%);
+
+        .userId {
+            
+            background-repeat:no-repeat;
+            background-position:center;
+            background-size:40px;
+            height:100%;
+            text-align:center;
+
+            span{
+                position: relative;
+                top:calc(50% + 30px);
+                
+                color:#ffffff;
+            }
+        }
+    }
+
+    .logout{
+        margin-left:10px;
+        margin-right:10px;
+        width:calc(100% - 20px);
+        bottom:calc(-20%)
+    }
+}

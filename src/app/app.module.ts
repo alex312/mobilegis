@@ -23,6 +23,7 @@ import { CCTVComponent, CCTVNodeListComponent, CCTVDataService } from './plugins
 
 import { ShipDynamicModule } from './plugins/ship-dynamic';
 import { ArticleModule } from './plugins/article';
+import { UserModule } from './plugins/user';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,11 @@ import { ArticleModule } from './plugins/article';
   imports: [
     ArticleModule,
     ShipDynamicModule,
-    IonicModule.forRoot(MyApp)
+    UserModule,
+    IonicModule.forRoot(MyApp, {
+      backButtonText: "",
+      iconMode: "ios"
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

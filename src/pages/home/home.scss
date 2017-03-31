@@ -27,33 +27,65 @@ page-home {
     .item-md.item-block .item-inner{
         border-width:0px;
     }
+
+    .menuimg-small{
+        background-repeat: no-repeat;
+        background-size: auto 25%;
+        background-position: calc(50% - 3rem) center;
+    }
+    .menuimg{
+        background-repeat: no-repeat;
+        background-size: auto 70%;
+        background-position: calc(50% - 3.5rem) center;
+    }
+
+    .card-header-image{
+        background-repeat: no-repeat;
+        background-size: auto 2rem;
+        background-position: calc(1.5rem) center;
+        padding-left: 4rem;
+    }
+
     .sub-feature{
         .col{
             padding:0;
         }
 
         .item-md{
-            font-size:1.2rem;
+            font-size:1.4rem;
         }
         .item{
             text-align: left;
+            padding-left: 3.2rem;
         }
         .item-md [item-left]{
             margin-left:35px;
         }
 
-        img{
-            width:3vw;
-            height:3vw;
-            margin-left:16px;
+
+
+        .label{
+            text-align: center;
         }
     }
+
     .main-feature {
         .item-md [item-left]{
             margin-left:20px;
         }
         img {
             width:40px;
+        }
+
+
+
+        .item{
+            padding-left:4rem;
+        }
+
+        .label{
+            text-align: center;
+            vertical-align: middle;
         }
     }
 

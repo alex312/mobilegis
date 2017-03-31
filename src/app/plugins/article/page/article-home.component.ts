@@ -9,6 +9,7 @@ import { IArticleInfor } from '../data/article-info';
 import { ArticlePage } from '../page/article.component';
 import { WarningPage } from '../page/warning.component';
 import { ARTICLE_TYPES } from '../data/article-type';
+import { ArticleListPageModel } from './article-list-page-model';
 
 @Component({
     selector: "article-home-page",
@@ -17,7 +18,7 @@ import { ARTICLE_TYPES } from '../data/article-type';
 export class ArticleHomePage {
     articleType: string = ARTICLE_TYPES.ARTICLE_WARNING;
 
-    articleModelDict: { [key: string]: ArticleHomePageModel } = {};
+    articleModelDict: { [key: string]: ArticleListPageModel } = {};
 
     articlePage = ArticlePage;
     warningPage = WarningPage;
@@ -28,11 +29,11 @@ export class ArticleHomePage {
 
         this.articleType = _navParams.data;
 
-        this.articleModelDict[ARTICLE_TYPES.ARTICLE_GG] = new ArticleHomePageModel(ARTICLE_TYPES.ARTICLE_GG, this._articleService.getArticleList.bind(this._articleService))
-        this.articleModelDict[ARTICLE_TYPES.ARTICLE_JGJX] = new ArticleHomePageModel(ARTICLE_TYPES.ARTICLE_JGJX, this._articleService.getArticleList.bind(this._articleService))
-        this.articleModelDict[ARTICLE_TYPES.ARTICLE_YJXX] = new ArticleHomePageModel(ARTICLE_TYPES.ARTICLE_YJXX, this._articleService.getArticleList.bind(this._articleService))
-        this.articleModelDict[ARTICLE_TYPES.ARTICLE_WARNING] = new ArticleHomePageModel(ARTICLE_TYPES.ARTICLE_WARNING, this._articleService.getWarningList.bind(this._articleService))
-        this.articleModelDict[ARTICLE_TYPES.ARTICLE_NOTICE] = new ArticleHomePageModel(ARTICLE_TYPES.ARTICLE_NOTICE, this._articleService.getWarningList.bind(this._articleService))
+        this.articleModelDict[ARTICLE_TYPES.ARTICLE_GG] = new ArticleListPageModel(ARTICLE_TYPES.ARTICLE_GG, this._articleService.getArticleList.bind(this._articleService))
+        this.articleModelDict[ARTICLE_TYPES.ARTICLE_JGJX] = new ArticleListPageModel(ARTICLE_TYPES.ARTICLE_JGJX, this._articleService.getArticleList.bind(this._articleService))
+        this.articleModelDict[ARTICLE_TYPES.ARTICLE_YJXX] = new ArticleListPageModel(ARTICLE_TYPES.ARTICLE_YJXX, this._articleService.getArticleList.bind(this._articleService))
+        this.articleModelDict[ARTICLE_TYPES.ARTICLE_WARNING] = new ArticleListPageModel(ARTICLE_TYPES.ARTICLE_WARNING, this._articleService.getWarningList.bind(this._articleService))
+        this.articleModelDict[ARTICLE_TYPES.ARTICLE_NOTICE] = new ArticleListPageModel(ARTICLE_TYPES.ARTICLE_NOTICE, this._articleService.getWarningList.bind(this._articleService))
 
 
         for (let key in this.articleModelDict) {
@@ -59,35 +60,3 @@ export class ArticleHomePage {
     }
 }
 
-class ArticleHomePageModel {
-    itemSource: IArticleInfor[] = [];
-    category: string;
-    index: number = 0;
-    total: number;
-    private _queryFunc
-
-    constructor(category: string, queryFunc: Function) {
-        this.category = category;
-        this._queryFunc = queryFunc;
-    }
-
-    queryMore() {
-        return this._queryFunc(this.category, this.index).then((result) => {
-            console.log(result);
-            this.itemSource.splice(this.itemSource.length, 0, ...result.items);
-            this.index = this.itemSource.length;
-            this.total = result.total;
-        })
-    }
-
-    requery() {
-        this.itemSource.splice(0, this.itemSource.length);
-        this.index = 0;
-        this.total = 0;
-        return this.queryMore()
-    }
-
-    hasMore() {
-        return this.total > this.index;
-    }
-}

@@ -9,6 +9,7 @@ import { ApiClientService } from '../../base';
 import { ArticleHomePage } from './page/article-home.component';
 import { ArticlePage } from './page/article.component';
 import { WarningPage } from './page/warning.component';
+import { LawPage } from './page/law-page.component';
 
 import { ArtileListComponent } from './component/article-list.component';
 import { ArticleCardListComponent } from './component/article-card-list.component';
@@ -24,7 +25,8 @@ import { ArticleService } from './service/article.service';
         ArticleHomePage,
         ArticlePage,
         WarningPage,
-        ElegantSlideComponent
+        ElegantSlideComponent,
+        LawPage
     ],
     imports: [
         CommonModule,
@@ -33,9 +35,10 @@ import { ArticleService } from './service/article.service';
     ],
     exports: [
         ArticleHomePage,
+        LawPage,
         ElegantSlideComponent
     ],
-    entryComponents: [ArticleHomePage, ArticlePage, WarningPage],
+    entryComponents: [ArticleHomePage, ArticlePage, WarningPage, LawPage],
     providers: [ArticleService, ApiClientService],
 })
 export class ArticleModule { }
