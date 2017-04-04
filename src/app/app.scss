@@ -19,5 +19,18 @@
 }
 
 .content{
-    background-color:#f0f0f0;
+    background-color:#ffffff;
 }
+
+.header-md::after,
+.header-ios::after,
+.header-wp::after{
+    background:none
+}
+
+    .full-button{
+        margin-left:10px;
+        margin-right:10px;
+        width:calc(100% - 20px);
+        bottom:calc(-20%)
+    }

@@ -30,20 +30,23 @@ page-home {
 
     .menuimg-small{
         background-repeat: no-repeat;
-        background-size: auto 30%;
-        background-position: calc(50% - 3rem) center;
+        background-size: auto 37%;
+        background-position: calc(50% - 3.5rem) center;
     }
     .menuimg{
         background-repeat: no-repeat;
-        background-size: auto 70%;
-        background-position: calc(50% - 3.5rem) center;
+        background-size: auto 60%;
+        background-position: calc(50% - 4.3rem) center;
+        height:inherit;
+        font-size:1.8rem;
     }
 
     .card-header-image{
         background-repeat: no-repeat;
-        background-size: auto 2rem;
-        background-position: calc(1.5rem) center;
-        padding-left: 4rem;
+        background-size: auto 2.5rem;
+        background-position: calc(5%) center;
+        padding-left: calc(13%);
+        font-size:1.8rem;
     }
 
     .sub-feature{
@@ -55,8 +58,11 @@ page-home {
             font-size:1.4rem;
         }
         .item{
-            text-align: left;
-            padding-left: 3.2rem;
+            text-align: center;
+            padding-left: calc(20%);
+            min-height:5.8rem;
+            max-height:5.8rem;
+            font-size:1.2rem;
         }
         .item-md [item-left]{
             margin-left:35px;
@@ -80,12 +86,17 @@ page-home {
 
 
         .item{
-            padding-left:4rem;
+            padding-left:calc(35%);
+            min-height:7rem;
         }
 
         .label{
             text-align: center;
             vertical-align: middle;
+        }
+
+        .row{
+            min-height:70px;
         }
     }
 

@@ -1,4 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
+import { Format } from '../../../base';
 import { ArticleService } from '../service/article.service';
 import { IArticleInfor } from '../data/article-info';
 import { Config } from '../../../config';
@@ -31,5 +32,10 @@ export abstract class ArticlePageBase {
             }
         });
     }
+
+    getDateString(date: Date) {
+        return Format.FormatDate(date);
+    }
+
     abstract loadArticle(): Promise<any>;
 }

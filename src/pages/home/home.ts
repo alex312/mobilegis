@@ -61,7 +61,8 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this._content.setScrollElementStyle("overflow-y", "hidden");
+    // 解决根据不同设备分辨率设置布局后，启用下面的代码
+    /* this._content.setScrollElementStyle("overflow-y", "hidden");*/
   }
 
 
@@ -71,6 +72,9 @@ export class HomePage implements OnInit, AfterViewInit {
    * Gestures Event Handler
   */
   panEvent(event) {
+    return;
+    // 解决根据不同设备分辨率设置布局后，启用下面的代码
+    /*
     if (event.isFinal) {
       this.hideHomePageTitle();
       this.hideHomeContent();
@@ -83,18 +87,20 @@ export class HomePage implements OnInit, AfterViewInit {
     else {
       this.moveTo(this._mainContentElement, "top", event.deltaY);
       this.moveTo(this._dynamicContentElement, "top", event.deltaY);
+    }*/
+  }
+  // 解决根据不同设备分辨率设置布局后，启用下面的代码
+  /*
+    backToMainContent() {
+      this.showHomePageTitle();
+      this.showDynamicContentTitle();
+      this.showHomeContent();
+  
+      this.hideNavButton();
+      this.hideDynamicPageTitle();
+      this.hideDynamicContent();
     }
-  }
-
-  backToMainContent() {
-    this.showHomePageTitle();
-    this.showDynamicContentTitle();
-    this.showHomeContent();
-
-    this.hideNavButton();
-    this.hideDynamicPageTitle();
-    this.hideDynamicContent();
-  }
+    */
 
   private hideHomeContent() {
     this.transition(this._mainContentElement, 1, "top");

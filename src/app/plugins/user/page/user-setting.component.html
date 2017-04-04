@@ -14,7 +14,7 @@
     <ion-grid>
         <ion-row>
             <ion-col>
-                <button mode="md" ion-item>
+                <button mode="md" ion-item (click)="resetPassword()">
                     <div item-left style="width:20px;height:20px;background-image:url('assets/imgs/user/password@2x.png');background-repeat: round"></div>
                     <span>修改密码</span>
                 </button>
@@ -30,6 +30,6 @@
         </ion-row>
     </ion-grid>
 
-    <button class="logout" ion-button full style=""><span>退出登录</span>
+    <button class="logout" ion-button full><span>退出登录</span>
     </button>
 </ion-content>

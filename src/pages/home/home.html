@@ -12,10 +12,10 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content noScroll>
-  <div #mainContent style="position:relative; top:0px">
+<ion-content>
+  <div #mainContent style="height:inherit;position:relative; top:0px;background-color:#f0f0f0">
     <!--轮播图-->
-    <elegant-slide>
+    <elegant-slide style="height:25vh">
     </elegant-slide>
     <div (pan)="panEvent($event)">
       <!--公告和气象-->
@@ -23,7 +23,6 @@
         <ion-row>
           <ion-col>
             <button mode="md" class="menuimg-small" style="background-image: url(assets/imgs/icons/gg@2x.png)" ion-item (click)="showArticle($event,articleTypes.ARTICLE_GG)">
-              <!--<img src="" /><span>最新公告</span>-->
               <div>
               最新公告
               </div>

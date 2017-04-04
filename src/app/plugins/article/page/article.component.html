@@ -6,9 +6,14 @@
     </ion-navbar>
 </ion-header>
 <ion-content>
-    <div>
-        {{article.title}}
+    <div class="article-title">
+        <h2>
+            {{article.title}}
+        </h2>
+        <p align="right">
+            <ion-icon name="time" orange></ion-icon>发布时间：{{ getDateString(article.publish_date) }}
+        </p>
     </div>
-    <div #articleContent>
+    <div #articleContent class="article-content">
     </div>
 </ion-content>
