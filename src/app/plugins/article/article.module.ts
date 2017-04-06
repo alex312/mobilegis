@@ -17,6 +17,8 @@ import { ElegantSlideComponent } from './component/elegant-slide.component';
 
 import { ArticleService } from './service/article.service';
 
+import { LoadingModule } from '../loading';
+
 
 @NgModule({
     declarations: [
@@ -31,7 +33,8 @@ import { ArticleService } from './service/article.service';
     imports: [
         CommonModule,
         FormsModule,
-        IonicModule
+        IonicModule,
+        LoadingModule
     ],
     exports: [
         ArticleHomePage,

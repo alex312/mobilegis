@@ -33,9 +33,9 @@ ion-content.cards-bg {
 
   div.summary{
     background: white;
-    position: relative;
-    top: -10rem;
-    height: 10rem;
+    position: absolute;
+    bottom:0;
+    width:100vw;
   }
 
   button.detail{

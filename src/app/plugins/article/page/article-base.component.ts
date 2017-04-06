@@ -1,6 +1,5 @@
-import { Component, ElementRef } from '@angular/core';
+import { ElementRef } from '@angular/core';
 import { Format } from '../../../base';
-import { ArticleService } from '../service/article.service';
 import { IArticleInfor } from '../data/article-info';
 import { Config } from '../../../config';
 
@@ -19,6 +18,7 @@ export abstract class ArticlePageBase {
     }
 
     initArticle() {
+        this.isLoading = true;
         this.loadArticle().then(result => {
             this.article = <IArticleInfor>result;
             let content = this.articleContentRef.nativeElement
@@ -30,7 +30,16 @@ export abstract class ArticlePageBase {
                 if (imgs[i].src.indexOf(baseURI) === 0)
                     imgs[i].src = imgs[i].src.replace(baseURI, Config.proxy);
             }
+            this.isLoading = false;
         });
+    }
+
+    private _isLoading = false;
+    get isLoading() {
+        return this._isLoading;
+    }
+    set isLoading(value) {
+        this._isLoading = value;
     }
 
     getDateString(date: Date) {

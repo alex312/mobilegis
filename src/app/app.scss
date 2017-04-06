@@ -28,9 +28,15 @@
     background:none
 }
 
-    .full-button{
-        margin-left:10px;
-        margin-right:10px;
-        width:calc(100% - 20px);
-        bottom:calc(-20%)
-    }
+.full-button{
+    margin-left:10px;
+    margin-right:10px;
+    width:calc(100% - 20px);
+    bottom:calc(-20%)
+}
+
+.button-md,
+.button-ios,
+.button-wp{
+box-shadow: none;
+}

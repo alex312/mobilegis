@@ -8,3 +8,4 @@ export { ShipDynamicComponent } from './component/ship-dynamic.component';
 export { ShipArchiveComponent } from './component/ship-archive.component';
 export { NearbyShipComponent } from './component/nearby-ship.component';
 export { ShipDetailPage } from './page/ship-detail.page';
+export { ShipModule } from './ship.module';

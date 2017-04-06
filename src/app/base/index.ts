@@ -11,3 +11,5 @@ export { ItemLabelComponent } from './component/item-label.component';
 export { WebGISInteractiveService } from './service/webgis-interactive.service';
 export { DataSource } from './util/data-source';
 export { Transition } from './util/transition';
+
+export { BaseModule } from './base.module';

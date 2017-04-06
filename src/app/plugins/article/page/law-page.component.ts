@@ -4,8 +4,6 @@ import { NavParams } from 'ionic-angular';
 
 import { ArticleService } from '../service/article.service';
 
-import { IArticleInfor } from '../data/article-info';
-
 import { ArticlePage } from '../page/article.component';
 
 import { ArticleListPageModel } from './article-list-page-model';
@@ -22,17 +20,24 @@ export class LawPage {
         this.pageModel.requery();
     }
 
-
+    private _isDoingRefresh = false;
+    get showLoading() {
+        return this.pageModel.isLoading === true && this._isDoingRefresh === false;
+    }
 
     doRefresh(event) {
+        this._isDoingRefresh = true;
         this.pageModel.requery().then(() => {
             event.complete();
+            this._isDoingRefresh = false;
         })
     }
 
     doInfinite(event) {
+        this._isDoingRefresh = true;
         this.pageModel.queryMore().then(() => {
             event.complete();
+            this._isDoingRefresh = false;
         });
     }
 }

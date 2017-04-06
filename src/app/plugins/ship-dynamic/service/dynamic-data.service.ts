@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 
-import { ApiClientService, Format } from '../../../base';
+import { ApiClientService } from '../../../base';
 
 // import { PORTVISITS } from '../mock/port-visit.mock';
 // import { VESSELDYNAMICS } from '../mock/vessel-dynamic.mock';

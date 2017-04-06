@@ -4,8 +4,6 @@ import { NavParams } from 'ionic-angular';
 
 import { ArticleService } from '../service/article.service';
 
-import { IArticleInfor } from '../data/article-info';
-
 import { ArticlePage } from '../page/article.component';
 import { WarningPage } from '../page/warning.component';
 import { ARTICLE_TYPES } from '../data/article-type';
@@ -43,18 +41,27 @@ export class ArticleHomePage {
 
     currentPageModel() {
         let result = this.articleModelDict[this.articleType];
-        console.log(this.articleType, result);
+        return result;
+    }
+
+    private _isDoingRefresh = false;
+    get showLoading() {
+        let result = this.currentPageModel().isLoading === true && this._isDoingRefresh !== true;
         return result;
     }
 
     doRefresh(event) {
+        this._isDoingRefresh = true;
         this.articleModelDict[this.articleType].requery().then(() => {
+            this._isDoingRefresh = false;
             event.complete();
         })
     }
 
     doInfinite(event) {
+        this._isDoingRefresh = true;
         this.articleModelDict[this.articleType].queryMore().then(() => {
+            this._isDoingRefresh = false;
             event.complete();
         });
     }

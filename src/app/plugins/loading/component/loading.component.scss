@@ -1,0 +1,21 @@
+loading{
+    $loading-spinner-size: 50px;
+    $loading-spinner-left:calc(( 100% - #{$loading-spinner-size} ) / 2 );
+    $loading-spinner-top: calc(( 80% - #{$loading-spinner-size} ) / 2 );
+
+    ion-spinner{
+        display:block;
+        width: $loading-spinner-size;
+        height: $loading-spinner-size;
+        left: $loading-spinner-left;
+        top: $loading-spinner-top;
+    }
+
+    .loading-text{
+        position:relative;
+        text-align: center;
+        top: $loading-spinner-top;
+        padding:0 40px;
+    }
+
+}

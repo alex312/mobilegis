@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { ArticlePageBase } from '../page/article-base.component';
 import { IArticleInfor } from '../data/article-info';
 @Component({
     selector: "article-list",

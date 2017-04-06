@@ -1,10 +1,10 @@
 <ion-header>
   <ion-navbar>
-    <ion-buttons #navButtons left style="opacity:0">
+    <!--<ion-buttons #navButtons left style="opacity:0">
       <button ion-button (click)="backToMainContent()" style="background-color:transparent">
         <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons>-->
     <ion-title>
       <div #homeTitle style="height:27px;opacity:1">天津VTS服务平台</div>
       <div #myDynamic style="height:0px">我的动态</div>
@@ -28,14 +28,14 @@
               </div>
             </button>
           </ion-col>
-          <ion-col>
+          <!--<ion-col>
             <button mode="md" class="menuimg-small" style="background-image: url(assets/imgs/icons/weather@2x.png)" ion-item>
               <div>
                 <div><span>今天</span><ion-badge style="font-size:1.2rem;margin-left:1.5vw">良</ion-badge></div>
                 <div>35/20℃</div>
               </div>
             </button>
-          </ion-col>
+          </ion-col>-->
         </ion-row>
       </ion-grid>
       <!--主要功能入口-->
@@ -72,7 +72,7 @@
         <ion-card-header class="card-header-image" style="background-image:url('assets/imgs/icons/sscb@2x.png')">
           <span>实时船舶</span>
         </ion-card-header>
-        <ion-card-content>
+        <ion-card-content (click)="showMap()">
           <div style="height:50px">
             <img src="assets/imgs/other/sscbback@2x.png" style="height:60px;width:100%" />
           </div>
@@ -80,11 +80,11 @@
       </ion-grid>
     </div>
   </div>
-  <div #dynamic style="position: relative;top:0px">
+  <!--<div #dynamic style="position: relative;top:0px">
     <ion-grid style="background-color:white;">
       <ion-card-header class="card-header-image" #dynamicTitle style="background-image:url('assets/imgs/icons/mydynamic@2x.png')/*height:53px;padding-bottom:16px;padding-top:16px;*/">
         <span>我的动态</span>
       </ion-card-header>
     </ion-grid>
-  </div>
+  </div>-->
 </ion-content>

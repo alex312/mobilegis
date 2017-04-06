@@ -10,6 +10,10 @@
         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
         </ion-refresher-content>
     </ion-refresher>
+    <loading [timeout]="3000" [enable]="showLoading"></loading>
+    <div *ngIf="pageModel.isEmpty">
+        没有更多数据了
+    </div>
     <article-list [itemSource]="pageModel.itemSource" [detailPage]="articlePage"></article-list>
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="pageModel.hasMore()">
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."></ion-infinite-scroll-content>

@@ -6,12 +6,13 @@
     </ion-navbar>
 </ion-header>
 <ion-content>
+    <loading [timeout]="2000" [enable]="isLoading"></loading>
     <div class="article-title">
         <h2>
             {{article.title}}
         </h2>
         <p align="right">
-            <ion-icon name="time" orange></ion-icon>发布时间：{{ getDateString(article.publish_date) }}
+            发布时间：{{ getDateString(article.publish_date) }}
         </p>
     </div>
     <div #articleContent class="article-content">

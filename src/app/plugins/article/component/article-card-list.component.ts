@@ -4,8 +4,6 @@ import { NavController } from 'ionic-angular';
 
 import { IArticleInfor } from '../data/article-info';
 
-import { ArticlePageBase } from '../page/article-base.component';
-
 @Component({
     selector: "article-card-list",
     templateUrl: "./article-card-list.component.html"

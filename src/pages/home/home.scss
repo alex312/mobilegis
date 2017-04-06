@@ -33,6 +33,7 @@ page-home {
         background-size: auto 37%;
         background-position: calc(50% - 3.5rem) center;
     }
+    
     .menuimg{
         background-repeat: no-repeat;
         background-size: auto 60%;
@@ -59,9 +60,8 @@ page-home {
         }
         .item{
             text-align: center;
-            padding-left: calc(20%);
-            min-height:5.8rem;
-            max-height:5.8rem;
+            min-height:3rem;
+            // max-height:5.8rem;
             font-size:1.2rem;
         }
         .item-md [item-left]{
@@ -72,6 +72,7 @@ page-home {
 
         .label{
             text-align: center;
+            margin:0;
         }
     }
 

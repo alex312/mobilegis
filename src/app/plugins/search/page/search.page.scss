@@ -1,0 +1,12 @@
+search-page{
+    .searchbar-search-icon{
+        display:none;
+    }
+
+    .searchbar-md,.searchbar-ios,.searchbar-wp, {
+        .searchbar-input{
+            padding:6px 20px;
+            box-shadow:none;
+        }
+    }
+}

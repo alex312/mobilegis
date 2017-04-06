@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit, AfterViewInit, OnDestroy, ViewContainerRef, ViewChild } from '@angular/core';
+import { Component, NgZone, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
 
 import { MapHolderImp } from '../service/map-holder';
 
@@ -15,7 +15,6 @@ export class SeecoolGISComponent implements OnInit, OnDestroy, AfterViewInit {
 
     @ViewChild('map') dom: any
     constructor(
-        private elementRef: ViewContainerRef,
         private zone: NgZone) {
 
     }

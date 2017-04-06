@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 import { HomePage } from '../home/home';
-import { ContactPage } from '../contact/contact';
 
 import { ShipDynamicPage } from '../../app/plugins/ship-dynamic';
 import { UserSettingPage } from '../../app/plugins/user';
@@ -16,7 +15,7 @@ export class TabsPage {
   tab1Root: any = HomePage;
   tab2Root: any = ShipDynamicPage;
   tab3Root: any = LawPage;
-  tab4Root: any = UserSettingPage;
+  // tab4Root: any = UserSettingPage;
 
   constructor() {
 

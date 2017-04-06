@@ -32,6 +32,10 @@
         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
         </ion-refresher-content>
     </ion-refresher>
+    <loading [timeout]="3000" [enable]="showLoading"></loading>
+    <div *ngIf="_dataQueryPromiseDict[dynamicType].isEmpty">
+        没有更多数据了
+    </div>
     <query-param (reset)="resetParam()" (set)="setParam()" [paramSource]="_dataQueryPromiseDict[dynamicType].queryParam" ion-fixed></query-param>
     <div [ngSwitch]="dynamicType">
         <!--预确报-->

@@ -1,5 +1,4 @@
-import { Component, ViewChild, ViewChildren, Renderer, ElementRef, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Content } from 'ionic-angular';
+import { Component, ViewChildren, Renderer, ElementRef, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import * as moment from 'moment';
 
@@ -35,6 +34,7 @@ export class QueryParamComponent implements OnInit {
         this.initShipTypeSelection();
         this.initSourceSelection();
         this.initCompanySelection();
+
     }
 
     ngOnInit() {
@@ -138,7 +138,6 @@ export class QueryParamComponent implements OnInit {
         let now = moment(new Date());
         this.paramSource.start = now.format("YYYY-MM-DD");
         this.paramSource.end = now.add(amount, unitOfTime).format("YYYY-MM-DD");
-
         this.setTimeButtonColor(event);
     }
 
@@ -148,23 +147,8 @@ export class QueryParamComponent implements OnInit {
             this._renderer.setElementStyle(element, "background-color", "#ffffff");
             this._renderer.setElementStyle(element, "color", "#50b5eb");
         })
-
         this._renderer.setElementStyle(event.srcElement.parentElement, "background-color", "#50b5eb")
         this._renderer.setElementStyle(event.srcElement.parentElement, "color", "#ffffff");
-        // this._timeButtons.forEach((button) => {
-        //     console.log(button);
-        //     let element = button._elementRef.nativeElement;
-        //     if (event === null && element.getAttribute("small") !== null) {
-        //         this._renderer.setElementClass(element, "selected", true);
-        //     }
-        //     else {
-        //         this._renderer.setElementClass(element, "selected", false);
-        //     }
-        // })
-        // if (event != null) {
-        //     // event 的 srcElement 是<button>标签的子标签<span>，需要使用parentElement获取event相关的<button>
-        //     this._renderer.setElementClass(event.srcElement.parentElement, "selected", true);
-        // }
     }
     @Output()
     set = new EventEmitter();

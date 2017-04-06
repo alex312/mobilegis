@@ -5,6 +5,7 @@ export class ArticleListPageModel {
     category: string;
     index: number = 0;
     total: number;
+
     private _queryFunc
 
     constructor(category: string, queryFunc: Function) {
@@ -13,11 +14,16 @@ export class ArticleListPageModel {
     }
 
     queryMore() {
+        this.isLoading = true;
         return this._queryFunc(this.category, this.index).then((result) => {
-            console.log(result);
+
+            // this.isLoading = false;
             this.itemSource.splice(this.itemSource.length, 0, ...result.items);
             this.index = this.itemSource.length;
             this.total = result.total;
+            this.isLoading = false;
+        }).catch(error => {
+            this.isLoading = false;
         })
     }
 
@@ -30,5 +36,17 @@ export class ArticleListPageModel {
 
     hasMore() {
         return this.total > this.index;
+    }
+
+    private _isLoading = false;
+    get isLoading() {
+        return this._isLoading;
+    }
+    set isLoading(value) {
+        this._isLoading = value;
+    }
+
+    get isEmpty() {
+        return this.isLoading === false && (this.itemSource === undefined || this.itemSource === null || this.itemSource.length === 0);
     }
 }

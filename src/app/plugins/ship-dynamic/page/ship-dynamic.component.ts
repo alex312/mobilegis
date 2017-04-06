@@ -36,9 +36,16 @@ export class ShipDynamicPage {
     dynamicTypeChanged(event) {
     }
 
+    get showLoading() {
+        return this._dataQueryPromiseDict[this.dynamicType].isLoading === true && this._isDoingRefresh === false;
+    }
+
+    private _isDoingRefresh = false;
     doRefresh(event) {
+        this._isDoingRefresh = true;
         this._dataQueryPromiseDict[this.dynamicType].requery().then(() => {
             event.complete();
+            this._isDoingRefresh = false;
         });
     }
 
@@ -47,8 +54,10 @@ export class ShipDynamicPage {
     }
 
     doInfinite(event) {
+        this._isDoingRefresh = true;
         this._dataQueryPromiseDict[this.dynamicType].queryMore().then(() => {
             event.complete();
+            this._isDoingRefresh = false;
         });
     }
 
@@ -129,15 +138,30 @@ class DynamicPageModel {
     }
 
     queryMore() {
+        this.isLoading = true;
         return this._queryFunc(this.url).then(result => {
             this.itemSource.splice(this.itemSource.length, 0, ...result.data);
             this.totalCount = result.total;
             this.queryParam.startIndex += result.data.length;
+            this.isLoading = false;
         });
 
     }
 
     hasMore() {
         return this.totalCount > this.itemSource.length;
+    }
+
+    get isEmpty() {
+        return this.isLoading === false && (this.itemSource === undefined || this.itemSource === null || this.itemSource.length === 0);
+    }
+
+    private _isLoading: boolean = false;
+    get isLoading() {
+        return this._isLoading;
+    }
+
+    set isLoading(value) {
+        this._isLoading = value;
     }
 }

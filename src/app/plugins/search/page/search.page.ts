@@ -6,6 +6,7 @@ import { MapHolderImp } from '../../map';
 import { Config } from '../../../config';
 
 @Component({
+    selector: "search-page",
     templateUrl: './search.page.html'
 })
 export class SearchPage implements OnInit {

@@ -1,10 +1,14 @@
 import { Component, ViewChild, OnInit, ElementRef, AfterViewInit, Renderer } from '@angular/core';
 
-import { Slides, Content, App } from 'ionic-angular';
+import { Content, App } from 'ionic-angular';
 
 import { Transition } from '../../app/base';
 
 import { ArticleHomePage, ARTICLE_TYPES } from '../../app/plugins/article';
+
+import { LoadingComponent } from '../../app/plugins/loading';
+
+import { MapPage } from '../../app/plugins/map';
 
 @Component({
   selector: 'page-home',
@@ -18,17 +22,13 @@ export class HomePage implements OnInit, AfterViewInit {
   private _mainContentElementRef: ElementRef;
   private _mainContentElement: HTMLElement;
 
-  @ViewChild("dynamic")
-  private _dynamicContentRef: ElementRef;
-  private _dynamicContentElement: HTMLElement;
+  // @ViewChild("dynamic")
+  // private _dynamicContentRef: ElementRef;
+  // private _dynamicContentElement: HTMLElement;
 
-  @ViewChild("navButtons")
-  private _navButtonsRef: ElementRef;
-  private _navButtonsElement: HTMLElement;
-
-  @ViewChild("dynamicTitle")
-  private _dynamicTitleRef: ElementRef;
-  private _dynamicTitleElement: HTMLElement;
+  // @ViewChild("dynamicTitle")
+  // private _dynamicTitleRef: ElementRef;
+  // private _dynamicTitleElement: HTMLElement;
 
   @ViewChild("homeTitle")
   private _homeTitleRef: ElementRef;
@@ -36,6 +36,10 @@ export class HomePage implements OnInit, AfterViewInit {
   @ViewChild("myDynamic")
   private _myDynamicRef: ElementRef;
   private _myDynamicElement: HTMLElement;
+
+  @ViewChild(LoadingComponent)
+  private _loading: LoadingComponent;
+
 
   articleTypes = ARTICLE_TYPES;
   constructor(
@@ -48,17 +52,38 @@ export class HomePage implements OnInit, AfterViewInit {
     this._app.getRootNav().push(ArticleHomePage, category);
   }
 
+  showMap() {
+    this._app.getRootNav().push(MapPage);
+  }
+
+
   /**
    * OnInit
   */
   ngOnInit() {
     this._mainContentElement = this._mainContentElementRef.nativeElement;
-    this._dynamicContentElement = this._dynamicContentRef.nativeElement;
-    this._navButtonsElement = this._navButtonsRef.nativeElement;
-    this._dynamicTitleElement = this._dynamicTitleRef.nativeElement;
+    // this._dynamicContentElement = this._dynamicContentRef.nativeElement;
+    // this._dynamicTitleElement = this._dynamicTitleRef.nativeElement;
     this._homeTitleElement = this._homeTitleRef.nativeElement;
     this._myDynamicElement = this._myDynamicRef.nativeElement;
+
+    // this._loading.loadingPromise = this.promise;
   }
+
+  promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("loading successec");
+    }, 2000);
+  });
+
+  loadingSuccessed(loadingResult) {
+
+  }
+
+  loadingTimouted() {
+
+  }
+
 
   ngAfterViewInit() {
     // 解决根据不同设备分辨率设置布局后，启用下面的代码
@@ -79,7 +104,7 @@ export class HomePage implements OnInit, AfterViewInit {
       this.hideHomePageTitle();
       this.hideHomeContent();
       this.hideDynamicContentTitle();
-
+  
       this.showDynamicContent();
       this.showNavButton();
       this.showDynamicPageTitle();
@@ -111,36 +136,27 @@ export class HomePage implements OnInit, AfterViewInit {
     this.moveTo(this._mainContentElement, "top", 0);
   }
 
-  private hideDynamicContent() {
-    this.transition(this._dynamicContentElement, 0, "top");
-    this.moveTo(this._dynamicContentElement, "top", 0);
-  }
-  private showDynamicContent() {
-    this.transition(this._dynamicContentElement, 1, "top");
-    this.moveTo(this._dynamicContentElement, "top", -this._mainContentElement.offsetHeight);
-  }
+  // private hideDynamicContent() {
+  //   this.transition(this._dynamicContentElement, 0, "top");
+  //   this.moveTo(this._dynamicContentElement, "top", 0);
+  // }
+  // private showDynamicContent() {
+  //   this.transition(this._dynamicContentElement, 1, "top");
+  //   this.moveTo(this._dynamicContentElement, "top", -this._mainContentElement.offsetHeight);
+  // }
 
-  private hideNavButton() {
-    this.transition(this._navButtonsElement, 0, "opacity");
-    this._renderer.setElementStyle(this._navButtonsElement, "opacity", "0");
-  }
-  private showNavButton() {
-    this.transition(this._navButtonsElement, 1, "opacity");
-    this._renderer.setElementStyle(this._navButtonsElement, "opacity", "1");
-  }
-
-  private hideDynamicContentTitle() {
-    this._renderer.setElementStyle(this._dynamicTitleElement, "height", "0px");
-    this.transition(this._dynamicTitleElement, 1, "padding");
-    this._renderer.setElementStyle(this._dynamicTitleElement, "padding-bottom", "0px");
-    this._renderer.setElementStyle(this._dynamicTitleElement, "padding-top", "0px");
-  }
-  private showDynamicContentTitle() {
-    this.transition(this._dynamicTitleElement, 0, "padding");
-    this.transition(this._dynamicTitleElement, 0, "height");
-    this._renderer.setElementStyle(this._dynamicTitleElement, "padding", "16px");
-    this._renderer.setElementStyle(this._dynamicTitleElement, "height", "53px");
-  }
+  // private hideDynamicContentTitle() {
+  //   this._renderer.setElementStyle(this._dynamicTitleElement, "height", "0px");
+  //   this.transition(this._dynamicTitleElement, 1, "padding");
+  //   this._renderer.setElementStyle(this._dynamicTitleElement, "padding-bottom", "0px");
+  //   this._renderer.setElementStyle(this._dynamicTitleElement, "padding-top", "0px");
+  // }
+  // private showDynamicContentTitle() {
+  //   this.transition(this._dynamicTitleElement, 0, "padding");
+  //   this.transition(this._dynamicTitleElement, 0, "height");
+  //   this._renderer.setElementStyle(this._dynamicTitleElement, "padding", "16px");
+  //   this._renderer.setElementStyle(this._dynamicTitleElement, "height", "53px");
+  // }
 
   private hideHomePageTitle() {
     this.transition(this._homeTitleElement, .5, "height");
@@ -188,6 +204,16 @@ export class HomePage implements OnInit, AfterViewInit {
     let transitionStr = Transition.MergeTransition(element.style.transition, duration, property, delay, timingFunction);
     this._renderer.setElementStyle(element, "transition", transitionStr);
   }
+
+  _promiseResult;
+  get promiseResult() {
+    return this._promiseResult;
+  }
+
+  set promiseResult(value) {
+    this._promiseResult = value;
+  }
+
 }
 
 

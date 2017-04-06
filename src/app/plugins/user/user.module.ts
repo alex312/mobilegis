@@ -7,7 +7,7 @@ import { ApiClientService } from '../../base';
 
 import { UserService } from './service/user.service';
 
-import { LoginPage } from './page/user-login.component';
+import { UserLoginPage } from './page/user-login.component';
 import { UserSettingPage } from './page/user-setting.component';
 import { PasswordReSettingPage } from './page/password-resetting.component';
 
@@ -19,17 +19,17 @@ import { PasswordReSettingPage } from './page/password-resetting.component';
     ],
     exports: [
         UserSettingPage,
-        LoginPage
+        UserLoginPage
     ],
     declarations: [
         UserSettingPage,
         PasswordReSettingPage,
-        LoginPage
+        UserLoginPage
     ],
     entryComponents: [
         UserSettingPage,
         PasswordReSettingPage,
-        LoginPage
+        UserLoginPage
     ],
     providers: [
         ApiClientService,

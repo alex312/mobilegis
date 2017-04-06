@@ -4,9 +4,9 @@ import { UserService } from '../service/user.service';
 
 @Component({
     selector: "login-page",
-    templateUrl: "./user-login.component"
+    templateUrl: "./user-login.component.html"
 })
-export class LoginPage {
+export class UserLoginPage {
     constructor(private _userService: UserService) {
 
     }

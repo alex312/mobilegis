@@ -4,3 +4,5 @@ export { TrafficEnvSummary } from './data/traffic-env-summary';
 export { TrafficEnvInfoComponent } from './component/traffic-env-info.component';
 export { TrafficEnvService } from './service/traffic-env.service';
 export { TrafficEnvDetailComponent } from './component/traffic-env-detail.component';
+
+export { TrafficEnvModule } from './traffic-env.module';

@@ -2,8 +2,8 @@
 
 export const Config = {
     //proxy: "http://192.168.13.14:9006/",
-    //proxy: "http://192.168.13.35:9007/",
-    proxy: "http://192.168.3.23/tjvts/",
+    proxy: "http://192.168.13.35:9007/",
+    // proxy: "http://192.168.3.23/tjvts/",
     CORDOVA_READY: false,
     needLogin: false,
 

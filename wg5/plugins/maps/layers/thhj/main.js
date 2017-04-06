@@ -12,9 +12,9 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc); else for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    } return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __param = undefined && undefined.__param || function (paramIndex, decorator) {
     return function (target, key) {
@@ -99,7 +99,8 @@ define(["require", "exports", "openlayers", "../../../../seecool/geom/utils", ".
                     },
                     convertFunction: function (v) {
                         var style = StaticLib_1.olStyleFromStyle(StaticLib_1.TrafficEnvStyle(v.TrafficEnvType), v.Name); //this.olStyleFromThhjDataStyle_(v.DrawingStyle, v.Name);
-                        var geom = this.olGeomFromThhjDataGeom_(v.Geomatics);
+                        if (v.Geomatics !== undefined && v.Geomatics !== null && v.Geomatics.Points !== undefined && v.Geomatics.Points !== null && v.Geomatics.Points.length !== 0)
+                            var geom = this.olGeomFromThhjDataGeom_(v.Geomatics);
                         var f2 = new ol.Feature({
                             geometry: geom
                         });
@@ -136,24 +137,24 @@ define(["require", "exports", "openlayers", "../../../../seecool/geom/utils", ".
                             break;
                     }
                 }).then(this.dataApi_.Get$types.bind(this.dataApi_, "")) //this.dataApi_.Get$types("")
-                .then(function (pdata) {
-                    return new Promise(function (resolve, reject) {
+                    .then(function (pdata) {
+                        return new Promise(function (resolve, reject) {
+                            switch (pdata.state) {
+                                case "apiok":
+                                    this.dataDTOSet_.Add(pdata.data);
+                                    resolve();
+                                    break;
+                                default:
+                                    reject();
+                            }
+                        }.bind(this));
+                    }.bind(this)).catch(function (pdata) {
                         switch (pdata.state) {
-                            case "apiok":
-                                this.dataDTOSet_.Add(pdata.data);
-                                resolve();
+                            case "apierr":
                                 break;
-                            default:
-                                reject();
                         }
-                    }.bind(this));
-                }.bind(this)).catch(function (pdata) {
-                    switch (pdata.state) {
-                        case "apierr":
-                            break;
-                    }
-                    if (!pdata.state) throw pdata;
-                });
+                        if (!pdata.state) throw pdata;
+                    });
             }
         }, {
             key: "fromDTO_",

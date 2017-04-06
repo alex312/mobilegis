@@ -17,11 +17,14 @@ import { QueryParamComponent } from './component/query-param.component';
 
 import { DynamicDataService } from './service/dynamic-data.service';
 
+import { LoadingModule } from '../loading';
+
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        IonicModule
+        IonicModule,
+        LoadingModule
     ],
     declarations: [
         ShipDynamicPage,

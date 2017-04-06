@@ -1,6 +1,6 @@
 import { PortVisit } from '../data/port-visit';
 
-export const PORTVISITS = [
+export const PORTVISITS: PortVisit[] = [
     {
         ShipNameChn: '利克麦雅加达',
         ShipNameEn: 'RICKMERSJAKARTA',

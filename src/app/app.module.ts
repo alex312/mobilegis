@@ -1,19 +1,14 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { MenuPage, Menu_Config } from './plugins/menu';
 import { MenuConfig } from './menu-config';
 import { AlarmConfig } from './alarm-config';
 
-import { ApiClientService, ItemLabelComponent, WebGISInteractiveService } from './base';
-import { SeecoolGISComponent, MapPage, FeatureInfoComponent } from './plugins/map';
-import { ShipDynamicComponent, ShipArchiveComponent, ShipInfoComponent, ShipDetailPage, NearbyShipComponent, VesselGroupPage, VesselGroupService } from './plugins/ship';
-import { TrafficEnvInfoComponent } from './plugins/traffic-env';
-import { TrafficEnvDetailComponent, TrafficEnvService } from './plugins/traffic-env';
+// import { SeecoolGISComponent, FeatureInfoComponent } from './plugins/map';
+import { ShipDetailPage, VesselGroupPage, VesselGroupService } from './plugins/ship';
 
 import { SectionServerChartService, SectionObserverService, SectionObserverPage } from './plugins/section-observer';
 
@@ -21,31 +16,25 @@ import { GroupComponent, AlarmService, Alarm_Config, AlarmPage } from './plugins
 
 import { CCTVComponent, CCTVNodeListComponent, CCTVDataService } from './plugins/cctv';
 
+
+import { BaseModule } from './base';
 import { ShipDynamicModule } from './plugins/ship-dynamic';
 import { ArticleModule } from './plugins/article';
 import { UserModule } from './plugins/user';
+import { LoadingModule } from './plugins/loading';
+import { MapModule } from './plugins/map';
+import { SearchModule } from './plugins/search';
+import { ShipModule } from './plugins/ship';
+import { TrafficEnvModule } from './plugins/traffic-env';
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
     HomePage,
     TabsPage,
-    MapPage,
-    SeecoolGISComponent,
-    FeatureInfoComponent,
-    ItemLabelComponent,
-    SeecoolGISComponent,
-    MapPage,
-    FeatureInfoComponent,
-    TrafficEnvDetailComponent,
-    ShipInfoComponent,
-    TrafficEnvInfoComponent,
+    // SeecoolGISComponent,
+    // FeatureInfoComponent,
     ShipDetailPage,
-    NearbyShipComponent,
-    ShipArchiveComponent,
-    ShipDynamicComponent,
     MenuPage,
     GroupComponent,
     SectionObserverPage,
@@ -53,9 +42,15 @@ import { UserModule } from './plugins/user';
     AlarmPage, CCTVComponent, CCTVNodeListComponent,
   ],
   imports: [
+    BaseModule,
     ArticleModule,
     ShipDynamicModule,
     UserModule,
+    LoadingModule,
+    MapModule,
+    SearchModule,
+    ShipModule,
+    TrafficEnvModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: "",
       iconMode: "ios"
@@ -64,11 +59,8 @@ import { UserModule } from './plugins/user';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
     HomePage,
     TabsPage,
-    MapPage,
     ShipDetailPage,
     MenuPage,
     SectionObserverPage,
@@ -79,13 +71,11 @@ import { UserModule } from './plugins/user';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: Menu_Config, useValue: MenuConfig },
     { provide: Alarm_Config, useValue: AlarmConfig },
-    WebGISInteractiveService,
-    ApiClientService,
+
     SectionServerChartService,
     SectionObserverService,
     AlarmService,
     VesselGroupService,
-    TrafficEnvService,
     CCTVDataService
   ]
 })

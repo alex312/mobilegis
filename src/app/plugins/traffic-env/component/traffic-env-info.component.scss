@@ -1,0 +1,23 @@
+traffic-env-info{
+    .summaryContent{
+        position:relative;
+        padding:1rem;
+        
+        h2{
+            font-size:14px !important;
+            font-weight: bold;
+            // margin-left:4px;
+            margin-left:2px;
+            white-space: nowrap;
+        }
+
+        p {
+            font-size: 12px !important;        
+            margin-left: 2px;
+        }
+
+        button.details{
+            float: right;
+        }    
+    }
+}
