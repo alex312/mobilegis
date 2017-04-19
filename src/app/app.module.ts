@@ -51,7 +51,7 @@ import { MenuModule } from './plugins/menu';
     SearchModule,
     ShipModule,
     TrafficEnvModule,
-    MenuModule,
+    MenuModule.forRoot(MenuConfig),
     IonicModule.forRoot(MyApp, {
       backButtonText: "",
       iconMode: 'ios'
@@ -69,7 +69,6 @@ import { MenuModule } from './plugins/menu';
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    { provide: Menu_Config, useValue: MenuConfig },
     { provide: Alarm_Config, useValue: AlarmConfig },
 
     SectionServerChartService,

@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 
 import { IonicModule } from 'ionic-angular';
 
 import { MenuPage } from './page/menu.page';
+import { Menu_Config, IMenuConfig } from './service/config';
 
 @NgModule({
     imports: [
@@ -21,8 +22,14 @@ import { MenuPage } from './page/menu.page';
     declarations: [
         MenuPage
     ],
-    providers: [],
 })
 export class MenuModule {
-
+    static forRoot(menuConfig: IMenuConfig): ModuleWithProviders {
+        return {
+            ngModule: MenuModule,
+            providers: [
+                { provide: Menu_Config, useValue: menuConfig }
+            ]
+        }
+    }
 }
