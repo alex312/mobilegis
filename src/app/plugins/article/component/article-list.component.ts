@@ -21,10 +21,19 @@ export class ArtileListComponent {
     @Input()
     detailPage: any
 
+    private _categoryName: string = "文章";
+    @Input()
+    set categoryName(value) {
+        this._categoryName = value;
+    }
+    get categoryName() {
+        return this._categoryName;
+    }
+
     constructor(private _navCtrl: NavController) {
 
     }
     openArticle(item) {
-        this._navCtrl.push(this.detailPage, item);
+        this._navCtrl.push(this.detailPage, { item: item, title: this.categoryName });
     }
 }

@@ -21,6 +21,7 @@ module.exports = {
             '{{ROOT}}/node_modules/font-awesome/css/font-awesome.js',
             '{{ROOT}}/node_modules/openlayers/dist/ol.css',
             '{{ROOT}}/node_modules/highcharts/highcharts.src.js',
+            '{{ROOT}}/node_modules/webrtc-adapter/out/adapter.js',
             '{{ROOT}}/wg5/resources/ol-patch.css'],
         dest: "{{BUILD}}"
     },

@@ -4,7 +4,7 @@ import { HomePage } from '../home/home';
 
 import { ShipDynamicPage } from '../../app/plugins/ship-dynamic';
 import { UserSettingPage } from '../../app/plugins/user';
-import { LawPage } from '../../app/plugins/article';
+import { LawHomePage } from '../../app/plugins/article';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -14,7 +14,7 @@ export class TabsPage {
   // should be each tab's root Page
   tab1Root: any = HomePage;
   tab2Root: any = ShipDynamicPage;
-  tab3Root: any = LawPage;
+  tab3Root: any = LawHomePage;
   // tab4Root: any = UserSettingPage;
 
   constructor() {

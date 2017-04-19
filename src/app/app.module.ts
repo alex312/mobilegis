@@ -3,7 +3,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
-import { MenuPage, Menu_Config } from './plugins/menu';
+// import { MenuPage, Menu_Config } from './plugins/menu';
 import { MenuConfig } from './menu-config';
 import { AlarmConfig } from './alarm-config';
 
@@ -26,6 +26,7 @@ import { MapModule } from './plugins/map';
 import { SearchModule } from './plugins/search';
 import { ShipModule } from './plugins/ship';
 import { TrafficEnvModule } from './plugins/traffic-env';
+import { MenuModule } from './plugins/menu';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,6 @@ import { TrafficEnvModule } from './plugins/traffic-env';
     // SeecoolGISComponent,
     // FeatureInfoComponent,
     ShipDetailPage,
-    MenuPage,
     GroupComponent,
     SectionObserverPage,
     VesselGroupPage,
@@ -51,9 +51,10 @@ import { TrafficEnvModule } from './plugins/traffic-env';
     SearchModule,
     ShipModule,
     TrafficEnvModule,
+    MenuModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: "",
-      iconMode: "ios"
+      iconMode: 'ios'
     })
   ],
   bootstrap: [IonicApp],
@@ -62,7 +63,6 @@ import { TrafficEnvModule } from './plugins/traffic-env';
     HomePage,
     TabsPage,
     ShipDetailPage,
-    MenuPage,
     SectionObserverPage,
     VesselGroupPage,
     AlarmPage, CCTVComponent

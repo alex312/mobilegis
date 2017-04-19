@@ -52,14 +52,29 @@
         'bytebuffer': '../build/bytebuffer',
         'fecha': '../build/fecha',
         'fontawesome': '../build/font-awesome',
+        'validator': '../wg5/lib/jquery-validate/jquery.validate.min',
+        "md5": "../wg5/lib/jquery-md5/jquery.md5",
+        "utils": "../wg5/seecooljs/utils",
+        "webrtc-adapter": "../build/adapter"
       },
       shim: {
         'css!resources/ol-patch': {
           deps: ['css!../../build/ol']
         },
+        'validator': {
+          deps: ['jquery'],
+          exports: 'jQuery'
+        },
+        'md5': {
+          deps: ['jquery'],
+          exports: 'jQuery'
+        },
         'openlayers': {
           deps: ['css!resources/ol-patch'],
           exports: 'ol'
+        },
+        'utils': {
+          exports: 'utils'
         }
       }
     });

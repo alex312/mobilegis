@@ -3,8 +3,8 @@
         <ion-title>
             动态
         </ion-title>
-        <ion-buttons right>
-            <button ion-button (click)="queryParamClick($event)">
+        <ion-buttons end>
+            <button ion-button icon-only (click)="queryParamClick($event)">
                 <ion-icon name="funnel" mode="ios"></ion-icon>
             </button>
         </ion-buttons>
@@ -56,4 +56,5 @@
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="_dataQueryPromiseDict[dynamicType].hasMore()">
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>
+    <div *ngIf="!_dataQueryPromiseDict[dynamicType].hasMore() && !_dataQueryPromiseDict[dynamicType].isLoading" style="padding-bottom:20px;text-align: center;color:#8e9093">这已经是最底部了</div>
 </ion-content>

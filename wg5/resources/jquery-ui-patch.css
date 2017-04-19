@@ -1,0 +1,133 @@
+.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-draggable {
+    border-radius: 0;
+    border: 0;
+    padding: 0;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix {
+    border-radius: 0;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid #c5c5c5;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+    font-family: "scicons";
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    text-align: center;
+    /* opacity: .8; */
+
+    /* For safety - reset parent styles, that can break glyph codes*/
+    font-variant: normal;
+    text-transform: none;
+
+    /* fix buttons height, for twitter bootstrap */
+    line-height: 1em;
+
+    /* Animation center compensation - margins should be symmetric */
+    /* remove if not needed */
+    margin-left: .2em;
+
+    /* you can be more comfortable with increased icons size */
+    /* font-size: 120%; */
+
+    /* Font smoothing. That was taken from TWBS */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Uncomment for 3D effect */
+    /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+
+    outline: none;
+    background: none;
+    border: none;
+}
+
+span.ui-button-icon-primary.ui-icon.ui-icon-closethick {
+    background: none;
+}
+
+.ui-dialog .ui-dialog-titlebar-close:hover {
+    font-weight: bold;
+}
+
+.ui-dialog .ui-dialog-titlebar-close:before {
+    content: "\e801";
+}
+
+.ui-dialog-titlebar-button {
+    background: transparent;
+    border: 0;
+    float: right;
+    width: auto;
+    padding: 0;
+    outline: none;
+}
+
+.ui-dialog-titlebar-button:active {
+    outline: none;
+}
+
+.ui-dialog-titlebar-button:hover {
+    color: red;
+}
+
+body button.ui-button.ui-button-text-only{
+    outline: none !important;
+    /*border: 0px;*/
+    border-color: #e5e5e5;
+    background-color: #eee!important;
+    color: #333;
+}
+
+body button.ui-button.ui-button-text-only:focus {
+    outline: none !important;
+    /*border: 0px;*/
+    border-color: #e5e5e5;
+    background-color: #eee!important;
+    color: #333;
+}
+body button.ui-button.ui-button-text-only:hover {
+    outline: none !important;
+    /*border: 0px;*/
+    border-color: #2ca7e0 ;
+    background-color: #2ca7e0!important;
+    color: white;
+}
+
+body button.ui-button.ui-button-text-only:active {
+    outline: none !important;
+    /*border: 0px;*/
+    border-color: #2ca7e0 ;
+    background: #2ca7e0!important;
+    color: white;
+}
+.ui-state-default.ui-button-text-only{
+    outline: none !important;
+    /*border: 0px;*/
+    border-color: #e5e5e5;
+    background: #eee;
+}
+
+.ui-dialog-content span{
+    color: #666;
+}
+ div label{
+     color: #666;
+ }
+
+.ui-dialog-titlebar,.ui-widget-content,.ui-dialog-content input{
+    border-color: #e5e5e5!important;
+    border-style: solid;
+}
+.ui-dialog-content input:focus{
+    outline-color: #2ca7e0;
+}

@@ -12,11 +12,11 @@ export class WarningPage extends ArticlePageBase {
     articleContentRef: ElementRef;
 
     constructor(private _param: NavParams, private _articleService: ArticleService) {
-        super();
+        super(_param);
         this.initArticle();
     }
 
     loadArticle(): Promise<any> {
-        return this._articleService.getWarning(this._param.data.id)
+        return this._articleService.getWarning(this._param.data.item.id)
     }
 }

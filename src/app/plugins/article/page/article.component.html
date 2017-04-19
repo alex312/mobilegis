@@ -1,18 +1,18 @@
 <ion-header>
     <ion-navbar>
         <ion-title>
-            {{article.title}}
+            {{title}}
         </ion-title>
     </ion-navbar>
 </ion-header>
 <ion-content>
-    <loading [timeout]="2000" [enable]="isLoading"></loading>
+    <loading [timeout]="10000" [enable]="isLoading"></loading>
     <div class="article-title">
         <h2>
             {{article.title}}
         </h2>
         <p align="right">
-            发布时间：{{ getDateString(article.publish_date) }}
+            <i class="iconfont icon-shijian" style="color:#FF9933"></i> 发布时间：{{ getDateString(article.publish_date) }}
         </p>
     </div>
     <div #articleContent class="article-content">

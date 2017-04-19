@@ -1,0 +1,19 @@
+.default-alert-container {
+    text-align: center;
+}
+
+.default-alert {
+    position: absolute;
+    top: 40%;
+    background: rgba(255, 255, 255, 0.8);
+    display: inline-block;
+    /*min-height: 100px;*/
+    min-width: 100px;
+    max-width: 300px;
+    padding: 30px;
+    color: red;
+    /*transition: transform .3s ease-out, opacity .3s ease-in;*/
+    /*transform: translate(0px, 100px);*/
+    /*transform-origin: top;*/
+    transition: opacity, transform 0.2s
+}

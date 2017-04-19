@@ -1,17 +1,16 @@
 <ion-header>
 	<ion-navbar>
 		<ion-title>海图</ion-title>
-		<ion-buttons right>
-			<button ion-button (click)="onStartSearch()">
+		<ion-buttons end>
+			<button ion-button icon-only (click)="onStartSearch()">
                 <ion-icon name="search"></ion-icon>
             </button>
 		</ion-buttons>
 	</ion-navbar>
 </ion-header>
 <ion-content class="cards-bg">
-	<div class="map" style="position: relative">
-		<mobile-app>Loading...</mobile-app>
-	</div>
+	<loading ion-fixed [timeout]="20000" [enable]="showLoading">正在加载，请稍后....</loading>
+	<mobile-app></mobile-app>
 	<div ion-fixed *ngIf="selectedFeature" class="summary">
 		<!--<ion-grid>
 			<ion-row>
@@ -28,6 +27,5 @@
 		</ion-grid>-->
 
 		<feature-info [FeatureData]="selectedFeature"></feature-info>
-
 	</div>
 </ion-content>

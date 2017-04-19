@@ -1,12 +1,17 @@
 import { ElementRef } from '@angular/core';
+
+import { NavParams } from 'ionic-angular';
+
 import { Format } from '../../../base';
 import { IArticleInfor } from '../data/article-info';
 import { Config } from '../../../config';
 
 export abstract class ArticlePageBase {
+    title: string;
     article: IArticleInfor;
     articleContentRef: ElementRef;
-    constructor() {
+    constructor(private _navParams: NavParams) {
+        this.title = _navParams.data.title;
         this.article = {
             id: "",
             title: "",
@@ -26,9 +31,10 @@ export abstract class ArticlePageBase {
             // 手机中运行时需要访问绝对的图片地址
             let imgs = content.getElementsByTagName("img");
             let baseURI = content.baseURI;
+            console.log(baseURI);
             for (let i = 0; i < imgs.length; i++) {
-                if (imgs[i].src.indexOf(baseURI) === 0)
-                    imgs[i].src = imgs[i].src.replace(baseURI, Config.proxy);
+                imgs[i].src = imgs[i].src.replace("file:///", Config.proxy);
+                console.log(imgs[i].src);
             }
             this.isLoading = false;
         });

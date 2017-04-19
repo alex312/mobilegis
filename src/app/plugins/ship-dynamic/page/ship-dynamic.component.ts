@@ -84,6 +84,7 @@ export class ShipDynamicPage {
 
     resetParam() {
         this.queryParamClick(null);
+        this._dataQueryPromiseDict[this.dynamicType].reset();
         this._dataQueryPromiseDict[this.dynamicType].requery().then();
     }
 

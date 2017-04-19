@@ -2,10 +2,20 @@ article-card-list {
     .card-ios, .card-md, .card-wp{
         margin:0px;
         width:100%;
-        border-bottom:1px solid #e5e5e5
+        border-bottom:1px solid #dedede
     }
+    .list-md,
+    .list-wp{
+        border-bottom:1px solid #dedede;
+    }
+
+    
 }
 
 article-list {
-
+    .list-md,
+    .list-wp{
+        border-bottom:1px solid #dedede;
+        margin-top:0px
+    }
 }

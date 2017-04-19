@@ -4,16 +4,22 @@
     <meta charset="UTF-8">
     <title>WebGIS</title>
     <link type="text/css" href="loading/loading.css" rel="stylesheet">
+    <script src="node_modules/webrtc-adapter/out/adapter.js"></script>
 </head>
 <body>
+<script src="seecooljs/detections.js"></script>
+<script>if (!detections(window)) {
+    window.location.href = "loading/incompatible.html";
+}</script>
 <script src="node_modules/babel-polyfill/dist/polyfill.js"></script>
 <script src="node_modules/reflect-metadata/Reflect.js"></script>
 <script src="node_modules/requirejs/require.js"></script>
 <script>
     require.config({
-        bundles:{
-            'highcharts':['highcharts','highcharts-exporting','highcharts-caultrue']
-        },
+        waitSeconds: 99999999,
+//        bundles: {
+//            'highcharts': ['highcharts','highcharts-more', 'highcharts-exporting', 'highcharts-caultrue']
+//        },
         paths: {
             'css': 'node_modules/require-css/css',
             'text': 'node_modules/requirejs-text/text',
@@ -26,19 +32,26 @@
             'long': 'node_modules/long/dist/long',
             'bytebuffer': 'node_modules/bytebuffer/dist/bytebuffer',
             'fecha': 'node_modules/fecha/fecha',
-            'fontawesome': 'node_modules/font-awesome/css/font-awesome',
-            'kendo': 'lib/kendo/js/kendo.web',
+            'fontawesome': 'lib/icons/all',
+            'kendo': 'lib/kendo/bundle.kendo',
+            'kendo.core': 'lib/kendo/js/kendo.web',
+            "kendo.zh-Hans": "lib/kendo/kendo.culture.zh-Hans",
+            "kendo.messages.zh-Hans": "lib/kendo/kendo.messages.zh-CN",
             'jquery-ui': 'node_modules/jquery-ui/jquery-ui',
-            'highcharts': 'lib/highcharts/highcharts',
+            'highcharts': 'lib/highcharts/bundle.highcharts',
+            'highcharts.core': 'lib/highcharts/highcharts',
             'highcharts-exporting': 'lib/highcharts/exporting',
-            'highcharts-caultrue': 'lib/highcharts/highcharts.zh-Hans'
+            'highcharts-more': 'lib/highcharts/highcharts-more',
+            'highcharts.zh-Hans': 'lib/highcharts/highcharts.zh-Hans',
+            'offline-exporting': 'lib/highcharts/offline-exporting',
+            'validator': 'lib/jquery-validate/jquery.validate.min',
+            "md5": "lib/jquery-md5/jquery.md5",
+            "utils": "seecooljs/utils",
+            "webrtc-adapter": "node_modules/webrtc-adapter/out/adapter"
         },
         shim: {
-            'css!resources/ol-patch': {
-                deps: ['css!node_modules/openlayers/dist/ol']
-            },
             'openlayers': {
-                deps: ['css!resources/ol-patch'],
+                deps: ['css!node_modules/openlayers/dist/ol.css'],
                 exports: 'ol'
             },
             'tether': {
@@ -48,25 +61,52 @@
                 }
             },
             'bootstrap': {
-                deps: ['jquery', 'BootstrapTether', 'css!node_modules/bootstrap/dist/css/bootstrap'],
+                deps: ['jquery', 'BootstrapTether', 'css!node_modules/bootstrap/dist/css/bootstrap.css', 'css!resources/bootstrap-patch.css'],
                 exports: 'jQuery'
             },
             'kendo': {
-                deps: ['jquery', 'css!lib/kendo/kendo.common.min.css', 'css!lib/kendo/kendo.default.min.css'],
+                deps: ['jquery', 'css!lib/kendo/kendo.common.min.css', 'css!lib/kendo/kendo.default.min.css', 'css!resources/kendo-patch.css'],
                 exports: 'jQuery'
             },
+            'kendo.zh-Hans': {
+                deps: ['kendo.core']
+            },
+            'kendo.messages.zh-Hans': {
+                deps: ['kendo.core']
+            },
             'jquery-ui': {
-                deps: ['jquery', 'css!node_modules/jquery-ui/themes/base/jquery-ui.css'],
+                deps: ['jquery', 'css!node_modules/jquery-ui/themes/base/jquery-ui.css', 'css!resources/jquery-ui-patch.css'],
                 exports: 'jQuery'
+            },
+            'validator': {
+                deps: ['jquery'],
+                exports: 'jQuery'
+            },
+            'md5': {
+                deps: ['jquery'],
+                exports: 'jQuery'
+            },
+            'css!resources/jquery-ui-patch.css': {
+                deps: ['css!node_modules/jquery-ui/themes/base/jquery-ui.css']
             },
             'highcharts': {
                 exports: 'highcharts'
             },
-            'highcharts-exporting': {
-                deps: ['lib/highcharts/highcharts'],
+            'highcharts-more': {
+                deps: ['highcharts.core'],
             },
-            'highcharts-caultrue': {
-                deps: ['lib/highcharts/highcharts'],
+            'highcharts-exporting': {
+                deps: ['highcharts.core'],
+            },
+            'offline-exporting': {
+                deps: ['highcharts.core', 'highcharts-exporting'],
+            },
+            'highcharts.zh-Hans': {
+                deps: ['highcharts.core', 'highcharts-exporting'],
+            },
+            'utils': {
+                deps: ['jquery'],
+                exports: 'utils'
             }
         }
     });
@@ -83,8 +123,12 @@
     promiseRequire('loading/detection').then(function (ok) {
         return promiseRequire(ok ? 'loading/index' : 'loading/incompatible');
     }).then(function (moduleMain) {
-        console.log(moduleMain);
-        moduleMain['default'](document.body, 'config');
+        moduleMain.default(document.body, '/', window['webgis6']) //启动
+                .then(function (webgis) {
+                    if (!window['webgis6']) {
+                        window['webgis6'] = webgis;
+                    }
+                });
         document.body.classList.add('loaded');
     }).catch(function (error) {
         console.log(error);

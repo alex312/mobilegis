@@ -5,11 +5,6 @@ ion-content.cards-bg {
     overflow-y:hidden;
   }
 
-  div.map{
-    position:relative;
-    height:100%;
-  }
-
   ion-grid, ion-row,ion-col{
     padding:0;
   }
@@ -40,5 +35,16 @@ ion-content.cards-bg {
 
   button.detail{
     float: right;
+  }
+
+  div.map .ol-scale-line{
+    display:none;
+  }
+  div.map .ol-control{
+    display:none;
+  }
+
+  .sc-layout-light-alert{
+    display:none;
   }
 }

@@ -10,6 +10,8 @@ import { TrafficEnvDetailComponent } from './component/traffic-env-detail.compon
 import { TrafficEnvInfoComponent } from './component/traffic-env-info.component';
 import { TrafficEnvSummaryComponent } from './component/traffic-env-summary.component';
 
+import { TrafficEnvDetailPage } from './page/traffic-env-detail.page';
+
 import { TrafficEnvService } from './service/traffic-env.service';
 
 
@@ -27,12 +29,13 @@ import { TrafficEnvService } from './service/traffic-env.service';
         TrafficEnvSummaryComponent
     ],
     entryComponents: [
-
+        TrafficEnvDetailPage
     ],
     declarations: [
         TrafficEnvDetailComponent,
         TrafficEnvInfoComponent,
-        TrafficEnvSummaryComponent
+        TrafficEnvSummaryComponent,
+        TrafficEnvDetailPage
     ],
     providers: [TrafficEnvService],
 })

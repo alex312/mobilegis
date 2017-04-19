@@ -1,0 +1,46 @@
+law-home-page{
+    .scroll-content{
+        background-color:#eeeeee
+    }
+
+    .card-ios:first-child,
+    .card-md:first-child{
+        margin-top:0px;
+
+    }
+    .card-ios + ion-card,.card-md + ion-card {
+        margin-top: 10px;
+    }
+
+    .card-header-md{
+        border-bottom:1px solid #dedede;
+    }
+
+    .card-content{
+        padding-left:0px;
+        padding-right:0px;
+    }
+
+    .list-md,.list-ios,.list-wp{
+        border-width:0px;
+    }
+
+    ion-card-header{
+        div{
+            display:flex;
+            h2{
+                flex-grow:1;
+
+                span{
+                    display:flex;
+                    align-items:center;
+                    height:100%;
+                }
+            }
+
+            .button-small-md{
+                margin:0px;
+            }
+        }
+    }
+}

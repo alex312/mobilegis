@@ -15,8 +15,16 @@ import { ArticleListPageModel } from './article-list-page-model';
 export class LawPage {
     articlePage = ArticlePage;
     pageModel: ArticleListPageModel;
+    categoryName = "文章"
     constructor(private _articleService: ArticleService, private _navParams: NavParams) {
-        this.pageModel = new ArticleListPageModel('hsfg', _articleService.getArticleList.bind(_articleService));
+        let category = _navParams.data;
+        if (category === "hsfg")
+            this.categoryName = "海事法规"
+        if (category === "vtszn")
+            this.categoryName = "VTS指南"
+        if (category === "fwcn")
+            this.categoryName = "服务承诺"
+        this.pageModel = new ArticleListPageModel(_navParams.data, _articleService.getArticleList.bind(_articleService));
         this.pageModel.requery();
     }
 

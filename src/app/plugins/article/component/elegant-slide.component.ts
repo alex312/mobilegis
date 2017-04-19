@@ -11,15 +11,16 @@ import { ArticleService } from '../service/article.service';
 })
 export class ElegantSlideComponent implements OnInit {
     slideItems = [
-
     ]
 
+
     constructor(private _articleService: ArticleService) {
-        _articleService.getElegant().then(result => {
+        this._articleService.getElegant().then(result => {
             result.forEach(item => {
                 item.url = Config.proxy + "api/elegant/images/" + item.url;
             })
             this.slideItems.splice(0, this.slideItems.length, ...result);
+            this.slidesAutoPlay();
         })
     }
 
@@ -30,11 +31,36 @@ export class ElegantSlideComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.slidesAutoPlay();
+
     }
 
     @ViewChild(Slides) slides: Slides;
+    private _slideIndex = 0;
+    private _userDrag = false;
     slidesAutoPlay() {
-        this.slides.startAutoplay();
+        setTimeout(() => {
+            if (this._userDrag === false) {
+                this._slideIndex++;
+                if (this._slideIndex === this.slideItems.length)
+                    this._slideIndex = 0;
+                this.slides.slideTo(this._slideIndex)
+
+                this.slidesAutoPlay();
+            }
+        }, 3000);
+    }
+
+    slideChange(event: Slides) {
+        this._slideIndex = event.getActiveIndex();
+        if (this._userDrag === true) {
+            setTimeout(() => {
+                this._userDrag = false;
+                this.slidesAutoPlay();
+            }, 15000);
+        }
+    }
+
+    slideDrag(event) {
+        this._userDrag = true;
     }
 }

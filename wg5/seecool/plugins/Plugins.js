@@ -1,290 +1,189 @@
-"use strict";
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) {
-            try {
-                step(generator.next(value));
-            } catch (e) {
-                reject(e);
-            }
-        }
-        function rejected(value) {
-            try {
-                step(generator.throw(value));
-            } catch (e) {
-                reject(e);
-            }
-        }
-        function step(result) {
-            result.done ? resolve(result.value) : new P(function (resolve) {
-                resolve(result.value);
-            }).then(fulfilled, rejected);
-        }
-        step((generator = generator.apply(thisArg, _arguments)).next());
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t;
+    return { next: verb(0), "throw": verb(1), "return": verb(2) };
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
 };
 define(["require", "exports"], function (require, exports) {
     "use strict";
-
     function inject(name) {
         return function (target, propertyKey, parameterIndex) {
-            var dependencies = Reflect.getMetadata('sc-plugin-dependency', target, void 0);
-            if (dependencies) dependencies[parameterIndex] = name;else {
+            var dependencies = Reflect.getMetadata('sc-plugin-dependency', target, void (0));
+            if (dependencies)
+                dependencies[parameterIndex] = name;
+            else {
                 dependencies = [];
                 dependencies[parameterIndex] = name;
-                Reflect.defineMetadata('sc-plugin-dependency', dependencies, target, void 0);
+                Reflect.defineMetadata('sc-plugin-dependency', dependencies, target, void (0));
             }
         };
     }
     exports.inject = inject;
-    var plugins = new Map(); //存储 各个 plugin 的实例
-
-    var Plugins = function () {
-        function Plugins() {
-            _classCallCheck(this, Plugins);
+    var Plugins = (function () {
+        function Plugins(manifest, pluginConfigs) {
+            this.instances_ = {};
+            this.manifest_ = {};
+            this.pluginConfigs_ = {};
+            this.manifest_ = manifest;
+            this.pluginConfigs_ = pluginConfigs;
         }
-
-        _createClass(Plugins, null, [{
-            key: "add",
-            value: function add(name, value) {
-                plugins.set(name, Promise.resolve(value));
-            }
-        }, {
-            key: "load",
-            value: function load(list, configs) {
-                return __awaiter(this, void 0, void 0, regeneratorRuntime.mark(function _callee() {
-                    var tlist, a, b, mappings, aliases, allPlugins;
-                    return regeneratorRuntime.wrap(function _callee$(_context) {
-                        while (1) {
-                            switch (_context.prev = _context.next) {
-                                case 0:
-                                    tlist = [];
-
-                                    list.map(function (str) {
-                                        var _parsePluginName = parsePluginName(str);
-
-                                        var _parsePluginName2 = _slicedToArray(_parsePluginName, 2);
-
-                                        a = _parsePluginName2[0];
-                                        b = _parsePluginName2[1];
-
-                                        var t = a.split(",");
-                                        t.map(function (tstr) {
-                                            tlist.push([tstr, b]);
-                                        });
-                                    });
-                                    mappings = new Map(tlist);
-                                    //var mappings = new Map<string, string>(list.map(parsePluginName));
-
-                                    aliases = Array.from(mappings.keys());
-                                    allPlugins = new Map();
-                                    _context.next = 7;
-                                    return this.collectRequiredPlugins_(mappings, allPlugins, aliases);
-
-                                case 7:
-                                    _context.next = 9;
-                                    return this.createPlugins_(aliases, configs, mappings, allPlugins);
-
-                                case 9:
-                                    return _context.abrupt("return", _context.sent);
-
-                                case 10:
-                                case "end":
-                                    return _context.stop();
-                            }
-                        }
-                    }, _callee, this);
-                }));
-            }
-        }, {
-            key: "createPlugins_",
-            value: function createPlugins_(aliases, configs, mappings, allPlugins) {
+        Plugins.prototype.add = function (name, theClass) {
+            return this.instances_[name] = Promise.resolve(theClass);
+        };
+        Plugins.prototype.load = function (names) {
+            return __awaiter(this, void 0, void 0, function () {
                 var _this = this;
-
-                return Promise.all(aliases.map(function (alias) {
-                    if (!alias) return Promise.resolve(null);
-                    if (alias[alias.length - 1] === '?') alias = alias.substr(0, alias.length - 1);
-                    if (plugins.has(alias)) return plugins.get(alias);
-                    while (true) {
-                        var type = mappings.has(alias) ? mappings.get(alias) : alias;
-                        if (type == alias) {
-                            break;
-                        } else {
-                            alias = type;
-                            if (plugins.has(alias)) return plugins.get(alias);
-                        }
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            if (!(Object.prototype.toString.call(names) == '[object Array]')) return [3 /*break*/, 2];
+                            return [4 /*yield*/, Promise.all(names.map(function (name) {
+                                    return _this.load_.call(_this, name);
+                                }))];
+                        case 1: return [2 /*return*/, _a.sent()];
+                        case 2:
+                            if (!(Object.prototype.toString.call(names) == '[object String]')) return [3 /*break*/, 4];
+                            return [4 /*yield*/, this.load_.call(this, names)];
+                        case 3: return [2 /*return*/, _a.sent()];
+                        case 4: return [2 /*return*/];
                     }
-                    var type = mappings.has(alias) ? mappings.get(alias) : alias;
-                    if (!allPlugins.has(type)) return Promise.resolve(null);
-                    var promise = allPlugins.get(type).then(function (cstr) {
-                        if (!cstr) return Promise.resolve(null);
-                        var dependencyAliases = Reflect.getMetadata('sc-plugin-dependency', cstr, void 0);
-                        return _this.createPlugins_(dependencyAliases || [], configs, mappings, allPlugins).then(function (deps) {
-                            deps[0] = configs && configs[alias] || {};
-                            return new (Function.prototype.bind.apply(cstr, [null].concat(_toConsumableArray(deps))))();
-                        });
-                    });
-                    plugins.set(alias, promise);
-                    return promise;
-                }));
-            }
-            /**
-             * 加载aliases指定的Plugin ,参考mapping表,结果集在result中
-             * @param mappings configMap
-             * @param result result
-             * @param aliases aliases List
-             * @private
-             */
-
-        }, {
-            key: "collectRequiredPlugins_",
-            value: function collectRequiredPlugins_(mappings, result, aliases) {
-                return __awaiter(this, void 0, void 0, regeneratorRuntime.mark(function _callee2() {
-                    var _this2 = this;
-
-                    return regeneratorRuntime.wrap(function _callee2$(_context2) {
-                        while (1) {
-                            switch (_context2.prev = _context2.next) {
-                                case 0:
-                                    _context2.next = 2;
-                                    return Promise.all(aliases.map(function (alias) {
-                                        if (!plugins.has(alias)) {
-                                            var type = mappings.has(alias) ? mappings.get(alias) : alias;
-                                            if (!result.has(type)) {
-                                                result.set(type, _this2.loadPlugin_(type).then(function (_ref) {
-                                                    var _ref2 = _slicedToArray(_ref, 2);
-
-                                                    var cstr = _ref2[0];
-                                                    var dependencyAliases = _ref2[1];
-
-                                                    return _this2.collectRequiredPlugins_(mappings, result, dependencyAliases).then(function () {
-                                                        return cstr;
-                                                    });
-                                                }));
-                                            }
-                                        }
-                                    }));
-
-                                case 2:
-                                case "end":
-                                    return _context2.stop();
+                });
+            });
+        };
+        Plugins.prototype.exec = function (plugin, method, args) {
+            return __awaiter(this, void 0, void 0, function () {
+                var p, ret;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, this.load(plugin)];
+                        case 1:
+                            p = _a.sent();
+                            if (!method) return [3 /*break*/, 4];
+                            ret = p[method].apply(p, args || []);
+                            if (!(ret instanceof Promise)) return [3 /*break*/, 3];
+                            return [4 /*yield*/, ret];
+                        case 2: return [2 /*return*/, _a.sent()];
+                        case 3: return [2 /*return*/, ret];
+                        case 4: return [2 /*return*/, p];
+                    }
+                });
+            });
+        };
+        Plugins.prototype.load_ = function (name) {
+            return __awaiter(this, void 0, void 0, function () {
+                var type, dependencyMappings, manifestItem, config;
+                return __generator(this, function (_a) {
+                    if (name in this.instances_) {
+                    }
+                    else {
+                        if (name in this.manifest_) {
+                            manifestItem = this.manifest_[name];
+                            if (manifestItem.type) {
+                                type = manifestItem.type;
+                                dependencyMappings = manifestItem.deps;
+                            }
+                            else {
+                                type = name;
+                                dependencyMappings = manifestItem;
                             }
                         }
-                    }, _callee2, this);
-                }));
-            }
-            /**
-             * loadPlugin by type(as path)
-             * @param type
-             * @returns {any|Array[]}
-             * @private
-             */
-
-        }, {
-            key: "loadPlugin_",
-            value: function loadPlugin_(type) {
-                return __awaiter(this, void 0, void 0, regeneratorRuntime.mark(function _callee3() {
-                    var esm, cstr, dependencyAliases, requiredDependencyAliases, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, n;
-
-                    return regeneratorRuntime.wrap(function _callee3$(_context3) {
-                        while (1) {
-                            switch (_context3.prev = _context3.next) {
-                                case 0:
-                                    _context3.next = 2;
-                                    return importModule(mapTypeNameToModuleName(type));
-
-                                case 2:
-                                    esm = _context3.sent;
-                                    cstr = esm['default'];
-                                    dependencyAliases = Reflect.getMetadata('sc-plugin-dependency', cstr, void 0);
-                                    requiredDependencyAliases = [];
-
-                                    if (!dependencyAliases) {
-                                        _context3.next = 26;
-                                        break;
-                                    }
-
-                                    _iteratorNormalCompletion = true;
-                                    _didIteratorError = false;
-                                    _iteratorError = undefined;
-                                    _context3.prev = 10;
-
-                                    for (_iterator = dependencyAliases[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                                        n = _step.value;
-
-                                        if (n && n[n.length - 1] !== '?') requiredDependencyAliases.push(n);
-                                    }
-                                    _context3.next = 18;
-                                    break;
-
-                                case 14:
-                                    _context3.prev = 14;
-                                    _context3.t0 = _context3["catch"](10);
-                                    _didIteratorError = true;
-                                    _iteratorError = _context3.t0;
-
-                                case 18:
-                                    _context3.prev = 18;
-                                    _context3.prev = 19;
-
-                                    if (!_iteratorNormalCompletion && _iterator.return) {
-                                        _iterator.return();
-                                    }
-
-                                case 21:
-                                    _context3.prev = 21;
-
-                                    if (!_didIteratorError) {
-                                        _context3.next = 24;
-                                        break;
-                                    }
-
-                                    throw _iteratorError;
-
-                                case 24:
-                                    return _context3.finish(21);
-
-                                case 25:
-                                    return _context3.finish(18);
-
-                                case 26:
-                                    return _context3.abrupt("return", [cstr, requiredDependencyAliases]);
-
-                                case 27:
-                                case "end":
-                                    return _context3.stop();
-                            }
+                        else {
+                            type = name;
+                            dependencyMappings = this.manifest_[name];
                         }
-                    }, _callee3, this, [[10, 14, 18, 26], [19,, 21, 25]]);
-                }));
-            }
-        }]);
-
+                        config = this.pluginConfigs_[name] || this.pluginConfigs_[type] || {};
+                        config.type = type;
+                        this.instances_[name] = this.create_(type, config, dependencyMappings || {}, name);
+                    }
+                    return [2 /*return*/, this.instances_[name]];
+                });
+            });
+        };
+        Plugins.prototype.create_ = function (type, config, dependencyMappings, name) {
+            return __awaiter(this, void 0, void 0, function () {
+                var dependencyNames, theClass, dependencies, promiseDependencyInstances, i, dependencyName;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            dependencyNames = [];
+                            return [4 /*yield*/, this.loadModule_(type)];
+                        case 1:
+                            theClass = _a.sent();
+                            dependencies = Reflect.getMetadata('sc-plugin-dependency', theClass, void (0)) || [];
+                            promiseDependencyInstances = [Promise.resolve(config)];
+                            for (i = 1; i < dependencies.length; i++) {
+                                dependencyName = dependencies[i];
+                                dependencyName = dependencyMappings[dependencyName] || dependencyName;
+                                dependencyNames.push(dependencyName);
+                                promiseDependencyInstances.push(this.load_(dependencyName));
+                            }
+                            if (name === "urlLoader") {
+                                name;
+                            }
+                            console.log("instances:" + name + "(" + type + "):");
+                            dependencyNames.forEach(function (name) {
+                                console.log('---' + name);
+                            });
+                            return [2 /*return*/, Promise.all(promiseDependencyInstances)
+                                    .catch(function (error) {
+                                    throw new PluginLoadError(type, dependencyMappings, error, "Load plugin failed.");
+                                })
+                                    .then(function (deps) {
+                                    return new (theClass.bind.apply(theClass, [void 0].concat(deps)))();
+                                })];
+                    }
+                });
+            });
+        };
+        Plugins.prototype.loadModule_ = function (type) {
+            var path = 'plugins/' + type + '/main';
+            return new Promise(function (resolve, reject) {
+                require([path], resolve, reject);
+            }).then(function (m) {
+                return m['default'];
+            });
+        };
         return Plugins;
-    }();
-
+    }());
     exports.Plugins = Plugins;
-    function mapTypeNameToModuleName(typeName) {
-        return 'plugins/' + typeName + '/main';
+    function PluginLoadError(plugin, dependencies, inner, message) {
+        this.name = 'PluginLoadError';
+        this.message = message;
+        this.plugin = plugin;
+        this.dependencies = dependencies;
+        this.inner = inner;
+        this.stack = (new Error()).stack;
     }
-    function parsePluginName(name) {
-        if (name.indexOf(":") > 0) return name.split(":");
-        return [name, name];
-    }
-    function importModule(name) {
-        return new Promise(function (resolve) {
-            require([name], resolve);
-        });
-    }
+    PluginLoadError.prototype = new Error();
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.default = Plugins;
 });

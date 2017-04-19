@@ -1,17 +1,8 @@
-"use strict";
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 define(["require", "exports", "jquery"], function (require, exports, $) {
     "use strict";
     //if (!('Permission' in window)) window['Permission'] = {};
-
-    var User = function () {
+    var User = (function () {
         function User(config) {
-            _classCallCheck(this, User);
-
             this.defaultPermission = {
                 test: {
                     plotMenuLink: true,
@@ -43,130 +34,110 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
                     userManager: true
                 },
                 fujianDeclare: {
-                    declare: true
+                    declare: true,
                 },
                 fujianWaterWork: {
-                    waterwork: true
+                    waterwork: true,
                 }
             };
             this.config_ = config;
         }
-
-        _createClass(User, [{
-            key: "setUser",
-            value: function setUser(user) {
-                this.userInfo_ = user;
-                var storage = window.localStorage;
-                storage["User"] = JSON.stringify(this.userInfo_);
+        User.prototype.setUser = function (user) {
+            this.userInfo_ = user;
+            var storage = window.localStorage;
+            storage["User"] = JSON.stringify(this.userInfo_);
+        };
+        User.prototype.getUser = function () {
+            if (!this.userInfo_) {
+                var t = window.localStorage["User"];
+                t = t || "null";
+                this.userInfo_ = JSON.parse(t);
             }
-        }, {
-            key: "getUser",
-            value: function getUser() {
-                if (!this.userInfo_) {
-                    var t = window.localStorage["User"];
-                    t = t || "null";
-                    this.userInfo_ = JSON.parse(t);
-                }
-                return this.userInfo_;
+            return this.userInfo_;
+        };
+        User.prototype.setPermission = function (permission) {
+            this.userPermission_ = permission;
+            var storage = window.localStorage;
+            storage["UserPermission"] = JSON.stringify(this.userPermission_);
+        };
+        User.prototype.getPermission = function () {
+            //return true;
+            if (!this.userPermission_) {
+                var t = window.localStorage["UserPermission"];
+                t = t || "{}";
+                this.userPermission_ = JSON.parse(t);
             }
-        }, {
-            key: "setPermission",
-            value: function setPermission(permission) {
-                this.userPermission_ = permission;
-                var storage = window.localStorage;
-                storage["UserPermission"] = JSON.stringify(this.userPermission_);
+            return this.userPermission_;
+        };
+        User.prototype.havePermission = function (key) {
+            //return true;
+            if (!this.userPermission_) {
+                var t = window.localStorage["UserPermission"];
+                t = t || "{}";
+                this.userPermission_ = JSON.parse(t);
             }
-        }, {
-            key: "getPermission",
-            value: function getPermission() {
-                //return true;
-                if (!this.userPermission_) {
-                    var t = window.localStorage["UserPermission"];
-                    t = t || "{}";
-                    this.userPermission_ = JSON.parse(t);
-                }
-                return this.userPermission_;
+            return this.userPermission_[key];
+        };
+        User.prototype.setSetting = function (setting) {
+            this.userSetting_ = setting;
+            var storage = window.localStorage;
+            storage["UserSetting"] = JSON.stringify(this.userSetting_);
+        };
+        User.prototype.getSetting = function () {
+            if (!this.userSetting_) {
+                var t = window.localStorage["UserSetting"];
+                t = t || "{}";
+                this.userSetting_ = JSON.parse(t);
             }
-        }, {
-            key: "havePermission",
-            value: function havePermission(key) {
-                //return true;
-                if (!this.userPermission_) {
-                    var t = window.localStorage["UserPermission"];
-                    t = t || "{}";
-                    this.userPermission_ = JSON.parse(t);
-                }
-                return this.userPermission_[key];
+            return this.userSetting_;
+        };
+        User.prototype.clearUser = function () {
+            var storage = window.localStorage;
+            delete storage["UserSetting"];
+            delete storage["UserSettingObject"];
+            delete storage["UserPermission"];
+            delete storage["User"];
+        };
+        User.prototype.upLoadSetting = function () {
+            var storage = window.localStorage;
+            storage["UserSetting"] = JSON.stringify(this.userSetting_);
+            var userId = this.userInfo_.Id || this.userInfo_.UserId || "";
+            var setting = storage["UserSetting"];
+            var sto = storage["UserSettingObject"] || "{}";
+            sto = JSON.parse(sto);
+            var userConfigData = this.config_.userConfigData || "api/userConfigData";
+            if (sto.Id) {
+                return $.ajax({
+                    url: userConfigData + "?Id=" + sto.Id,
+                    type: "put",
+                    data: {
+                        Id: sto.Id,
+                        UserId: userId,
+                        Category: "Webgis5_UserSetting",
+                        Content: setting
+                    }
+                });
             }
-        }, {
-            key: "setSetting",
-            value: function setSetting(setting) {
-                this.userSetting_ = setting;
-                var storage = window.localStorage;
-                storage["UserSetting"] = JSON.stringify(this.userSetting_);
+            else {
+                return $.ajax({
+                    url: userConfigData,
+                    type: "post",
+                    data: {
+                        Id: 0,
+                        UserId: userId,
+                        Category: "Webgis5_UserSetting",
+                        Content: setting
+                    }
+                }).done(function (data, state) {
+                    storage["UserSettingObject"] = JSON.stringify(data);
+                })
+                    .fail(function (data, state) {
+                    console.error(data);
+                });
             }
-        }, {
-            key: "getSetting",
-            value: function getSetting() {
-                if (!this.userSetting_) {
-                    var t = window.localStorage["UserSetting"];
-                    t = t || "{}";
-                    this.userSetting_ = JSON.parse(t);
-                }
-                return this.userSetting_;
-            }
-        }, {
-            key: "clearUser",
-            value: function clearUser() {
-                var storage = window.localStorage;
-                delete storage["UserSetting"];
-                delete storage["UserSettingObject"];
-                delete storage["UserPermission"];
-                delete storage["User"];
-            }
-        }, {
-            key: "upLoadSetting",
-            value: function upLoadSetting() {
-                var storage = window.localStorage;
-                storage["UserSetting"] = JSON.stringify(this.userSetting_);
-                var userId = this.userInfo_.Id || this.userInfo_.UserId || "";
-                var setting = storage["UserSetting"];
-                var sto = storage["UserSettingObject"] || "{}";
-                sto = JSON.parse(sto);
-                var userConfigData = this.config_.userConfigData || "api/UserConfigData";
-                if (sto.Id) {
-                    return $.ajax({
-                        url: userConfigData + "?Id=" + sto.Id,
-                        type: "put",
-                        data: {
-                            Id: sto.Id,
-                            UserId: userId,
-                            Category: "Webgis5_UserSetting",
-                            Content: setting
-                        }
-                    });
-                } else {
-                    return $.ajax({
-                        url: userConfigData,
-                        type: "post",
-                        data: {
-                            Id: 0,
-                            UserId: userId,
-                            Category: "Webgis5_UserSetting",
-                            Content: setting
-                        }
-                    }).done(function (data, state) {
-                        storage["UserSettingObject"] = JSON.stringify(data);
-                    }).fail(function (data, state) {
-                        console.error(data);
-                    });
-                }
-            }
-        }]);
-
+        };
         return User;
-    }();
-
+    }());
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.default = User;
 });

@@ -7,15 +7,17 @@ export class ArticleListPageModel {
     total: number;
 
     private _queryFunc
+    private _perpageCount: number = 30;
 
-    constructor(category: string, queryFunc: Function) {
+    constructor(category: string, queryFunc: Function, perpageCount: number = 30) {
         this.category = category;
         this._queryFunc = queryFunc;
+        this._perpageCount = perpageCount;
     }
 
     queryMore() {
         this.isLoading = true;
-        return this._queryFunc(this.category, this.index).then((result) => {
+        return this._queryFunc(this.category, this.index, this._perpageCount).then((result) => {
 
             // this.isLoading = false;
             this.itemSource.splice(this.itemSource.length, 0, ...result.items);

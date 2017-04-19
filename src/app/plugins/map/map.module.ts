@@ -7,6 +7,7 @@ import { IonicModule } from 'ionic-angular';
 import { SearchModule } from '../search';
 import { ShipModule } from '../ship';
 import { TrafficEnvModule } from '../traffic-env';
+import { LoadingModule } from '../loading';
 
 import { MapPage } from './page/map.page';
 
@@ -21,7 +22,8 @@ import { FeatureInfoComponent } from './component/feature-info.component';
         IonicModule,
         SearchModule,
         ShipModule,
-        TrafficEnvModule
+        TrafficEnvModule,
+        LoadingModule
     ],
     exports: [
         MapPage

@@ -1,0 +1,10 @@
+.searchbar-ios {
+        .searchbar-search-icon{
+            top:calc((100% - #{$searchbar-ios-input-search-icon-size} )/2);
+        }
+
+        .searchbar-input{
+            box-shadow:none;
+            padding-right:0px;
+        }
+}

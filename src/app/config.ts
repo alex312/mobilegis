@@ -1,9 +1,10 @@
 // import {TaskStatus} from './task/service/metadata.service';
 
 export const Config = {
-    //proxy: "http://192.168.13.14:9006/",
-    proxy: "http://192.168.13.35:9007/",
+    // proxy: "http://192.168.13.14:9006/",
+    // proxy: "http://192.168.13.35:9007/",
     // proxy: "http://192.168.3.23/tjvts/",
+    proxy: "http://60.30.247.211:88/",
     CORDOVA_READY: false,
     needLogin: false,
 
@@ -19,7 +20,7 @@ export const Config = {
     //     perBlockSize: 1024
     // },
     mapConfig: {
-        webgisUrl: "wg5/index.html#mobile"
+        webgisUrl: "wg5/index.html"
     },
     Plugins: {
         Alarm: {

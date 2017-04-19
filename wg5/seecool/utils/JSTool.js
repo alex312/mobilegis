@@ -1,19 +1,13 @@
-"use strict";
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 define(["require", "exports"], function (require, exports) {
     "use strict";
-
     var JSTool;
     (function (JSTool) {
         function cloneWeak(A) {
             var r;
             if (A instanceof Array) {
                 r = [];
-            } else {
+            }
+            else {
                 r = {};
             }
             for (var i in A) {
@@ -45,12 +39,14 @@ define(["require", "exports"], function (require, exports) {
         function cloneDeep(node) {
             var newNode = {};
             for (var key in node) {
-                if (key[0] === "_") continue;
+                if (key[0] === "_")
+                    continue;
                 var val = node[key];
                 if (val) {
                     if (val.type) {
                         val = cloneDeep(val);
-                    } else if (Array.isArray(val)) {
+                    }
+                    else if (Array.isArray(val)) {
                         val = val.map(cloneDeep);
                     }
                 }
@@ -67,11 +63,14 @@ define(["require", "exports"], function (require, exports) {
          * @example priorConfig(low,hight) //
          */
         function priorConfig(A, B) {
-            if (typeof A == 'undefined') return B;
-            if (typeof B == 'undefined') return A;
+            if (typeof (A) == 'undefined')
+                return B;
+            if (typeof (B) == 'undefined')
+                return A;
             if (A instanceof Array && B instanceof Array) {
                 return A;
-            } else if ((typeof A === "undefined" ? "undefined" : _typeof(A)) == (typeof B === "undefined" ? "undefined" : _typeof(B)) && (typeof A === "undefined" ? "undefined" : _typeof(A)) == 'object') {
+            }
+            else if (typeof (A) == typeof (B) && typeof (A) == 'object') {
                 var C = {};
                 for (var key in A) {
                     C[key] = A[key];
@@ -79,23 +78,24 @@ define(["require", "exports"], function (require, exports) {
                 for (var key in B) {
                     if (key in C) {
                         C[key] = priorConfig(C[key], B[key]);
-                    } else {
+                    }
+                    else {
                         C[key] = B[key];
                     }
                 }
                 return C;
-            } else {
+            }
+            else {
                 return A;
             }
         }
         JSTool.priorConfig = priorConfig;
         function ArraysH2V() {
-            var r = [];
-
-            for (var _len = arguments.length, restOfName = Array(_len), _key = 0; _key < _len; _key++) {
-                restOfName[_key] = arguments[_key];
+            var restOfName = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                restOfName[_i] = arguments[_i];
             }
-
+            var r = [];
             var a = restOfName[0];
             for (var i = 0; i < a.length; i++) {
                 var l = [];
@@ -116,9 +116,9 @@ define(["require", "exports"], function (require, exports) {
          */
         function ArrayRepeated(obj, num) {
             var r = [];
-            for (var i = 0; i < num; i++) {
+            for (var i = 0; i < num; i++)
                 r.push(obj);
-            }return r;
+            return r;
         }
         JSTool.ArrayRepeated = ArrayRepeated;
         /**
@@ -129,9 +129,9 @@ define(["require", "exports"], function (require, exports) {
          */
         function ArrayIndex(num) {
             var r = [];
-            for (var i = 0; i < num; i++) {
+            for (var i = 0; i < num; i++)
                 r.push(i);
-            }return r;
+            return r;
         }
         JSTool.ArrayIndex = ArrayIndex;
         function CrossId(ID) {
@@ -153,20 +153,20 @@ define(["require", "exports"], function (require, exports) {
         }
         JSTool.CrossId2 = CrossId2;
         function ArraysDo(A) {
-            var r = [];
-
-            for (var _len2 = arguments.length, restOfName = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-                restOfName[_key2 - 1] = arguments[_key2];
+            var restOfName = [];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                restOfName[_i - 1] = arguments[_i];
             }
-
+            var r = [];
             var l = restOfName.length;
-            if (l == 0) return A;
+            if (l == 0)
+                return A;
             var f = restOfName[l - 1];
             var ps = [A].concat(restOfName);
             ps.pop();
-            ps = this.ArraysH2V.apply(this, _toConsumableArray(ps));
+            ps = this.ArraysH2V.apply(this, ps);
             for (var i = 0; i < A.length; i++) {
-                r[i] = f.apply(undefined, _toConsumableArray(ps[i]));
+                r[i] = f.apply(void 0, ps[i]);
             }
             return r;
         }
@@ -174,21 +174,21 @@ define(["require", "exports"], function (require, exports) {
         //此函数多余
         //[c,r]=ArraysDoContext(A1,A2,A3...,function(context,a1,a2,a3...){return x})
         function ArraysDoContext(A) {
+            var restOfName = [];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                restOfName[_i - 1] = arguments[_i];
+            }
             var c = {};
             var r = [];
-
-            for (var _len3 = arguments.length, restOfName = Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
-                restOfName[_key3 - 1] = arguments[_key3];
-            }
-
             var l = restOfName.length;
-            if (l == 0) return A;
+            if (l == 0)
+                return A;
             var f = restOfName[l - 1];
             var ps = [A].concat(restOfName);
             ps.pop();
-            ps = this.ArraysH2V.apply(this, _toConsumableArray(ps));
+            ps = this.ArraysH2V.apply(this, ps);
             for (var i = 0; i < A.length; i++) {
-                r[i] = f.apply(undefined, [c].concat(_toConsumableArray(ps[i])));
+                r[i] = f.apply(void 0, [c].concat(ps[i]));
             }
             return [c, r];
         }
@@ -201,6 +201,8 @@ define(["require", "exports"], function (require, exports) {
             return r;
         }
         JSTool.ArrayIAToObject = ArrayIAToObject;
+        //分割
+        //ArrayToArraysSplit([1,2,3,4,5,6,7],2) -> [[1,2],[3,4],[5,6],[7]]
         function ArrayToArraysSplit(A, n) {
             var r = [];
             for (var i = 0; i < A.length / n; i++) {
@@ -212,6 +214,8 @@ define(["require", "exports"], function (require, exports) {
             return r;
         }
         JSTool.ArrayToArraysSplit = ArrayToArraysSplit;
+        //分发
+        //ArrayToArraysSplit([1,2,3,4,5,6,7],2) -> [[1,3,5,7],[2,4,6]]
         function ArrayToArraysServe(A, n) {
             var r = [];
             for (var i = 0; i < n; i++) {
@@ -224,7 +228,8 @@ define(["require", "exports"], function (require, exports) {
         }
         JSTool.ArrayToArraysServe = ArrayToArraysServe;
         function StringFormat() {
-            if (arguments.length == 0) return null;
+            if (arguments.length == 0)
+                return null;
             var str = arguments[0];
             for (var i = 1; i < arguments.length; i++) {
                 var re = new RegExp('\\{' + (i - 1) + '\\}', 'gm');
@@ -233,5 +238,18 @@ define(["require", "exports"], function (require, exports) {
             return str;
         }
         JSTool.StringFormat = StringFormat;
+        ////..{0:}..{1}..
+        //export function format(fmtstr,obj) {
+        //    if (arguments.length == 0)
+        //        returnnull;
+        //    var str = arguments[0];
+        //    for (var i = 1; i < arguments.length; i++) {
+        //        var re = new RegExp('\\{' + (i - 1) + '\\}', 'gm');
+        //        str = str.replace(re, arguments[i]);
+        //    }
+        //    return str;
+        //}
+        //format.Formats={};
+        //format.Formats.push({R:'/dsd/f',F:(v)=>{}})
     })(JSTool = exports.JSTool || (exports.JSTool = {}));
 });

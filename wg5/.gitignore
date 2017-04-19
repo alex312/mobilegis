@@ -1,0 +1,7 @@
+/node_modules/
+/typings/
+/seecool/**/*.js
+/plugins/**/*.js
+/loading/**/*.js
+/.idea/
+/aswsfile-local.js

@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            法规指南
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+
+    <ion-card>
+        <ion-card-header>
+            <div>
+                <h2><span>海事法规</span></h2>
+                <button ion-button clear small (click)="seeMore('hsfg')">更多</button>
+            </div>
+        </ion-card-header>
+        <ion-card-content>
+            <loading [timeout]="10000" [enable]="hsfgPageModel.isLoading">正在加载，请稍后....</loading>
+            <article-list [itemSource]="hsfgPageModel.itemSource" [detailPage]="articlePage" categoryName="{{'海事法规'}}"></article-list>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header>
+            <div>
+                <h2><span>VTS指南</span></h2>
+                <button ion-button clear small (click)="seeMore('vtszn')">更多</button>
+            </div>
+        </ion-card-header>
+        <ion-card-content>
+            <loading [timeout]="10000" [enable]="vtsznPageModel.isLoading">正在加载，请稍后....</loading>
+            <article-list [itemSource]="vtsznPageModel.itemSource" [detailPage]="articlePage" categoryName="{{'VTS指南'}}"></article-list>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-header>
+            <div>
+                <h2><span>服务承诺</span></h2>
+                <button ion-button clear small (click)="seeMore('fwcn')">更多</button>
+            </div>
+        </ion-card-header>
+        <ion-card-content>
+            <loading [timeout]="10000" [enable]="fwcnPageModel.isLoading">正在加载，请稍后....</loading>
+            <article-list [itemSource]="fwcnPageModel.itemSource" [detailPage]="articlePage" categoryName="{{'服务承诺'}}"></article-list>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

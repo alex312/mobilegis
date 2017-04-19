@@ -1,5 +1,5 @@
-import {ShipSummary} from '../../ship';
-import {TrafficEnvSummary} from '../../traffic-env';
+import { ShipSummary } from '../../ship';
+import { TrafficEnvSummary } from '../../traffic-env';
 
 export enum FeatureType {
     Ship,
@@ -9,7 +9,7 @@ export enum FeatureType {
 export class Feature {
     type;
     summary: any;
-    constructor(private layerType: string, public data: any) {
+    constructor(public layerType: string, public data: any) {
         this.type = this.mapToFeatureType(layerType);
         this.summary = this.mapToSummary(this.type, data);
     }

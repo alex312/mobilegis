@@ -60,11 +60,11 @@ export class SearchPage implements OnInit {
 
     onSelectFeature(item: SearchResultItem) {
         // this.webgisInteractive.callWebGISAction("SelectObj", feature.uid);
-        let fun = this.mapHolder.tool[this.switchValue];
-        if (fun) {
-            fun.SetFocus(item.uid);
-            this.navCtrl.pop();
-        }
+        this.mapHolder.selectedFeature = {
+            feature: item,
+            type: this.switchValue
+        };
+        this.navCtrl.pop();
     }
 
     ngOnInit() {
@@ -72,6 +72,8 @@ export class SearchPage implements OnInit {
         MapHolderImp.createHolder();
         MapHolderImp.holder.then((holder) => {
             this.mapHolder = holder;
+            // this.holder.tool.map.UpdateSize();
+            // setTimeout(this.mapHolder.tool.map.UpdateSize.bind(this.mapHolder.tool.map), 300);
         })
 
     }

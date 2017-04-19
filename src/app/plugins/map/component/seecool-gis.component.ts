@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, NgZone, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, Renderer } from '@angular/core';
 
 import { MapHolderImp } from '../service/map-holder';
 
@@ -7,36 +7,34 @@ import { MapHolderImp } from '../service/map-holder';
     selector: 'mobile-app',
     templateUrl: './seecool-gis.component.html',
 })
-export class SeecoolGISComponent implements OnInit, OnDestroy, AfterViewInit {
+export class SeecoolGISComponent implements OnInit, OnDestroy {
 
     holder = null;
-    map: Node = null;
+    map: HTMLElement = null;
     destroyed = false;
 
-    @ViewChild('map') dom: any
+    @ViewChild('map') dom: ElementRef
     constructor(
-        private zone: NgZone) {
+        private zone: NgZone, private renderer: Renderer) {
 
     }
     ngOnInit() {
+        console.log("init", this.dom.nativeElement.offsetWidth, this.dom.nativeElement.offsetHeight)
         MapHolderImp.createHolder();
         MapHolderImp.holder.then(((holder) => {
             if (!this.destroyed) {
                 this.holder = holder;
                 let mapContainer = <HTMLElement>holder.mapContainer;
-                this.map = mapContainer.childNodes[0];
+                this.map = <HTMLElement>mapContainer.childNodes[0];
+                console.log("creater", this.map.offsetWidth, this.map.offsetHeight);
                 mapContainer.removeChild(this.map);
                 this.dom.nativeElement.appendChild(this.map);
-                setTimeout(() => { this.holder.tool.map.UpdateSize(); }, 300);
-                // this.holder.tool.map.UpdateSize();
+                console.log("added", this.map.offsetWidth, this.map.offsetHeight);
             }
         }).bind(this));
 
     }
-    ngAfterViewInit() {
-        if (window['map'])
-            window['map'].map.updateSize();
-    }
+
 
     ngOnDestroy() {
 
@@ -47,4 +45,5 @@ export class SeecoolGISComponent implements OnInit, OnDestroy, AfterViewInit {
         }
 
     }
+
 }

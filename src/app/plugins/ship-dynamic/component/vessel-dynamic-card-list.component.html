@@ -1,9 +1,8 @@
 <ion-list>
     <ion-card *ngFor="let item of itemSource">
         <ion-item>
-            <div item-left style="max-width:80px;margin-right:20px">
-                <img style="padding:0px 15px 0 20px" src="assets/imgs/ship-dynamic/ship@2x.png">
-                <span>{{item.ShipNameChn}}</span>
+            <div class="ship-name" item-left style="background-image:url('assets/imgs/ship-dynamic/ship@2x.png')">
+                <p>{{item.ShipNameChn}}</p>
             </div>
             <p>
                 <span style="min-width:100px;display:inline-block">起始地点:</span>

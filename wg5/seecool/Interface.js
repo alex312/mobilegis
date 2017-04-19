@@ -1,8 +1,5 @@
-"use strict";
-
 define(["require", "exports"], function (require, exports) {
     "use strict";
-
     ;
 });
 //export interface IRITSEventData{

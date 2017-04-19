@@ -1,87 +1,131 @@
-"use strict";
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 define(["require", "exports", "./EventSource"], function (require, exports, EventSource_1) {
     "use strict";
-
     var NotifiablePropertyBagProperty = "NotifiableObject_notifiableProperties";
-
-    var NotifiableObject = function (_EventSource_1$defaul) {
-        _inherits(NotifiableObject, _EventSource_1$defaul);
-
+    var NotifiableObject = (function (_super) {
+        __extends(NotifiableObject, _super);
         function NotifiableObject() {
-            _classCallCheck(this, NotifiableObject);
-
-            var _this = _possibleConstructorReturn(this, (NotifiableObject.__proto__ || Object.getPrototypeOf(NotifiableObject)).call(this));
-
+            var _this = _super.call(this) || this;
             _this[NotifiablePropertyBagProperty] = {};
             return _this;
         }
-
-        _createClass(NotifiableObject, [{
-            key: "getnp",
-            value: function getnp(name) {
-                return this[NotifiablePropertyBagProperty][name];
+        NotifiableObject.prototype.getnp = function (name) {
+            return this[NotifiablePropertyBagProperty][name];
+        };
+        NotifiableObject.prototype.setnp = function (name, value) {
+            var bag = this[NotifiablePropertyBagProperty];
+            var old = bag[name];
+            if (old !== value) {
+                bag[name] = value;
+                this.trigger({
+                    type: 'propertychange',
+                    property: name,
+                    oldValue: old,
+                    newValue: value
+                });
             }
-        }, {
-            key: "setnp",
-            value: function setnp(name, value) {
-                var bag = this[NotifiablePropertyBagProperty];
-                var old = bag[name];
-                if (old !== value) {
-                    bag[name] = value;
-                    this.trigger({
-                        type: 'propertychange',
-                        property: name,
-                        oldValue: old,
-                        newValue: value
-                    });
+        };
+        NotifiableObject.prototype.allnps = function () {
+            return this[NotifiablePropertyBagProperty];
+        };
+        NotifiableObject.swap = function (a, b) {
+            var tmp = a[NotifiablePropertyBagProperty];
+            a[NotifiablePropertyBagProperty] = b[NotifiablePropertyBagProperty];
+            b[NotifiablePropertyBagProperty] = tmp;
+        };
+        NotifiableObject.property = function () {
+            return function (target, key, desc) {
+                if (!desc) {
+                    desc = {
+                        configurable: false,
+                        enumerable: true,
+                        get: function () {
+                            return this.getnp(key);
+                        },
+                        set: function (value) {
+                            this.setnp(key, value);
+                        }
+                    };
+                    Object.defineProperty(target, key, desc);
                 }
-            }
-        }, {
-            key: "allnps",
-            value: function allnps() {
-                return this[NotifiablePropertyBagProperty];
-            }
-        }], [{
-            key: "swap",
-            value: function swap(a, b) {
-                var tmp = a[NotifiablePropertyBagProperty];
-                a[NotifiablePropertyBagProperty] = b[NotifiablePropertyBagProperty];
-                b[NotifiablePropertyBagProperty] = tmp;
-            }
-        }, {
-            key: "property",
-            value: function property() {
-                return function (target, key, desc) {
-                    if (!desc) {
-                        desc = {
-                            configurable: false,
-                            enumerable: true,
-                            get: function get() {
-                                return this.getnp(key);
-                            },
-                            set: function set(value) {
-                                this.setnp(key, value);
-                            }
-                        };
-                        Object.defineProperty(target, key, desc);
-                    }
-                    return desc;
-                };
-            }
-        }]);
-
+                return desc;
+            };
+        };
         return NotifiableObject;
-    }(EventSource_1.default);
-
+    }(EventSource_1.default));
     Object.defineProperty(exports, "__esModule", { value: true });
+    //function wrappSetter(key, getter, setter, equaler) {
+    //    if (equaler) {
+    //        return function (value:any) {
+    //            var old = getter.apply(this);
+    //            if (!equaler(old, value)) {
+    //                setter.apply(this, [value]);
+    //                this.trigger({
+    //                    type: "propertychange",
+    //                    property: key,
+    //                    oldValue: old,
+    //                    newValue: value
+    //                });
+    //            }
+    //        };
+    //    } else {
+    //        return function (value:any) {
+    //            var old = getter.apply(this);
+    //            if (old !== value) {
+    //                setter.apply(this, [value]);
+    //                this.trigger({
+    //                    type: "propertychange",
+    //                    property: key,
+    //                    oldValue: old,
+    //                    newValue: value
+    //                });
+    //            }
+    //        };
+    //    }
+    //}
+    //interface DependencyPropertyOptions {
+    //    setter?:string;
+    //    equaler?:Function;
+    //    value?:any;
+    //}
+    //function NotifiableProperty(options?:DependencyPropertyOptions) {
+    //    options = options || {};
+    //    return function (target:Object, key:string, desc?:PropertyDescriptor) {
+    //        var defined = !!desc;
+    //        if (!defined) {
+    //            var defaultValue = options.value;
+    //            desc = {
+    //                get: function () {
+    //                    var bag = this[NotifiablePropertyBagProperty];
+    //                    return bag !== undefined && (key in bag) ? bag[key] : defaultValue;
+    //                },
+    //                set: function (value:any) {
+    //                    var bag = this[NotifiablePropertyBagProperty];
+    //                    if (!bag)
+    //                        this[NotifiablePropertyBagProperty] = bag = {};
+    //                    bag[key] = value;
+    //                }
+    //            };
+    //        }
+    //        var getter = desc.get;
+    //        if ("setter" in options)
+    //            target[options.setter] = wrappSetter(key, getter, target[options.setter], options.equaler);
+    //        if (desc.set)
+    //            desc.set = wrappSetter(key, getter, desc.set, options.equaler);
+    //
+    //        if (!defined)
+    //            Object.defineProperty(target, key, desc);
+    //        return desc;
+    //    }
+    //}
     exports.default = NotifiableObject;
 });

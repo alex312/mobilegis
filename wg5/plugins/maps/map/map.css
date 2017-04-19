@@ -1,18 +1,19 @@
-.MapInfoControl {
+.map .MapInfoControl {
     color:#eee;
-    background-color:rgba(0, 60, 136, 0.3);
+    background-color:rgba(44, 167, 224, 0.6);
     bottom: 10px;
     left: 50%;
     margin:0 auto
 }
-.MapInfoControl:hover{
-    background-color:rgba(0, 60, 136, 0.3);
+.map .MapInfoControl:hover{
+    background-color:rgba(32, 155, 201, 0.6);
 }
-.ol-scale-line {
+.map .ol-scale-line {
     left: 30%;
+    background-color:rgba(44, 167, 224, 0.6);
 }
 /*ol需要的tooltip样式*/
-.tooltip {
+.map .tooltip {
     position: relative!important;
     background: rgba(0, 0, 0, 0.5);
     border-radius: 4px;
@@ -21,17 +22,17 @@
     opacity: 0.7!important;
     white-space: nowrap;
 }
-.tooltip-measure {
+.map .tooltip-measure {
     opacity: 1;
     font-weight: bold;
 }
-.tooltip-static {
+.map .tooltip-static {
     background-color: #ffcc33;
     color: black;
     border: 1px solid white;
 }
-.tooltip-measure:before,
-.tooltip-static:before {
+.map .tooltip-measure:before,
+.map .tooltip-static:before {
     border-top: 6px solid rgba(0, 0, 0, 0.5);
     border-right: 6px solid transparent;
     border-left: 6px solid transparent;
@@ -41,6 +42,12 @@
     margin-left: -7px;
     left: 50%;
 }
-.tooltip-static:before {
+.map .tooltip-static:before {
     border-top-color: #ffcc33;
+}
+.map .hidden {
+    display:none;
+}
+.map .ol-overlay-container{
+    pointer-events:none;
 }

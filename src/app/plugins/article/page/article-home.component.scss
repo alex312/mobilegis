@@ -1,0 +1,14 @@
+article-home-page{
+    .segment-md .segment-button{
+        color: #50b5eb;
+    }
+
+    .segment-md .segment-button.activated, 
+    .segment-ios .segment-button.activated, 
+    .segment-wp .segment-button.activated, 
+    .segment-md .segment-button.segment-activated,
+    .segment-ios .segment-button.segment-activated,
+    .segment-wp .segment-button.segment-activated,{
+        border-color:#50b5eb;
+    }
+}

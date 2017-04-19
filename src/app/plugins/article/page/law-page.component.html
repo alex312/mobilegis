@@ -14,8 +14,9 @@
     <div *ngIf="pageModel.isEmpty">
         没有更多数据了
     </div>
-    <article-list [itemSource]="pageModel.itemSource" [detailPage]="articlePage"></article-list>
+    <article-list [itemSource]="pageModel.itemSource" [detailPage]="articlePage" [categoryName]="categoryName"></article-list>
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="pageModel.hasMore()">
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>
+    <div *ngIf="!pageModel.hasMore() && !pageModel.isLoading" style="padding-bottom:20px;text-align: center;color:#8e9093">这已经是最底部了</div>
 </ion-content>

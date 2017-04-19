@@ -28,10 +28,12 @@ export class ArticleHomePage {
         this.articleType = _navParams.data;
 
         this.articleModelDict[ARTICLE_TYPES.ARTICLE_GG] = new ArticleListPageModel(ARTICLE_TYPES.ARTICLE_GG, this._articleService.getArticleList.bind(this._articleService))
+        this.articleModelDict[ARTICLE_TYPES.ARTICLE_JGZX] = new ArticleListPageModel(ARTICLE_TYPES.ARTICLE_JGZX, this._articleService.getArticleList.bind(this._articleService))
         this.articleModelDict[ARTICLE_TYPES.ARTICLE_JGJX] = new ArticleListPageModel(ARTICLE_TYPES.ARTICLE_JGJX, this._articleService.getArticleList.bind(this._articleService))
         this.articleModelDict[ARTICLE_TYPES.ARTICLE_YJXX] = new ArticleListPageModel(ARTICLE_TYPES.ARTICLE_YJXX, this._articleService.getArticleList.bind(this._articleService))
         this.articleModelDict[ARTICLE_TYPES.ARTICLE_WARNING] = new ArticleListPageModel(ARTICLE_TYPES.ARTICLE_WARNING, this._articleService.getWarningList.bind(this._articleService))
         this.articleModelDict[ARTICLE_TYPES.ARTICLE_NOTICE] = new ArticleListPageModel(ARTICLE_TYPES.ARTICLE_NOTICE, this._articleService.getWarningList.bind(this._articleService))
+
 
 
         for (let key in this.articleModelDict) {

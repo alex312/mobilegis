@@ -1,32 +1,30 @@
-"use strict";
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 define(["require", "exports", "openlayers", "../../../seecool/utilities"], function (require, exports, ol, utilities) {
     "use strict";
-
-    var MapInfoControl = function (_ol$control$Control) {
-        _inherits(MapInfoControl, _ol$control$Control);
-
+    var MapInfoControl = (function (_super) {
+        __extends(MapInfoControl, _super);
         function MapInfoControl(options) {
-            _classCallCheck(this, MapInfoControl);
-
+            var _this = this;
             //var options = options;
             var mapInfo = $('<div class="MapInfoControl ol-unselectable ol-control"></div>');
-
-            var _this = _possibleConstructorReturn(this, (MapInfoControl.__proto__ || Object.getPrototypeOf(MapInfoControl)).call(this, {
+            _this = _super.call(this, {
                 element: mapInfo[0],
                 target: options.target || undefined
-            }));
-
+            }) || this;
             var lonLat;
             var zoom;
-            var mapInfoRefresh = function mapInfoRefresh(e) {
-                if (!lonLat) return;
+            var mapInfoRefresh = function (e) {
+                if (!lonLat)
+                    return;
                 var Lon = utilities.formatDegree(lonLat[0], 'ddd-cc-mm.mmL');
                 var Lat = utilities.formatDegree(lonLat[1], 'dd-cc-mm.mmB');
                 var info = $("<table><tr><td style='width:100px'>" + Lon + "</td><td style='width:100px'>" + Lat + "</td><td style='width:52px'>图级:" + zoom + "</td></tr></table>");
@@ -36,7 +34,8 @@ define(["require", "exports", "openlayers", "../../../seecool/utilities"], funct
             var map = options.map; //this.getMap();
             map.on("pointermove", function (e) {
                 var view = e.map.getView();
-                if (e.coordinate) lonLat = ol.proj.toLonLat(e.coordinate);
+                if (e.coordinate)
+                    lonLat = ol.proj.toLonLat(e.coordinate);
                 zoom = view.getZoom();
                 mapInfoRefresh({ lonLat: lonLat, zoom: zoom });
             });
@@ -46,10 +45,8 @@ define(["require", "exports", "openlayers", "../../../seecool/utilities"], funct
             });
             return _this;
         }
-
         return MapInfoControl;
-    }(ol.control.Control);
-
+    }(ol.control.Control));
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.default = MapInfoControl;
 });

@@ -45,6 +45,23 @@ $badge-ios-text-color: #fff;
 
 $spinner-ios-ios-color: #50b5eb;
 
+$tabs-ios-tab-text-color: #333;
+$tabs-ios-tab-text-color-active:#50b5eb;
+$tabs-ios-tab-icon-color:#333;
+$tabs-ios-tab-icon-color-active:#50b5eb;
+
+$segment-button-ios-background-color-activated:#50b5eb;
+$segment-button-ios-font-size: 1.4rem;
+
+$card-ios-margin-top:10px;
+$card-ios-margin-right:0px;
+$card-ios-margin-bottom:0px;
+$card-ios-margin-left:0px;
+$card-ios-box-shadow:none;
+
+// $list-ios-border-color:#fff;
+// $item-ios-detail-push-color:#c8c7cc;
+
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
@@ -57,6 +74,25 @@ $badge-md-border-radius: 10px;
 
 $spinner-md-ios-color:#50b5eb;
 
+$tabs-md-tab-text-color:#333;
+$tabs-md-tab-text-color-active:#50b5eb;
+$tabs-md-tab-icon-color:#333;
+$tabs-md-tab-icon-color-active:#50b5eb;
+
+
+$segment-button-md-text-color-activated:#50b5eb;
+$segment-button-md-border-color-activated:#50b5eb;
+
+$segment-button-md-font-size:1.4rem;
+
+$card-md-margin-top:10px;
+$card-md-margin-right:0px; 
+$card-md-margin-bottom :0px;
+$card-md-margin-left :0px;
+$card-md-box-shadow:none;
+
+// $list-md-border-color:#fff;
+
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here
@@ -68,6 +104,7 @@ $badge-wp-background-color: #50b5eb;
 $badge-wp-text-color: #fff;
 
 $spinner-wp-ios-color: #50b5eb;
+
 
 // App Theme
 // --------------------------------------------------

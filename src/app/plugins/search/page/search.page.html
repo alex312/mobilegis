@@ -1,11 +1,11 @@
 <ion-header>
     <ion-navbar>
-        <ion-searchbar (input)="onInput($event)" placeholder="搜索船舶，通航环境"></ion-searchbar>
-        <ion-buttons right>
+        <ion-searchbar (input)="onInput($event)" (search)="onSearch($event)" placeholder="输入船名/MMSI/通航环境"></ion-searchbar>
+        <!--<ion-buttons right>
             <button ion-button (click)="onSearch()">
                 <ion-icon name="search"></ion-icon>
             </button>
-        </ion-buttons>
+        </ion-buttons>-->
     </ion-navbar>
     <ion-segment [(ngModel)]="switchValue" [attr.light]="isAndroid ? '' : null">
         <ion-segment-button value="shipLayer">
@@ -16,12 +16,12 @@
         </ion-segment-button>
     </ion-segment>
 </ion-header>
-<ion-content [ngSwitch]="switchValue">
+<ion-content class="search-page" [ngSwitch]="switchValue">
     <ion-list inset *ngSwitchCase="'shipLayer'">
         <ion-item *ngFor="let feature of shipFeatures">
             <h2>{{feature.name}}</h2>
             <p><span>{{feature.type}}</span><span *ngIf="feature.mmsi">MMSI:{{feature.mmsi}}</span></p>
-            <button ion-button clear small item-right (click)="onSelectFeature(feature)">
+            <button ion-button clear item-right (click)="onSelectFeature(feature)">
         <ion-icon name="pin"></ion-icon>
       </button>
         </ion-item>
@@ -30,7 +30,7 @@
         <ion-item *ngFor="let feature of thhjFeatures">
             <h2>{{feature.name}}</h2>
             <p><span>{{feature.type}}</span></p>
-            <button ion-button clear small item-right (click)="onSelectFeature(feature)">
+            <button ion-button clear item-right (click)="onSelectFeature(feature)">
         <ion-icon name="pin"></ion-icon>
       </button>
         </ion-item>

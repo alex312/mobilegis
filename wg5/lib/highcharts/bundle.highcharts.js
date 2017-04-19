@@ -1,3 +1,3 @@
-define(['Highcharts$origin', 'Highcharts.zh-Hans', 'Highcharts.exporting'], function ($) {
+define(['highcharts.core', 'highcharts-exporting', 'highcharts-more', 'offline-exporting', 'highcharts.zh-Hans'], function ($) {
     return $;
 });

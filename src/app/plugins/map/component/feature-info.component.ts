@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ElementRef } from '@angular/core';
 
 import { Feature, FeatureType } from '../data/feature';
 
@@ -11,5 +11,12 @@ export class FeatureInfoComponent {
     @Input()
     FeatureData: Feature;
     FeatureType = FeatureType;
-    constructor() { }
+
+    get offsetWidth() {
+        return this._elementRef.nativeElement.offsetWidth;
+    }
+    get offsetHeight() {
+        return this._elementRef.nativeElement.offsetHeight;
+    }
+    constructor(private _elementRef: ElementRef) { }
 }

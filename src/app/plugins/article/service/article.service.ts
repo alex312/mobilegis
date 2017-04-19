@@ -11,8 +11,8 @@ export class ArticleService {
     }
 
     private _articleUrl = "api/articles/items"
-    getArticleList(category: string, index: number) {
-        return this._apiClient.get(this._articleUrl + "?cat=" + category + "&index=" + index + "&count=30").then(result => {
+    getArticleList(category: string, index: number, count: number = 30) {
+        return this._apiClient.get(this._articleUrl + "?cat=" + category + "&index=" + index + "&count=" + count).then(result => {
             return {
                 total: result.total,
                 items: result.items.map(item => {
@@ -28,6 +28,8 @@ export class ArticleService {
             }
         })
     }
+
+
 
     getArticle(articleId: string) {
         return this._apiClient.get(this._articleUrl + "/" + articleId).then(result => {

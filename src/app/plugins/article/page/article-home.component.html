@@ -6,19 +6,22 @@
     </ion-navbar>
     <ion-segment [(ngModel)]="articleType" mode="md">
         <ion-segment-button value={{articleTypeList.ARTICLE_GG}}>
-            最新公告
+            公告
+        </ion-segment-button>
+        <ion-segment-button value={{articleTypeList.ARTICLE_JGZX}}>
+            资讯
         </ion-segment-button>
         <ion-segment-button value={{articleTypeList.ARTICLE_JGJX}}>
-            交通管制
+            管制
         </ion-segment-button>
         <ion-segment-button value={{articleTypeList.ARTICLE_YJXX}}>
-            预警信息
+            预警
         </ion-segment-button>
         <ion-segment-button value={{articleTypeList.ARTICLE_WARNING}}>
-            航行通告
+            通告
         </ion-segment-button>
         <ion-segment-button value={{articleTypeList.ARTICLE_NOTICE}}>
-            航行警告
+            警告
         </ion-segment-button>
     </ion-segment>
 </ion-header>
@@ -32,23 +35,22 @@
         没有更多数据了
     </div>
     <div [ngSwitch]="articleType">
-        <!--最新公告-->
         <article-list *ngSwitchCase="articleTypeList.ARTICLE_GG" [itemSource]="articleModelDict[articleTypeList.ARTICLE_GG].itemSource"
-            [detailPage]="articlePage"></article-list>
-        <!--交通管制-->
+            [detailPage]="articlePage" categoryName="{{'最新公告'}}"></article-list>
+
+        <article-list *ngSwitchCase="articleTypeList.ARTICLE_JGZX" [itemSource]="articleModelDict[articleTypeList.ARTICLE_JGZX].itemSource"
+            [detailPage]="articlePage" categoryName="{{'交管咨询'}}"></article-list>
         <article-list *ngSwitchCase="articleTypeList.ARTICLE_JGJX" [itemSource]="articleModelDict[articleTypeList.ARTICLE_JGJX].itemSource"
-            [detailPage]="articlePage"></article-list>
-        <!--预警信息-->
+            [detailPage]="articlePage" categoryName="{{'交通管制'}}"></article-list>
         <article-list *ngSwitchCase="articleTypeList.ARTICLE_YJXX" [itemSource]="articleModelDict[articleTypeList.ARTICLE_YJXX].itemSource"
-            [detailPage]="articlePage"></article-list>
-        <!--航行通告-->
+            [detailPage]="articlePage" categoryName="{{'预警信息'}}"></article-list>
         <article-list *ngSwitchCase="articleTypeList.ARTICLE_WARNING" [itemSource]="articleModelDict[articleTypeList.ARTICLE_WARNING].itemSource"
-            [detailPage]="warningPage"></article-list>
-        <!--航行警告-->
+            [detailPage]="warningPage" categoryName="{{'航行通告'}}"></article-list>
         <article-list *ngSwitchCase="articleTypeList.ARTICLE_NOTICE" [itemSource]="articleModelDict[articleTypeList.ARTICLE_NOTICE].itemSource"
-            [detailPage]="warningPage"></article-list>
+            [detailPage]="warningPage" categoryName="{{'航行警告'}}"></article-list>
     </div>
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="currentPageModel().hasMore()">
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>
+    <div *ngIf="!currentPageModel().hasMore() && !currentPageModel().isLoading" style="padding-bottom:20px;text-align: center;color:#8e9093">这已经是最底部了</div>
 </ion-content>

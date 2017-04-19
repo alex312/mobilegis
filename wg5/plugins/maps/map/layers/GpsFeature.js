@@ -1,30 +1,24 @@
-"use strict";
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 define(["require", "exports", "openlayers", "../../../../seecool/datas/DynamicFeature"], function (require, exports, ol, DynamicFeature_1) {
     "use strict";
-
     exports.GpsFeatureState = {
         EMPTY: 0,
         NORMAL: 1,
         EXPIRED: 2
     };
-
-    var GpsFeature = function (_DynamicFeature_1$def) {
-        _inherits(GpsFeature, _DynamicFeature_1$def);
-
+    var GpsFeature = (function (_super) {
+        __extends(GpsFeature, _super);
         function GpsFeature() {
-            _classCallCheck(this, GpsFeature);
-
-            var _this = _possibleConstructorReturn(this, (GpsFeature.__proto__ || Object.getPrototypeOf(GpsFeature)).call(this));
-
+            var _this = _super.call(this) || this;
             _this.geo_ = null;
             _this.timer_ = 0;
             _this.ttl_ = 30 * 1000;
@@ -32,62 +26,50 @@ define(["require", "exports", "openlayers", "../../../../seecool/datas/DynamicFe
             _this.isFollowed_ = false;
             return _this;
         }
-
-        _createClass(GpsFeature, [{
-            key: "getGeometry",
-            value: function getGeometry() {
-                return this.geo_;
-            }
-        }, {
-            key: "update",
-            value: function update(coordinate) {
-                this.geo_ = new ol.geom.Point(coordinate);
-                this.state_ = exports.GpsFeatureState.NORMAL;
-                if (this.timer_) window.clearTimeout(this.timer_);
-                this.timer_ = window.setTimeout(this.timeOut_.bind(this), this.ttl_);
-                this.changed();
-            }
-        }, {
-            key: "timeOut_",
-            value: function timeOut_() {
-                this.timer_ = 0;
-                this.state_ = exports.GpsFeatureState.EXPIRED;
-            }
-        }, {
-            key: "focus",
-            value: function focus() {
-                throw new Error('Not implemented.');
-            }
-        }, {
-            key: "unfocus",
-            value: function unfocus() {
-                throw new Error('Not implemented.');
-            }
-        }, {
-            key: "follow",
-            value: function follow() {
-                this.isFollowed_ = true;
-            }
-        }, {
-            key: "unfollow",
-            value: function unfollow() {
-                this.isFollowed_ = false;
-            }
-        }, {
-            key: "isFocused",
-            value: function isFocused() {
-                throw new Error('Not implemented.');
-            }
-        }, {
-            key: "isFollowed",
-            value: function isFollowed() {
-                return this.isFollowed_;
-            }
-        }]);
-
+        GpsFeature.prototype.getGeometry = function () {
+            return this.geo_;
+        };
+        ;
+        GpsFeature.prototype.update = function (coordinate) {
+            this.geo_ = new ol.geom.Point(coordinate);
+            this.state_ = exports.GpsFeatureState.NORMAL;
+            if (this.timer_)
+                window.clearTimeout(this.timer_);
+            this.timer_ = window.setTimeout(this.timeOut_.bind(this), this.ttl_);
+            this.changed();
+        };
+        ;
+        GpsFeature.prototype.timeOut_ = function () {
+            this.timer_ = 0;
+            this.state_ = exports.GpsFeatureState.EXPIRED;
+        };
+        ;
+        GpsFeature.prototype.focus = function () {
+            throw new Error('Not implemented.');
+        };
+        ;
+        GpsFeature.prototype.unfocus = function () {
+            throw new Error('Not implemented.');
+        };
+        ;
+        GpsFeature.prototype.follow = function () {
+            this.isFollowed_ = true;
+        };
+        ;
+        GpsFeature.prototype.unfollow = function () {
+            this.isFollowed_ = false;
+        };
+        ;
+        GpsFeature.prototype.isFocused = function () {
+            throw new Error('Not implemented.');
+        };
+        ;
+        GpsFeature.prototype.isFollowed = function () {
+            return this.isFollowed_;
+        };
+        ;
         return GpsFeature;
-    }(DynamicFeature_1.default);
-
+    }(DynamicFeature_1.default));
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.default = GpsFeature;
 });

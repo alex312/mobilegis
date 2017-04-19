@@ -1,9 +1,7 @@
-<ion-slides loop="true" pager style="height:inherit">
-
+<ion-slides loop="true" pager style="height:inherit" (ionSlideDidChange)="slideChange($event)" (ionSlideDrag)="slideDrag($event)">
     <ion-slide *ngFor="let item of slideItems">
         <div>
             <img src="{{item.url}}" style="width:100%;" />
-            <!--<div style="height:100%;width:100%;background-image:url('{{item.url}}');background-repeat: round"></div>-->
             <div [style.bottom]="paginationContainerHeight" class="slideInfo">{{item.content}}</div>
         </div>
     </ion-slide>

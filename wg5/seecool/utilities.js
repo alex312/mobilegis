@@ -1,12 +1,4 @@
-"use strict";
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-define(["require", "exports", "jquery"], function (require, exports, $) {
+define(["require", "exports", "jquery", "fecha"], function (require, exports, $, fecha) {
     "use strict";
     // export function rget(propertyPath, target, defaultTarget?) {
     //     var props = Array.isArray(propertyPath)
@@ -37,24 +29,26 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
     // export function api(path) {
     //     return SERVICE_URI + path;
     // }
-
     function uniqueId() {
-        exports._uniqueId_prefix = exports._uniqueId_prefix || randomString_();
+        exports._uniqueId_prefix = exports._uniqueId_prefix ||
+            randomString_();
         exports._uniqueId_serial = exports._uniqueId_serial || 1;
-        return exports._uniqueId_prefix + "_" + new Date().getTime() + "_" + exports._uniqueId_serial++;
+        return exports._uniqueId_prefix +
+            "_" + new Date().getTime() +
+            "_" + exports._uniqueId_serial++;
     }
     exports.uniqueId = uniqueId;
     function dateFromWcfJson(str) {
         var reg = /(\d+)((\+|\-)(\d{2})(\d{2}))?/;
         var match = reg.exec(str);
-        if (!match) return null;
+        if (!match)
+            return null;
         var ticks = match[1] * 1;
         return new Date(ticks);
     }
     exports.dateFromWcfJson = dateFromWcfJson;
     function isPhone(aPhone) {
-        return (/^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57])[0-9]{8}$/.test(aPhone)
-        );
+        return /^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57])[0-9]{8}$/.test(aPhone);
     }
     exports.isPhone = isPhone;
     function parseIsoTimeSpan(str) {
@@ -63,12 +57,14 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         var h = parseInt(match[4] || 0, 10);
         var m = parseInt(match[5] || 0, 10);
         var s = parseInt(match[6] || 0, 10);
-        return (((d * 24 + h) * 60 + m) * 60 + s) * 1000;
+        return ((((d * 24 + h) * 60 + m) * 60) + s) * 1000;
     }
     exports.parseIsoTimeSpan = parseIsoTimeSpan;
     function formatTimeSpan(val) {
-        if (!val) return "0秒";
-        if (val < 1000) return "<1秒";
+        if (!val)
+            return "0秒";
+        if (val < 1000)
+            return "<1秒";
         var sect = Math.round(val / 1000);
         var mint = Math.floor(sect / 60);
         var sec = sect - mint * 60;
@@ -77,12 +73,18 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         var d = Math.floor(hourt / 24);
         var hour = hourt - d * 24;
         var str = "";
-        if (sec) str = sec + "秒" + str;
-        if (!mint) return str;
-        if (min) str = min + "分钟" + str;
-        if (!hourt) return str;
-        if (hour) str = hour + "小时" + str;
-        if (!d) return str;
+        if (sec)
+            str = sec + "秒" + str;
+        if (!mint)
+            return str;
+        if (min)
+            str = min + "分钟" + str;
+        if (!hourt)
+            return str;
+        if (hour)
+            str = hour + "小时" + str;
+        if (!d)
+            return str;
         return d + "天" + str;
     }
     exports.formatTimeSpan = formatTimeSpan;
@@ -108,11 +110,27 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
             try {
                 data = JSON.parse(decodeURIComponent(data));
                 options = data;
-            } catch (e) {}
+            }
+            catch (e) {
+            }
         }
         return options;
     }
     exports.getFormatDataFromURL = getFormatDataFromURL;
+    // 对时间进行格式化
+    function format(value, format) {
+        if (!value)
+            return undefined;
+        return fecha.format(value, format);
+    }
+    exports.format = format;
+    // 对时间进行解析
+    function parse(value, format) {
+        if (!value)
+            return undefined;
+        return fecha.parse(value, format);
+    }
+    exports.parse = parse;
     // 生成随机的字符串，用来做ID使用
     function getRandomString(count) {
         var string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -130,7 +148,8 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         var strLen = str.length;
         if (strLen >= len && isBefore) {
             return str;
-        } else {
+        }
+        else {
             var diff = len - strLen;
             var stack = [];
             for (var i = 0; i < diff; i++) {
@@ -138,7 +157,8 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
             }
             if (isBefore) {
                 return stack.join('') + str;
-            } else {
+            }
+            else {
                 return (str + stack.join('')).substring(0, len);
             }
         }
@@ -152,7 +172,7 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         if (deg === undefined || deg === null || !isFinite(deg)) {
             return '?';
         }
-        if (typeof deg != 'number') {
+        if (typeof (deg) != 'number') {
             deg = parseFloat(deg);
         }
         // 这里目前只支持两种参数，没有default参数，传入数据必须确保有指定经度还是纬度
@@ -168,9 +188,11 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         var last;
         if (deg > 0) {
             last = map[flag][0];
-        } else if (deg < 0) {
+        }
+        else if (deg < 0) {
             last = map[flag][1];
-        } else {
+        }
+        else {
             last = '';
         }
         deg = Math.abs(deg);
@@ -195,20 +217,23 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         if (style == '' || style == undefined || style == null) {
             if (m === 0) {
                 if (c === 0) {
-                    if (d === 0) return "0" + dSign;
+                    if (d === 0)
+                        return "0" + dSign;
                     return d + dSign + last;
                 }
                 return d + dSign + c + cSign + last;
             }
             return d + dSign + c + cSign + m + mSign + last;
-        } else {
+        }
+        else {
             var styles = style.split("-");
             // 用来存储长度
             var len;
             len = styles[0].length;
             d = addLetterToString(d, len, ' ', true);
             len = styles[1].length;
-            if (len > 2) len = 2;
+            if (len > 2)
+                len = 2;
             c = addLetterToString(c, len, '0', true);
             var mStyles = styles[2].split('.');
             len = mStyles[0].length;
@@ -234,14 +259,10 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
      }
      */
     function box(context, rect, strokestyle, linewidth) {
-        var l = rect.x,
-            t = rect.y;
-        var w = rect.width,
-            h = rect.height;
-        var r = l + w,
-            b = t + h;
-        var w_3 = w / 3,
-            h_3 = h / 3;
+        var l = rect.x, t = rect.y;
+        var w = rect.width, h = rect.height;
+        var r = l + w, b = t + h;
+        var w_3 = w / 3, h_3 = h / 3;
         context.beginPath();
         context.moveTo(l, t + h_3);
         context.lineTo(l, t);
@@ -320,7 +341,8 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         }
         var lineCount = 0;
         var nameCount = 0;
-        if (name) nameCount++;
+        if (name)
+            nameCount++;
         items.forEach(function (item) {
             if (item.value) {
                 lineCount++;
@@ -335,13 +357,15 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         var font = context.font;
         context.font = "bold " + fontSize + "px 宋体";
         var measureWidth = context.measureText(name).width.toFixed(0);
-        if (measureWidth > boxWidth) boxWidth = parseInt(measureWidth);
+        if (measureWidth > boxWidth)
+            boxWidth = parseInt(measureWidth);
         context.font = smallFontSize + "px 宋体";
         items.forEach(function (item) {
             if (item.value) {
                 var text = item.key + "：" + item.value;
                 var measureWidth = context.measureText(text).width.toFixed(0);
-                if (measureWidth > boxWidth) boxWidth = parseInt(measureWidth);
+                if (measureWidth > boxWidth)
+                    boxWidth = parseInt(measureWidth);
             }
         });
         var boxHeight = (smallFontSize + smallLineSpace) * lineCount + (fontSize + lineSpace) * nameCount;
@@ -350,17 +374,18 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         var diff = 0;
         if (nameCount) {
             diff = (fontSize + lineSpace) / 2;
-        } else {
+        }
+        else {
             diff = (smallFontSize + smallLineSpace) / 2;
         }
         textTop = y + boxRadius + diff;
         var boxX = x;
         var boxY = y;
-        if (params.w < x + boxWidth + 2 * boxRadius) {
+        if (params.w < (x + boxWidth + 2 * boxRadius)) {
             textLeft = x - params.deltaX * 2 - boxRadius - boxWidth;
             boxX = textLeft - boxRadius;
         }
-        if (params.h < y + boxHeight + 2 * boxRadius) {
+        if (params.h < (y + boxHeight + 2 * boxRadius)) {
             textTop = y - params.deltaY * 2 - boxRadius - boxHeight + diff;
             boxY = textTop - boxRadius - diff;
         }
@@ -383,7 +408,7 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         items.forEach(function (item) {
             if (item.value) {
                 context.fillText(item.key + "：" + item.value, textLeft, textTop);
-                textTop += smallFontSize + smallLineSpace;
+                textTop += (smallFontSize + smallLineSpace);
             }
         });
         context.stroke();
@@ -395,7 +420,8 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
     // 依据mmsi获取国家名称
     function getMmsiNation(mmsi) {
         mmsi = "" + mmsi;
-        if (!/^\d{9}$/.test(mmsi)) return null;
+        if (!/^\d{9}$/.test(mmsi))
+            return null;
         var gj = mmsi.substring(0, 3);
         switch (gj) {
             case '201':
@@ -974,24 +1000,27 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
                 return "乌拉圭"; //"Uruguay (Eastern Republic of)";
             case '775':
                 return "委内瑞拉"; //"Venezuela (Bolivarian Republic of)";
-            default:
-                {
-                    if (gj.substring(0, 1) === "9") return "中国";
-                    return null;
-                }
+            default: {
+                if (gj.substring(0, 1) === "9")
+                    return "中国";
+                return null;
+            }
         }
     }
     exports.getMmsiNation = getMmsiNation;
-    exports.blankImage = "data:image/png;base64," + "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAA" + "fFcSJAAAABlBMVEUAAAD///+l2Z/dAAAAAnRSTl" + "MA/1uRIrUAAAALSURBVHicY2AAAgAABQABel6rP" + "wAAAABJRU5ErkJggg==";
-
-    var RepeatingAjax = function () {
+    exports.blankImage = "data:image/png;base64," +
+        "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAA" +
+        "fFcSJAAAABlBMVEUAAAD///+l2Z/dAAAAAnRSTl" +
+        "MA/1uRIrUAAAALSURBVHicY2AAAgAABQABel6rP" +
+        "wAAAABJRU5ErkJggg==";
+    var RepeatingAjax = (function () {
         function RepeatingAjax(params) {
-            _classCallCheck(this, RepeatingAjax);
-
             this.delay = params.delay || Number.MAX_VALUE;
             this.interval = params.interval || Number.MAX_VALUE;
-            this.done = params.done || function () {};
-            this.fail = params.fail || function () {};
+            this.done = params.done || function () {
+            };
+            this.fail = params.fail || function () {
+            };
             this.context = params.context || null;
             this.options = params.options || null;
             this._userState = params.userState || null;
@@ -999,62 +1028,54 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
             this._ajax = null;
             this._timer = window.setTimeout($.proxy(this.onTimer, this), this.delay);
         }
-
-        _createClass(RepeatingAjax, [{
-            key: "destroy",
-            value: function destroy() {
-                if (this._timer) {
-                    window.clearTimeout(this._timer);
-                    this._timer = null;
-                }
-                if (this._ajax) {
-                    this._ajax.abort();
-                    this._ajax = null;
-                }
-            }
-        }, {
-            key: "onTimer",
-            value: function onTimer() {
+        RepeatingAjax.prototype.destroy = function () {
+            if (this._timer) {
+                window.clearTimeout(this._timer);
                 this._timer = null;
-                var options = typeof this.options == "function" ? this.options.apply(this.context) : this.options;
-                options = options || { ajax: null, userState: null };
-                var ajaxOptions = $.extend({}, options.ajax || null, { context: this });
-                this._userState = options.userState || null;
-                this._ajax = $.ajax(ajaxOptions);
-                this._ajax.done(this.onAjaxDone);
-                this._ajax.fail(this.onAjaxFail);
             }
-        }, {
-            key: "onAjaxDone",
-            value: function onAjaxDone(data) {
+            if (this._ajax) {
+                this._ajax.abort();
                 this._ajax = null;
-                var args = this._userState ? [this._userState] : [];
-                args = args.concat.apply(args, arguments);
-                this.done.apply(this.context, args);
-                this._userState = null;
-                this._timer = window.setTimeout($.proxy(this.onTimer, this), this.interval);
             }
-        }, {
-            key: "onAjaxFail",
-            value: function onAjaxFail(jqXHR, textStatus, errorThrown) {
-                this._ajax = null;
-                if (textStatus === 'abort') return;
-                var args = this._userState ? [this._userState] : [];
-                args = args.concat.apply(args, arguments);
-                this.fail.apply(this.context, args);
-                this._userState = null;
-                this._timer = window.setTimeout($.proxy(this.onTimer, this), this.interval);
-            }
-        }]);
-
+        };
+        RepeatingAjax.prototype.onTimer = function () {
+            this._timer = null;
+            var options = typeof (this.options) == "function" ?
+                this.options.apply(this.context) :
+                this.options;
+            options = options || { ajax: null, userState: null };
+            var ajaxOptions = $.extend({}, options.ajax || null, { context: this });
+            this._userState = options.userState || null;
+            this._ajax = $.ajax(ajaxOptions);
+            this._ajax.done(this.onAjaxDone);
+            this._ajax.fail(this.onAjaxFail);
+        };
+        RepeatingAjax.prototype.onAjaxDone = function (data) {
+            this._ajax = null;
+            var args = this._userState ? [this._userState] : [];
+            args = args.concat.apply(args, arguments);
+            this.done.apply(this.context, args);
+            this._userState = null;
+            this._timer = window.setTimeout($.proxy(this.onTimer, this), this.interval);
+        };
+        RepeatingAjax.prototype.onAjaxFail = function (jqXHR, textStatus, errorThrown) {
+            this._ajax = null;
+            if (textStatus === 'abort')
+                return;
+            var args = this._userState ? [this._userState] : [];
+            args = args.concat.apply(args, arguments);
+            this.fail.apply(this.context, args);
+            this._userState = null;
+            this._timer = window.setTimeout($.proxy(this.onTimer, this), this.interval);
+        };
         return RepeatingAjax;
-    }();
-
+    }());
     exports.RepeatingAjax = RepeatingAjax;
     function fromWcfJson(str) {
         var reg = /(\d+)((\+|\-)(\d{2})(\d{2}))?/;
         var match = reg.exec(str);
-        if (!match) return null;
+        if (!match)
+            return null;
         var ticks = match[1] * 1;
         return new Date(ticks);
     }
@@ -1067,16 +1088,14 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         var ind = 0;
         while (true) {
             ind = arr.indexOf(item, ind);
-            if (ind < 0) return;
+            if (ind < 0)
+                return;
             arr.splice(ind, 1);
         }
     }
     exports.scremoveAll = scremoveAll;
-
-    var Rect = function () {
+    var Rect = (function () {
         function Rect(x, y, width, height) {
-            _classCallCheck(this, Rect);
-
             this.x = 0;
             this.y = 0;
             this.width = 0;
@@ -1086,32 +1105,23 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
             this.width = width;
             this.height = height;
         }
-
-        _createClass(Rect, [{
-            key: "contains",
-            value: function contains(x, y) {
-                return x >= this.x && y >= this.y && x < this.x + this.width && y < this.y + this.height;
-            }
-        }, {
-            key: "toString",
-            value: function toString() {
-                return "" + this.x + "," + this.y + "," + this.width + "," + this.height;
-            }
-        }, {
-            key: "clone",
-            value: function clone() {
-                return new Rect(this.x, this.y, this.width, this.height);
-            }
-        }]);
-
+        Rect.prototype.contains = function (x, y) {
+            return x >= this.x && y >= this.y && x < (this.x + this.width) && y < (this.y + this.height);
+        };
+        Rect.prototype.toString = function () {
+            return "" + this.x + "," + this.y + "," + this.width + "," + this.height;
+        };
+        Rect.prototype.clone = function () {
+            return new Rect(this.x, this.y, this.width, this.height);
+        };
         return Rect;
-    }();
-
+    }());
     exports.Rect = Rect;
     function Polygon(pointArray) {
         var _data = pointArray;
         var _box = null;
-        if (!pointArray || pointArray.length < 2 * 3 || pointArray.length % 2) throw '多边形顶点数组长度必须为偶数且大于 6.';
+        if (!pointArray || (pointArray.length < 2 * 3) || (pointArray.length % 2))
+            throw '多边形顶点数组长度必须为偶数且大于 6.';
         // 根据x方向和y方向上的缩放系数进行缩放，同时根据弧度进行逆时针旋转
         this.tranform = function (scaleX, scaleY, angle) {
             for (var i = 0; i < _data.length; i += 2) {
@@ -1125,18 +1135,20 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         };
         // 获取图形的最小x、y坐标和最大x、y坐标，然后以最小坐标作为起点做了一个矩形
         this.box = function () {
-            if (_box) return _box;
-            var l = 0,
-                t = 0,
-                r = 0,
-                b = 0;
+            if (_box)
+                return _box;
+            var l = 0, t = 0, r = 0, b = 0;
             for (var i = 0; i < _data.length;) {
                 var x = _data[i++];
                 var y = _data[i++];
-                if (x < l) l = x;
-                if (x > r) r = x;
-                if (y < t) t = y;
-                if (y > b) b = y;
+                if (x < l)
+                    l = x;
+                if (x > r)
+                    r = x;
+                if (y < t)
+                    t = y;
+                if (y > b)
+                    b = y;
             }
             return _box = new Rect(l, t, r - l, b - t);
         };
@@ -1151,19 +1163,26 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         function are_line_segments_intersecting_and_noncollinear(v1x1, v1y1, v1x2, v1y2, v2x1, v2y1, v2x2, v2y2) {
             var d11 = point_on_which_side_of_line(v2x1, v2y1, v1x1, v1y1, v1x2, v1y2);
             var d12 = point_on_which_side_of_line(v2x2, v2y2, v1x1, v1y1, v1x2, v1y2);
-            if (d11 > 0 && d12 > 0) return false;
-            if (d11 < 0 && d12 < 0) return false;
+            if (d11 > 0 && d12 > 0)
+                return false;
+            if (d11 < 0 && d12 < 0)
+                return false;
             var d21 = point_on_which_side_of_line(v1x1, v1y1, v2x1, v2y1, v2x2, v2y2);
             var d22 = point_on_which_side_of_line(v1x2, v1y2, v2x1, v2y1, v2x2, v2y2);
-            if (d21 > 0 && d22 > 0) return false;
-            if (d21 < 0 && d22 < 0) return false;
-            if (d11 === 0 && d12 === 0 && d21 === 0 && d22 === 0) return false;
+            if (d21 > 0 && d22 > 0)
+                return false;
+            if (d21 < 0 && d22 < 0)
+                return false;
+            if (d11 === 0 && d12 === 0 && d21 === 0 && d22 === 0)
+                return false;
             return true;
         }
         this.contains = function (x, y) {
-            if (_data.length === 0) return false;
+            if (_data.length === 0)
+                return false;
             var box = this.box();
-            if (!box.contains(x, y)) return false;
+            if (!box.contains(x, y))
+                return false;
             var x1 = x;
             var y1 = box.y - box.height;
             var intersects = 0;
@@ -1172,14 +1191,16 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
             for (var i = 0; i < _data.length;) {
                 var pt1x = _data[i++];
                 var pt1y = _data[i++];
-                if (are_line_segments_intersecting_and_noncollinear(pt0x, pt0y, pt1x, pt1y, x, y, x1, y1)) intersects++;
+                if (are_line_segments_intersecting_and_noncollinear(pt0x, pt0y, pt1x, pt1y, x, y, x1, y1))
+                    intersects++;
                 pt0x = pt1x;
                 pt0y = pt1y;
             }
             return intersects % 2 === 1;
         };
         this.draw = function (context, borderColor, fillColor) {
-            if (_data.length === 0) return;
+            if (_data.length === 0)
+                return;
             context.strokeStyle = borderColor;
             context.fillStyle = fillColor;
             context.beginPath();
@@ -1214,18 +1235,18 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
     exports.Polygon = Polygon;
     function Circular(radius) {
         var _radius = radius;
-        if (_radius < 0) _radius = 0;
+        if (_radius < 0)
+            _radius = 0;
         var _box = null;
         this.box = function () {
-            if (_box) return _box;
-            var l = -_radius,
-                t = -_radius,
-                r = _radius,
-                b = _radius;
+            if (_box)
+                return _box;
+            var l = -_radius, t = -_radius, r = _radius, b = _radius;
             return _box = new Rect(l, t, r - l, b - t);
         };
         this.draw = function (context, borderColor, fillColor) {
-            if (_radius === 0) return;
+            if (_radius === 0)
+                return;
             context.strokeStyle = borderColor;
             context.fillStyle = fillColor;
             if (_radius) {
@@ -1247,11 +1268,8 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         };
     }
     exports.Circular = Circular;
-
-    var LLBounds = function () {
+    var LLBounds = (function () {
         function LLBounds(west, south, east, north) {
-            _classCallCheck(this, LLBounds);
-
             this.west = 0;
             this.south = 0;
             this.east = 0;
@@ -1261,17 +1279,11 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
             this.east = arguments[2] || 0;
             this.north = arguments[3] || 0;
         }
-
-        _createClass(LLBounds, [{
-            key: "toString",
-            value: function toString() {
-                return [this.west, this.north, this.east, this.south].join(',');
-            }
-        }]);
-
+        LLBounds.prototype.toString = function () {
+            return [this.west, this.north, this.east, this.south].join(',');
+        };
         return LLBounds;
-    }();
-
+    }());
     exports.LLBounds = LLBounds;
     function Map(items) {
         var _items = items || {};
@@ -1294,22 +1306,24 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         };
         this.item = function (type, code) {
             var m = _maps[type];
-            if (!m) return undefined;
+            if (!m)
+                return undefined;
             return m.item(code);
         };
     }
     exports.MapMap = MapMap;
     function degreeToDecimal(lonlat) {
         var lonlats = /(\d+°)?(\d+')?(\d+(\.\d+)?")?/.exec(lonlat);
-        var deg = lonlats[1] === undefined ? "0°" : lonlats[1];
-        var minute = lonlats[2] === undefined ? "0'" : lonlats[2];
-        var second = lonlats[3] === undefined ? '0"' : lonlats[3];
+        var deg = (lonlats[1] === undefined) ? "0°" : lonlats[1];
+        var minute = (lonlats[2] === undefined) ? "0'" : lonlats[2];
+        var second = (lonlats[3] === undefined) ? '0"' : lonlats[3];
         deg = parseFloat(deg.substr(0, deg.length - 1));
         minute = parseFloat(minute.substr(0, minute.length - 1));
         second = parseFloat(second.substr(0, second.length - 1));
         var decimal = deg + minute / 60 + second / 3600;
         var symbol = lonlat.substr(lonlat.length - 1);
-        if (symbol === "W" || symbol === "S") decimal = decimal * -1;
+        if (symbol === "W" || symbol === "S")
+            decimal = decimal * -1;
         return decimal;
     }
     exports.degreeToDecimal = degreeToDecimal;
@@ -1329,7 +1343,8 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
                 sColorChange.push(parseInt("0x" + sColor.slice(i, i + 2)));
             }
             return "rgba(" + sColorChange.join(",") + "," + opacity + ")";
-        } else {
+        }
+        else {
             return sColor;
         }
     }
@@ -1394,14 +1409,17 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         var values = ['用主机航行', '锚泊', '失控', '操纵性受限', '吃水限制', '系泊', '搁浅', '从事捕捞', '驶风航行'];
         var defval = "未知";
         var ind = parseInt(code);
-        if (!isFinite(ind) || ind < 0 || ind >= values.length) return defval;
+        if (!isFinite(ind) || ind < 0 || ind >= values.length)
+            return defval;
         return values[ind];
     }
     exports.getAisNavStatusName = getAisNavStatusName;
     function globalTooltip(msg) {
         $(".global-tooltip").remove();
         var id = getRandomString(8);
-        var div = $(document.createElement('div')).attr("id", id).addClass('global-tooltip');
+        var div = $(document.createElement('div'))
+            .attr("id", id)
+            .addClass('global-tooltip');
         $('<div>' + msg + '</div>').appendTo(div);
         $(document.body).append(div);
         window.setTimeout(function () {
@@ -1429,11 +1447,13 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
                 for (var j = 0; j < count; j++) {
                     if (j !== count - 1) {
                         result += item.slice(j * length, j * count + length) + '\r\n';
-                    } else {
+                    }
+                    else {
                         result += item.slice(j * length, item.length);
                     }
                 }
-            } else {
+            }
+            else {
                 result += item;
             }
         }
@@ -1451,20 +1471,25 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         var _listeners = {};
         this.listen = function (type, listener) {
             var cb = _listeners[type];
-            if (!cb) cb = _listeners[type] = [];
+            if (!cb)
+                cb = _listeners[type] = [];
             cb.push(listener);
         };
         this.unlisten = function (type, listener) {
             var cb = _listeners[type];
-            if (!cb) return;
+            if (!cb)
+                return;
             var index = cb.indexOf(listener);
-            if (index < 0) return;
+            if (index < 0)
+                return;
             cb.splice(index, 1);
-            if (cb.length === 0) delete _listeners[type];
+            if (cb.length === 0)
+                delete _listeners[type];
         };
         this.send = function (type) {
             var cb = _listeners[type];
-            if (!cb) return;
+            if (!cb)
+                return;
             for (var i = 0; i < cb.length; i++) {
                 cb[i].apply(null, arguments);
             }
@@ -1502,19 +1527,18 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         // //>a={b:{c:[{d:{e:"e1"}}]}}
         // //>v={e:"e1"}
         function V(obj, path, fun) {
-            var pattern = /([^\.]+)[\.]?/ig,
-                r,
-                R = obj,
-                p = [],
-                P = []; // /([^\.\[]+)[\.\[]?/ig
+            var pattern = /([^\.]+)[\.]?/ig, r, R = obj, p = [], P = []; // /([^\.\[]+)[\.\[]?/ig
             while (r = pattern.exec(path)) {
                 p.push(r[1]);
                 P.push(R);
                 fun && fun(R[r[1]], p, P);
                 R = P[P.length - 1][r[1]];
-                if (path == p.join('.')) return R;
-                if (typeof R == 'undefined') return undefined;
-                if (R == null) return undefined;
+                if (path == p.join('.'))
+                    return R;
+                if (typeof (R) == 'undefined')
+                    return undefined;
+                if (R == null)
+                    return undefined;
             }
         }
         DC.V = V;
@@ -1537,7 +1561,8 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
             return V(a, path, function (v, p, P) {
                 if (p.join(".") == path) {
                     P[P.length - 1][p[p.length - 1]] = value;
-                } else {
+                }
+                else {
                     if ('' + Number(p[p.length - 1]) == p[p.length - 1]) {
                         var t = [];
                         for (var i in P[P.length - 1]) {
@@ -1546,7 +1571,7 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
                         P[P.length - 1] = t;
                         P[P.length - 2][p[p.length - 2]] = P[P.length - 1];
                     }
-                    if (typeof v == 'undefined' || v == null || (typeof v === "undefined" ? "undefined" : _typeof(v)) != "object") {
+                    if ((typeof (v) == 'undefined') || (v == null) || typeof (v) != "object") {
                         P[P.length - 1][p[p.length - 1]] = {};
                     }
                 }
@@ -1557,22 +1582,24 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         //GU([data],'0.b','0.c','1')
         function GU(datas, list) {
             var list = arguments[1].split(',');
-            var gn = function gn(R) {
-                if (typeof R == 'undefined') return false;
+            var gn = function (R) {
+                if (typeof (R) == 'undefined')
+                    return false;
                 return true;
             };
             return list.every(function (v) {
-                var pattern = /([^\.]+)[\.]?/ig,
-                    r,
-                    R = datas;
+                var pattern = /([^\.]+)[\.]?/ig, r, R = datas;
                 while (r = pattern.exec(v)) {
                     if (r[1] == '*') {
                         for (var i in R) {
-                            if (!gn(R[i])) return false;
+                            if (!gn(R[i]))
+                                return false;
                         }
-                    } else {
+                    }
+                    else {
                         R = R[r[1]];
-                        if (!gn(R)) return false;
+                        if (!gn(R))
+                            return false;
                     }
                 }
                 return true;
@@ -1582,23 +1609,26 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         //全部非undefined非null,返回true,否则false
         function GN(datas, list) {
             var list = arguments[1].split(',');
-            var gn = function gn(R) {
-                if (typeof R == 'undefined') return false;
-                if (R == null) return false;
+            var gn = function (R) {
+                if (typeof (R) == 'undefined')
+                    return false;
+                if (R == null)
+                    return false;
                 return true;
             };
             return list.every(function (v) {
-                var pattern = /([^\.]+)[\.]?/ig,
-                    r,
-                    R = datas;
+                var pattern = /([^\.]+)[\.]?/ig, r, R = datas;
                 while (r = pattern.exec(v)) {
                     if (r[1] == '*') {
                         for (var i in R) {
-                            if (!gn(R[i])) return false;
+                            if (!gn(R[i]))
+                                return false;
                         }
-                    } else {
+                    }
+                    else {
                         R = R[r[1]];
-                        if (!gn(R)) return false;
+                        if (!gn(R))
+                            return false;
                     }
                 }
                 return true;
@@ -1607,28 +1637,23 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         DC.GN = GN;
     })(DC = exports.DC || (exports.DC = {}));
     function d(str) {
-        for (var _len = arguments.length, arr = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-            arr[_key - 1] = arguments[_key];
+        var arr = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            arr[_i - 1] = arguments[_i];
         }
-
         var argumentslist = arguments;
-        var reg = /({[^{}]+})/g,
-            x = null,
-            l = [];
+        var reg = /({[^{}]+})/g, x = null, l = [];
         while ((x = reg.exec(str)) != null) {
             l.push([x[1]]);
         }
         l.map(function (v) {
-            var a = v[0].indexOf("{"),
-                b = v[0].indexOf("??"),
-                c = v[0].indexOf("?"),
-                d = v[0].indexOf("}"),
-                V;
+            var a = v[0].indexOf("{"), b = v[0].indexOf("??"), c = v[0].indexOf("?"), d = v[0].indexOf("}"), V;
             if (b == -1) {
                 var c = v[0].substring(a + 1, c);
                 var C = argumentslist[Number(c) + 1];
                 V = C ? 'FBa' : 'FBb'; //todo
-            } else {
+            }
+            else {
                 var c = v[0].substring(a + 1, c);
                 var C = argumentslist[Number(c) + 1];
                 V = C ? 'FAa' : 'FAb';
@@ -1639,21 +1664,24 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
     }
     var t = d('历史不会{0?我:你}重演{0?我:你}依次是:{1??1,:1}', {}, {});
     //根据类型列表判断
-    function typeTest(datas, list) {}
+    function typeTest(datas, list) {
+    }
     typeTest([], '');
     function getUrlParameter(name) {
         var hash = decodeURIComponent(window.location.hash);
         var reg = new RegExp("[\?|^|&]" + name + "=([^&]*)", "i");
         var r = hash.match(reg);
-        if (r != null) return r[1];
+        if (r != null)
+            return (r[1]);
         return null;
     }
     exports.getUrlParameter = getUrlParameter;
     function lon3857(lon) {
         if (isFinite(lon)) {
             var size = 262144 * 0.5971642833948135 * 256;
-            return ((lon + 180) % 360 + 360) % 360 / 360 * size - size / 2;
-        } else {
+            return (((((lon + 180) % 360 + 360) % 360) / 360) * size) - size / 2;
+        }
+        else {
             return NaN;
         }
     }
@@ -1662,93 +1690,65 @@ define(["require", "exports", "jquery"], function (require, exports, $) {
         if (isFinite(lat) && lat < 85 && lat > -85) {
             var size = 262144 * 0.5971642833948135 * 256;
             var sinLatitude = Math.sin(lat * Math.PI / 180);
-            return (0.5 - Math.log((1 + sinLatitude) / (1 - sinLatitude)) / (4 * Math.PI)) * size - size / 2;
-        } else {
+            return ((0.5 - Math.log((1 + sinLatitude) / (1 - sinLatitude)) / (4 * Math.PI)) * size) - size / 2;
+        }
+        else {
             return NaN;
         }
     }
     exports.lat3857 = lat3857;
-
-    var rect = function () {
+    var rect = (function () {
         function rect() {
-            _classCallCheck(this, rect);
         }
-
-        _createClass(rect, null, [{
-            key: "contains",
-            value: function contains(rect, x, y) {
-                return x >= rect.x && y >= rect.y && x <= rect.x + rect.width && y <= rect.y + rect.height;
-            }
-        }, {
-            key: "create",
-            value: function create(x, y, width, height) {
-                return {
-                    x: x,
-                    y: y,
-                    width: width,
-                    height: height
-                };
-            }
-        }]);
-
+        rect.contains = function (rect, x, y) {
+            return x >= rect.x
+                && y >= rect.y
+                && x <= (rect.x + rect.width)
+                && y <= (rect.y + rect.height);
+        };
+        rect.create = function (x, y, width, height) {
+            return {
+                x: x,
+                y: y,
+                width: width,
+                height: height
+            };
+        };
         return rect;
-    }();
-
+    }());
     exports.rect = rect;
-
-    var position = function () {
+    var position = (function () {
         function position() {
-            _classCallCheck(this, position);
         }
-
-        _createClass(position, null, [{
-            key: "create",
-            value: function create(x, y) {
-                return {
-                    x: x,
-                    y: y
-                };
-            }
-        }]);
-
+        position.create = function (x, y) {
+            return {
+                x: x,
+                y: y
+            };
+        };
         return position;
-    }();
-
+    }());
     exports.position = position;
-
-    var sprite = function () {
+    var sprite = (function () {
         function sprite() {
-            _classCallCheck(this, sprite);
         }
-
-        _createClass(sprite, null, [{
-            key: "create",
-            value: function create(image, frame) {
-                return {
-                    image: image,
-                    frame: frame
-                };
-            }
-        }, {
-            key: "get",
-            value: function get(name) {
-                return this.cache_[name] || null;
-            }
-        }, {
-            key: "set",
-            value: function set(name, sprite) {
-                this.cache_[name] = sprite;
-            }
-        }, {
-            key: "item",
-            value: function item(name) {
-                return this.get(name);
-            }
-        }]);
-
+        sprite.create = function (image, frame) {
+            return {
+                image: image,
+                frame: frame
+            };
+        };
+        sprite.get = function (name) {
+            return this.cache_[name] || null;
+        };
+        sprite.set = function (name, sprite) {
+            this.cache_[name] = sprite;
+        };
+        sprite.item = function (name) {
+            return this.get(name);
+        };
         return sprite;
-    }();
-
+    }());
     sprite.cache_ = {};
     exports.sprite = sprite;
 });

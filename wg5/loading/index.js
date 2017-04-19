@@ -1,128 +1,129 @@
-"use strict";
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) {
-            try {
-                step(generator.next(value));
-            } catch (e) {
-                reject(e);
-            }
-        }
-        function rejected(value) {
-            try {
-                step(generator.throw(value));
-            } catch (e) {
-                reject(e);
-            }
-        }
-        function step(result) {
-            result.done ? resolve(result.value) : new P(function (resolve) {
-                resolve(result.value);
-            }).then(fulfilled, rejected);
-        }
-        step((generator = generator.apply(thisArg, _arguments)).next());
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-define(["require", "exports", '../seecool/configuration/ConfigParser', "../seecool/plugins/Plugins", "../seecool/datas/EventSource"], function (require, exports, ConfigParser_1, Plugins_1, EventSource_1) {
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t;
+    return { next: verb(0), "throw": verb(1), "return": verb(2) };
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+define(["require", "exports", "../seecool/configuration/ConfigParser", "../seecool/plugins/Plugins", "../seecool/datas/EventSource"], function (require, exports, ConfigParser_1, Plugins_1, EventSource_1) {
     "use strict";
-
-    var RootPlugin = function (_EventSource_1$defaul) {
-        _inherits(RootPlugin, _EventSource_1$defaul);
-
+    var RootPlugin = (function (_super) {
+        __extends(RootPlugin, _super);
         function RootPlugin(options) {
-            _classCallCheck(this, RootPlugin);
-
-            var _this = _possibleConstructorReturn(this, (RootPlugin.__proto__ || Object.getPrototypeOf(RootPlugin)).call(this));
-
+            var _this = _super.call(this) || this;
             _this.domRoot_ = options.domRoot;
             _this.basePath_ = options.basePath;
             return _this;
         }
-
-        _createClass(RootPlugin, [{
-            key: "domRoot",
-            get: function get() {
+        Object.defineProperty(RootPlugin.prototype, "domRoot", {
+            get: function () {
                 return this.domRoot_;
-            }
-        }, {
-            key: "basePath",
-            get: function get() {
+            },
+            enumerable: true,
+            configurable: true
+        });
+        ;
+        Object.defineProperty(RootPlugin.prototype, "basePath", {
+            get: function () {
                 return this.basePath_;
-            }
-        }]);
-
+            },
+            enumerable: true,
+            configurable: true
+        });
         return RootPlugin;
-    }(EventSource_1.default);
-
-    function main(domRoot, basePath) {
-        return __awaiter(this, void 0, void 0, regeneratorRuntime.mark(function _callee() {
-            var configName, config, hash, parts, pageName, pageParams, plugins, rootPlugin;
-            return regeneratorRuntime.wrap(function _callee$(_context) {
-                while (1) {
-                    switch (_context.prev = _context.next) {
-                        case 0:
-                            basePath = basePath.replace(/\/$/, '');
-                            configName = basePath + '/config' + (location.search.replace(/^\?/, '-') || '');
-                            _context.t0 = ConfigParser_1;
-                            _context.next = 5;
-                            return loadConfigs(configName);
-
-                        case 5:
-                            _context.t1 = _context.sent;
-                            config = _context.t0.parse.call(_context.t0, _context.t1);
-                            hash = location.hash.replace(/^#/, '');
-                            parts = /^([^?]*)(\?.*)?$/.exec(hash);
-                            pageName = parts[1] || 'index';
-                            pageParams = (parts[2] || '?').substr(1).split('&');
-
-                            applyParamsToConfig(config, pageParams);
-                            define('config', [], config);
-                            plugins = (config.pages || {})[pageName];
-
-                            if (plugins) {
-                                _context.next = 16;
-                                break;
-                            }
-
-                            throw new Error("Undefined page name '" + pageName + "'.");
-
-                        case 16:
-                            if (!(!Array.isArray(plugins) || !plugins.length)) {
-                                _context.next = 18;
-                                break;
-                            }
-
-                            throw new Error("Invalid configuration for page '" + pageName + "'.");
-
-                        case 18:
-                            rootPlugin = new RootPlugin({
-                                domRoot: domRoot,
-                                basePath: basePath
-                            });
-
-                            Plugins_1.Plugins.add('root', rootPlugin);
-                            _context.next = 22;
-                            return Plugins_1.Plugins.load(plugins, config.plugins);
-
-                        case 22:
-                            return _context.abrupt("return", rootPlugin);
-
-                        case 23:
-                        case "end":
-                            return _context.stop();
-                    }
+    }(EventSource_1.default));
+    function main(domRoot, basePath, proxyObj) {
+        return __awaiter(this, void 0, void 0, function () {
+            var configName, configs, config, pagePlugins, rootPlugin, pluginManager, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        basePath = basePath.replace(/\/$/, '');
+                        configName = basePath + '/config' + (location.search.replace(/^\?/, '-') || '');
+                        return [4 /*yield*/, loadConfigs(configName)];
+                    case 1:
+                        configs = _a.sent();
+                        config = ConfigParser_1.parse(configs);
+                        //applyParamsToConfig(config, pageParams);
+                        define('config', [], config);
+                        if (!config.pages)
+                            throw new Error('Need a pages in config');
+                        if (!config.plugins)
+                            throw new Error('Need a plugins in config');
+                        if (!config.plugins)
+                            throw new Error('Need a plugins in config');
+                        if (!config.pageManager)
+                            throw new Error('Need a pageManager in config');
+                        if (!config.plugins[config.pageManager])
+                            config.plugins[config.pageManager] = {};
+                        if (config.plugins[config.pageManager].pages)
+                            throw new Error('should not set pages in the plugin pointed by pageManager');
+                        config.plugins[config.pageManager].pages = config.pages;
+                        pagePlugins = [config.pageManager];
+                        rootPlugin = new RootPlugin({
+                            domRoot: domRoot,
+                            basePath: basePath
+                        });
+                        if (proxyObj) {
+                            proxyObj.__proto__ = rootPlugin;
+                            proxyObj._initFun && proxyObj._initFun.call(rootPlugin, rootPlugin);
+                        }
+                        pluginManager = new Plugins_1.Plugins(config.manifest || {}, config.plugins || {});
+                        pluginManager.add('root', rootPlugin);
+                        pluginManager.add('plugins', pluginManager);
+                        _a.label = 2;
+                    case 2:
+                        _a.trys.push([2, 4, , 5]);
+                        return [4 /*yield*/, pluginManager.load(pagePlugins)];
+                    case 3:
+                        _a.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_1 = _a.sent();
+                        console.error(error_1);
+                        throw error_1;
+                    case 5: return [2 /*return*/, rootPlugin];
                 }
-            }, _callee, this);
-        }));
+            });
+        });
     }
     exports.main = main;
     function applyParamsToConfig(config, params) {
@@ -130,57 +131,61 @@ define(["require", "exports", '../seecool/configuration/ConfigParser', "../seeco
         return config;
     }
     function loadConfigs(configName) {
-        return __awaiter(this, void 0, void 0, regeneratorRuntime.mark(function _callee2() {
-            var config, parent, baseConfigs;
-            return regeneratorRuntime.wrap(function _callee2$(_context2) {
-                while (1) {
-                    switch (_context2.prev = _context2.next) {
-                        case 0:
-                            _context2.next = 2;
-                            return loadConfig(configName);
-
-                        case 2:
-                            config = _context2.sent;
-                            parent = config['$extends'];
-
-                            if (parent) {
-                                _context2.next = 6;
-                                break;
-                            }
-
-                            return _context2.abrupt("return", [config]);
-
-                        case 6:
-                            parent = configName.replace(/\/.*$/, '/') + parent;
-                            _context2.next = 9;
-                            return loadConfigs(parent);
-
-                        case 9:
-                            baseConfigs = _context2.sent;
-
-                            baseConfigs.push(config);
-                            return _context2.abrupt("return", baseConfigs);
-
-                        case 12:
-                        case "end":
-                            return _context2.stop();
-                    }
+        return __awaiter(this, void 0, void 0, function () {
+            var config, parents, keys, promises, parentConfigs;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, loadConfig(configName)];
+                    case 1:
+                        config = _a.sent();
+                        parents = config['$includes'];
+                        keys = parents ? Object.getOwnPropertyNames(parents) : [];
+                        if (!keys.length)
+                            return [2 /*return*/, [config]];
+                        promises = keys.map(function (item) {
+                            var namespace = parents[item];
+                            item = configName.replace(/\/.*$/, '/') + item;
+                            return loadConfigs(item).then(function (configs) {
+                                if (typeof (namespace) === "string")
+                                    namespace = namespace.split('.');
+                                if (namespace.length) {
+                                    for (var i = 0; i < configs.length; i++) {
+                                        configs[i] = wrapInNamespace(configs[i], namespace);
+                                    }
+                                }
+                                return configs;
+                            });
+                        });
+                        return [4 /*yield*/, Promise.all(promises)];
+                    case 2:
+                        parentConfigs = _a.sent();
+                        parentConfigs.push(config);
+                        return [2 /*return*/, parentConfigs];
                 }
-            }, _callee2, this);
-        }));
+            });
+        });
+    }
+    function wrapInNamespace(obj, namespace) {
+        for (var i = namespace.length - 1; i >= 0; i--) {
+            var key = namespace[i];
+            obj = (_a = {}, _a[key] = obj, _a);
+        }
+        return obj;
+        var _a;
     }
     function loadConfig(file) {
         return new Promise(function (resolve, reject) {
             var xhr = new XMLHttpRequest();
             xhr.onload = function () {
                 if (xhr.status === 200) {
-                    var script = "(function(define, $expr) {return " + xhr.responseText + "})";
+                    var script = "(function(define, $) {return " + xhr.responseText + "})";
                     var configFactory = window['eval'](script);
                     var config = configFactory(function () {
                         return arguments[0];
-                    });
+                    }, ConfigParser_1.Expression);
                     resolve(config);
-                } else {
+                }
+                else {
                     reject({ status: xhr.status });
                 }
             };
