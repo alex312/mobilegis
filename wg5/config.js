@@ -215,6 +215,11 @@ define({
         },
     },
     pageManager: "pageManager",
+    values: {
+        apiHostIp: appConfig.apiHostIp,//"192.168.9.131",
+        apiHostPort: appConfig.apiHostPort,//"9007",
+        apiRoot: appConfig.map.apiRoot, //"/wg5"
+    },
     plugins: {
         "pageManager": {
             actions: {
@@ -252,7 +257,7 @@ define({
                         title: '标准海图',
                         provider: 'ol.source.XYZ',
                         options: {
-                            url: "http://192.168.13.35:9007/wg5/MapService?service=wmts&request=gettile&tilematrixset=advsea&tilematrix={z}&tilerow={y}&tilecol={x}&format=image/png&layer=default&style=default&version=1.0.0"
+                            url: $.format("http://${apiHostIp}:${apiHostPort}${apiRoot}/MapService?service=wmts&request=gettile&tilematrixset=advsea&tilematrix={z}&tilerow={y}&tilecol={x}&format=image/png&layer=default&style=default&version=1.0.0")
                         }
                     },
                     {
@@ -260,23 +265,23 @@ define({
                         title: '基础海图+路图',
                         provider: 'ol.source.XYZ',
                         options: {
-                            url: "http://192.168.13.35:9007/wg5/MapService?service=wmts&request=gettile&tilematrixset=basicsearoad&tilematrix={z}&tilerow={y}&tilecol={x}&format=image/png&layer=default&style=default&version=1.0.0"
+                            url: $.format("http://${apiHostIp}:${apiHostPort}${apiRoot}/MapService?service=wmts&request=gettile&tilematrixset=basicsearoad&tilematrix={z}&tilerow={y}&tilecol={x}&format=image/png&layer=default&style=default&version=1.0.0")
                         }
                     }
                 ]
             }
         },
         "maps/layers/ships": {
-            // tileUrl: 'http://60.30.247.211:88/api/shiptile/tile',
-            // tileVersionUrl: 'http://60.30.247.211:88/api/shiptile/tile',
-            // rtds: 'ws://60.30.247.211:88/api/rtds',
-            // shiphistoryApi: 'http://60.30.247.211:88/shiphistory/api',
+            // tileUrl: 'http://192.168.9.131:9007/wg5/api/shiptile/tile',
+            // tileVersionUrl: 'http://192.168.9.131:9007/wg5/api/shiptile/tile',
+            // rtds: 'ws://192.168.9.131:9007/wg5/api/rtds',
+            // shiphistoryApi: 'http://192.168.9.131:9007/wg5/shiphistory/api',
             // signalApi: 'api/ships/signal',
-            tileUrl: 'http://192.168.13.35:9007/wg5/api/shiptile/tile',
-            tileVersionUrl: 'http://192.168.13.35:9007/wg5/api/shiptile/tile',
-            rtds: 'ws://192.168.13.35:9007/wg5/api/rtds',
-            shiphistoryApi: 'http://192.168.13.35:9007/wg5/api/shiphistory',
-            signalApi: 'api/ships/signal',
+            tileUrl: $.format("http://${apiHostIp}:${apiHostPort}${apiRoot}/api/shiptile/tile"),
+            tileVersionUrl: $.format("http://${apiHostIp}:${apiHostPort}${apiRoot}/api/shiptile/tile"),
+            rtds: $.format('ws://${apiHostIp}:${apiHostPort}${apiRoot}/api/rtds'),
+            shiphistoryApi: $.format("http://${apiHostIp}:${apiHostPort}${apiRoot}/api/shiphistory"),
+            signalApi: $.format("http://${apiHostIp}:${apiHostPort}/api/ships/signal"),
             expires: 60 * 60 * 3,
             zIndex: 1,
             zoom: 3
@@ -287,8 +292,8 @@ define({
         //     zoom: 12
         // },
         "maps/layers/thhj": {
-            locationApi: 'http://192.168.13.35:9007/wg5/api/location',
-            defaultTrafficEnvStyleApi: "http://192.168.13.35:9007/wg5/api/DefaultTrafficEnvStyle",
+            locationApi: $.format("http://${apiHostIp}:${apiHostPort}${apiRoot}//api/location"),
+            defaultTrafficEnvStyleApi: $.format("http://${apiHostIp}:${apiHostPort}${apiRoot}/api/DefaultTrafficEnvStyle"),
             zIndex: 3,
             zoom: 10
         },
@@ -570,11 +575,11 @@ define({
         //     toolIndex: 8
         // },
         "maps/layers/berth": {
-            berthApi: 'http://192.168.13.35:9007/wg5/api/berth'
+            berthApi: $.format("http://${apiHostIp}:${apiHostPort}${apiRoot}/api/berth")
         },
         "maps/layers/cctv": {
             // cctvStaticInfoApi: 'api/cctvStaticInfo',
-            cctvApi: 'http://192.168.13.35:9007/api/cctv',
+            cctvApi: $.format("http://${apiHostIp}:${apiHostPort}${apiRoot}/api/cctv"),
             zIndex: 4,
             zoom: 5
         },

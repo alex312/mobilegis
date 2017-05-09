@@ -1,16 +1,15 @@
-import { Component, OnDestroy, NgZone, ElementRef, ViewChild, OnInit, AfterViewInit, Renderer } from '@angular/core';
+import { Component, OnDestroy, NgZone, Renderer } from '@angular/core';
 
-import { NavController, NavParams, Content } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { Feature, FeatureType } from '../data/feature';
 import { SearchPage } from '../../search';
 import { MapHolderImp } from '../service/map-holder';
-import { SeecoolGISComponent } from '../component/seecool-gis.component';
 
 @Component({
     templateUrl: './map.page.html',
 })
-export class MapPage implements OnInit, OnDestroy {
+export class MapPage implements OnDestroy {
 
     selectedFeature: Feature;
     FeatureType = FeatureType;
@@ -24,28 +23,22 @@ export class MapPage implements OnInit, OnDestroy {
         private navParams: NavParams,
         private zone: NgZone,
         private _renderer: Renderer) {
+        this.selectedFeature = null;
         MapHolderImp.createHolder();
         MapHolderImp.holder.then((holder) => {
             this.holder = holder;
-            let selectedUid = this.navParams.get('selectedUid');
+            this.holder.shipLayerReady().then(() => {
+                if (this.navParams.data === null || this.navParams.data === undefined)
+                    return;
+                let uid = this.navParams.data.selectedUid;
+                let type = this.navParams.data.type;
+                this.selectFeature(type, uid)
+            });
+
         });
         MapHolderImp.registSelectFeatureAction("mapPage", this.onSelectedObject.bind(this));
 
     }
-
-    // private selectedObject(selectedUid: string) {
-    //     if (selectedUid) {
-    //         let index: number = selectedUid.indexOf(':');
-    //         if (index !== -1) {
-    //             let layer: string = selectedUid.substring(0, index);
-    //             let uid: string = selectedUid.substring(index + 1);
-    //             let fun = this.holder.tool[layer];
-    //             if (fun) {
-    //                 Promise.resolve(fun.SetFocus(uid)).then();
-    //             }
-    //         }
-    //     }
-    // }
 
     onStartSearch() {
         this.holder.selectedFeature = null;
@@ -60,8 +53,13 @@ export class MapPage implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        // this.webgisInteractive.unregistCallback("SelectObj", this.onSelectedObject.bind(this));
         this.holder.selectedFeature = null;
+        if (this.selectedFeature !== null && this.selectedFeature !== undefined) {
+            let fun = this.holder.tool[this.selectedFeature.layerType];
+            if (fun)
+                fun.SetFocus("");
+        }
+        this.selectedFeature = null;
     }
 
     onSelectedObject(env: any, selectObject) {
@@ -86,28 +84,35 @@ export class MapPage implements OnInit, OnDestroy {
         this.selectedFeature = null;
     }
 
-
-    @ViewChild(Content)
-    private _content: Content;
-    @ViewChild(SeecoolGISComponent)
-    private _map: SeecoolGISComponent;
-    ngOnInit() {
-
-    }
-
     ngAfterViewInit() {
     }
 
+    _canNotFocuseShip = "none";
+    get canNotFocuseShip() {
+        return this._canNotFocuseShip;
+    }
+    set canNotFocuseShip(value) {
+        this._canNotFocuseShip = value;
+    }
     ionViewDidEnter() {
-        if (this.holder && this.holder.selectedFeature) {
+        if (this.holder && this.holder.tool && this.holder.map)
             this.holder.tool.map.UpdateSize();
-            let fun = this.holder.tool[this.holder.selectedFeature.type];
-            if (fun) {
-                Promise.resolve(fun.SetFocusIsFully(this.holder.selectedFeature.feature.uid)).catch(() => {
-                    this.holder.selectedFeature = null;
-                    this.selectedFeature = null;
-                });
-            }
+        if (this.holder && this.holder.selectedFeature) {
+            this.selectFeature(this.holder.selectedFeature.type, this.holder.selectedFeature.feature.uid)
+        }
+    }
+
+    selectFeature(featureType: string, uid: string) {
+        let fun = this.holder.tool[featureType];
+        if (fun) {
+            Promise.resolve(fun.SetFocus(uid)).catch(() => {
+                this.holder.selectedFeature = null;
+                this.selectedFeature = null;
+                this.canNotFocuseShip = "block";
+                setTimeout(() => {
+                    this.canNotFocuseShip = "none";
+                }, 3000);
+            });
         }
     }
 }

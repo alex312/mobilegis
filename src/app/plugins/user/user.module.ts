@@ -12,14 +12,13 @@ import { UserSettingPage } from './page/user-setting.component';
 import { PasswordReSettingPage } from './page/password-resetting.component';
 
 @NgModule({
+    id: "UserModule",
     imports: [
         CommonModule,
         FormsModule,
         IonicModule
     ],
     exports: [
-        UserSettingPage,
-        UserLoginPage
     ],
     declarations: [
         UserSettingPage,
@@ -32,8 +31,8 @@ import { PasswordReSettingPage } from './page/password-resetting.component';
         UserLoginPage
     ],
     providers: [
-        ApiClientService,
-        UserService
+        ApiClientService
+        // UserService
     ]
 })
 export class UserModule {

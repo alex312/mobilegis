@@ -16,6 +16,7 @@ import { FeatureInfoComponent } from './component/feature-info.component';
 
 
 @NgModule({
+    id: "MapModule",
     imports: [
         CommonModule,
         FormsModule,

@@ -5,7 +5,7 @@ import { SectionObserver } from '../data/section-observer';
 import { SectionServerChartService } from '../service/section-observer-chart.service';
 import { ChartDataCollection } from '../data/chart-data-collection';
 import * as moment from 'moment';
-import * as $ from 'jquery'
+import * as Highcharts from 'highcharts';
 
 @Component({
     templateUrl: './section-observer-chart.page.html',
@@ -59,10 +59,7 @@ export class SectionObserverChartPage implements OnInit {
         // });
 
         //highcharts
-        var element = <HTMLDivElement>document.getElementById(type);
-        console.log($(element));
-        var chart = <any>$(element);
-        (chart).highcharts({
+        Highcharts.chart(type, {
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,

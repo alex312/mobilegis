@@ -1,0 +1,29 @@
+<ion-card>
+	<div *ngIf="canDeal" #requireTimeAlarm>
+	</div>
+	<button ion-item (click)="taskDetail.emit(task)">
+				<div>
+					<h2>{{task.Name}}</h2>
+					<span>{{task.Type}}</span>
+				</div>
+				<p class="endtime" *ngIf="task.RequiredCompletionDate"> 要求<b>{{Util.FormatDate(task.RequiredCompletionDate,'YYYY-MM-DD HH:mm')}}</b>前完成</p>
+				<p class="summary">{{task.Summary}}</p>
+				<p class="sendtime">
+					<span>{{Format.FormatDate(task.Date,'YYYY-MM-DD HH:mm')}}</span>
+				</p>
+			</button>
+	<ion-row>
+		<ion-col>
+			<button *ngIf="canViewDetail" clear (click)="taskDetail.emit(task)">
+						<i class="fa fa-align-justify"></i>
+						<div>详情</div>
+					</button>
+		</ion-col>
+		<ion-col>
+			<button *ngIf="canRecord" clear (click)="showTaskRecord.emit(task)"><ion-icon name="create" record></ion-icon><div>记录</div></button>
+		</ion-col>
+		<ion-col>
+			<button *ngIf="canDeal" clear (click)="taskDeal.emit(task)"><ion-icon name="checkmark-circle" go></ion-icon><div>{{dealButtonText}}</div></button>
+		</ion-col>
+	</ion-row>
+</ion-card>

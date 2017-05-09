@@ -17,6 +17,7 @@ import { TrafficEnvService } from './service/traffic-env.service';
 
 
 @NgModule({
+    id: "TrafficEnvModule",
     imports: [
         CommonModule,
         FormsModule,

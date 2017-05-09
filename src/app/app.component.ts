@@ -2,20 +2,20 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
-import { TabsPage } from '../pages/tabs/tabs';
+import { TabsPage } from './entry-page/common';
 import { Config } from './config';
-
-// import { MenuPage } from './plugins/menu';
 
 @Component({
     templateUrl: 'app.html'
 })
 export class MyApp {
-    rootPage;//= TabsPage;
+    rootPage;
 
     constructor(platform: Platform) {
         platform.ready().then(() => {
+
             this.rootPage = TabsPage;
+
             Config.CORDOVA_READY = platform.is("cordova")
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.

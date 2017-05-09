@@ -1,0 +1,19 @@
+.record-list{
+    background-color: #eeeeee;
+
+    ion-card{
+        margin:0px 0px 0.5rem 0px;
+        width:100%;
+        box-shadow: none;
+
+        ion-label{
+            margin: 15px 0;
+        }
+    }
+
+    ion-item{
+        .summary{
+            font-size:1.8rem;
+        }
+    }
+}

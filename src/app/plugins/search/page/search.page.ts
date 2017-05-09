@@ -24,6 +24,7 @@ export class SearchPage implements OnInit {
         private alertCtrl: AlertController,
         private zone: NgZone,
         private apiClient: ApiClientService) {
+
     }
 
     onInput(event) {
@@ -35,16 +36,11 @@ export class SearchPage implements OnInit {
     }
 
     onSearch() {
-        this.loading = this.loadingCtrl.create({
-            content: "正在查询...",
-            dismissOnPageChange: true
-        });
-        this.loading.present(this.loading);
+        this.showLoading = true;
         // this.apiClient.get(`${this.searchUrl}?key=${this.searchKey}`).then(this.onSearchCompleted.bind(this));
         this.apiClient.get(`${Config.Plugins.Search.SearchUrl}?key=${this.searchKey}`).then(this.onSearchCompleted.bind(this));
     }
     onSearchCompleted(data) {
-        this.loading.dismiss();
         this.zone.run(() => {
             if (data) {
                 console.log(data);
@@ -55,6 +51,7 @@ export class SearchPage implements OnInit {
                 this.shipFeatures = this.createFeatures('ship', dict['ship']);
                 this.thhjFeatures = this.createFeatures('thhj', dict['thhj']);
             }
+            this.showLoading = false;
         })
     }
 
@@ -107,6 +104,14 @@ export class SearchPage implements OnInit {
             buttons: ['确认']
         });
         alert.present(alert);
+    }
+
+    private _showLoading = false;
+    get showLoading() {
+        return this._showLoading;
+    }
+    set showLoading(value) {
+        this._showLoading = value;
     }
 }
 

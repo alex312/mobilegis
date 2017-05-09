@@ -261,6 +261,7 @@ define(["require", "exports", "knockout", "openlayers", "fecha", "../../../../se
                 }
             }.bind(this);
             this.root_.shipLayer = wg5.shipLayer;
+            this.root_.trigger("moduledChange", { type: 'shipLayer', data: this.root_.shipLayer });
         };
         ShipLayerPlugin.prototype.setFocus_ = function (id) {
             return this.setFocusIsFully_(id, { stat: "range", minZoom: 13 });

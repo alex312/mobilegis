@@ -7,6 +7,7 @@ import { IonicModule } from 'ionic-angular';
 import { LoadingComponent } from './component/loading.component';
 
 @NgModule({
+    id: "LoadingModule",
     imports: [
         CommonModule,
         FormsModule,

@@ -5,8 +5,28 @@
   "typescript": true,
   "proxies": [
     {
-      "proxyUrl": "http://192.168.13.35:9007/api",
+      "proxyUrl": "http://192.168.9.131:9007/api",
       "path": "/api",
+      "proxyNoAgent": false
+    },
+    {
+      "proxyUrl": "http://192.168.9.131:9007/VTSWebServiceV5",
+      "path": "/VTSWebServiceV5",
+      "proxyNoAgent": false
+    },
+    {
+      "proxyUrl": "http://192.168.9.131:9007/SectionObserver",
+      "path": "/SectionObserver",
+      "proxyNoAgent": false
+    },
+    {
+      "proxyUrl": "http://192.168.9.131:9007/GPSLocation",
+      "path": "/GPSLocation",
+      "proxyNoAgent": false
+    },
+    {
+      "proxyUrl": "http://192.168.13.35:9008/resource",
+      "path": "/resource",
       "proxyNoAgent": false
     }
   ]

@@ -1,0 +1,1 @@
+export {LocationTracker} from './service/location-tracker.service';

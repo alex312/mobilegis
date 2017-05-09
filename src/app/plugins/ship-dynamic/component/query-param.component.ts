@@ -63,7 +63,8 @@ export class QueryParamComponent implements OnInit {
         })();
         this._shipTypeSelection = new SelectionModel(loaderPrmise);
     }
-    private shipTypeSelected(event) {
+
+    shipTypeSelected(event) {
         this.paramSource.shipTypeCode = this._shipTypeSelection.selectedOption.Code;
     }
 
@@ -80,7 +81,7 @@ export class QueryParamComponent implements OnInit {
         this._sourceSelection = new SelectionModel(loaderPromise);
     }
     _selectedSource;
-    private sourceSelected(event) {
+    sourceSelected(event) {
         this.paramSource.source = this._sourceSelection.selectedOption.Code;
     }
 
@@ -102,7 +103,7 @@ export class QueryParamComponent implements OnInit {
         })()
         this._companySelection = new SelectionModel(loaderPromise);
     }
-    private companySelected(event) {
+    companySelected(event) {
         this.paramSource.companyId = this._companySelection.selectedOption.Code;
     }
 
@@ -134,7 +135,7 @@ export class QueryParamComponent implements OnInit {
 
     @ViewChildren("timeButton")
     private _timeButtons;
-    private setTime(event, unitOfTime, amount) {
+    setTime(event, unitOfTime, amount) {
         let now = moment(new Date());
         this.paramSource.start = now.format("YYYY-MM-DD");
         this.paramSource.end = now.add(amount, unitOfTime).format("YYYY-MM-DD");

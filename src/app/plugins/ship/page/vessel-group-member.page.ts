@@ -27,8 +27,8 @@ export class VesselGroupMemberPage implements OnInit {
         });
     }
     LocateShip(member: VesselGroupMember) {
-        let uid = `shipLayer:MMSI:${member.MMSI}`;
+        let uid = `MMSI:${member.MMSI}`;
         console.log(uid);
-        this._navCtrl.push(MapPage, { selectedUid: uid });
+        this._navCtrl.push(MapPage, { type: "shipLayer", selectedUid: uid });
     }
 }

@@ -1,0 +1,42 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>执法单元</ion-title>
+		<!--<ion-buttons right>
+			<button (click)="cancel(false)">
+                <ion-icon name="close-circle"></ion-icon>
+            </button>
+		</ion-buttons>-->
+	</ion-navbar>
+</ion-header>
+<ion-content>
+	<ion-list inset no-lines>
+		<ion-item>
+			<ion-label>
+				参与人
+			</ion-label>
+			<ion-select multiple="true" (ionChange)="selectMemberChanged($event)" cancelText="取消" okText="确定">
+				<ion-option *ngFor="let member of allMembers.Items" [value]="member" [selected]="hasCheckedMembers(member,members)">{{member.RealName}}</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label>
+				执法车船
+			</ion-label>
+			<ion-select multiple="true" (ionChange)="selectVehicleChanged($event)" cancelText="取消" okText="确定">
+				<ion-option *ngFor="let vehicle of allVehicles.Items" [value]="vehicle" [selected]="hasChecked(vehicle,vehicles)">{{vehicle.Name}}</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label>
+				装备
+			</ion-label>
+			<ion-select multiple="true" (ionChange)="selectEquipmentChanged($event)" cancelText="取消" okText="确定">
+				<ion-option *ngFor="let equipment of allEquipments.Items" [value]="equipment" [selected]="hasChecked(equipment,equipments)">{{equipment.Name}}</ion-option>
+			</ion-select>
+		</ion-item>
+		<button block (click)="ok()">
+        <span>确定</span>
+    </button>
+	</ion-list>
+
+</ion-content>

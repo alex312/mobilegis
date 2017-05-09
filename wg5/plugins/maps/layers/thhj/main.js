@@ -80,6 +80,7 @@ define(["require", "exports", "openlayers", "knockout", "../../../../seecool/geo
                 this.setFocusIsFully_(id, stat);
             }.bind(this);
             this.root_.thhj = wg5.thhj;
+            this.root_.trigger("moduledChange", { type: 'thhj', data: this.root_.thhj });
         };
         ThhjPlugin.prototype.setFocus_ = function (id) {
             this.setFocusIsFully_(id, 'fully');
@@ -158,41 +159,41 @@ define(["require", "exports", "openlayers", "knockout", "../../../../seecool/geo
             this.promise_["locationLoad"] = Promise.resolve()
                 .then(this.defaultTrafficEnvStyleApi_.Get.bind(this.defaultTrafficEnvStyleApi_))
                 .then(function (pdata) {
-                switch (pdata.state) {
-                    case 'apiok':
-                        pdata.data.map(function (v) {
-                            var style = JSON.parse(v.Style);
-                            StaticLib_1.TrafficEnvStyle(style.TrafficEnvType, style); //
-                        });
-                        break;
-                }
-            })
+                    switch (pdata.state) {
+                        case 'apiok':
+                            pdata.data.map(function (v) {
+                                var style = JSON.parse(v.Style);
+                                StaticLib_1.TrafficEnvStyle(style.TrafficEnvType, style); //
+                            });
+                            break;
+                    }
+                })
                 .then(this.dataApi_.Get$types.bind(this.dataApi_, "")) //this.dataApi_.Get$types("")
                 .then(function (pdata) {
-                return new Promise(function (resolve, reject) {
-                    switch (pdata.state) {
-                        case "apiok":
-                            this.dataDTOSet_.Add(pdata.data);
-                            resolve();
-                            break;
-                        default:
-                            reject();
-                    }
-                }.bind(this));
-            }.bind(this))
+                    return new Promise(function (resolve, reject) {
+                        switch (pdata.state) {
+                            case "apiok":
+                                this.dataDTOSet_.Add(pdata.data);
+                                resolve();
+                                break;
+                            default:
+                                reject();
+                        }
+                    }.bind(this));
+                }.bind(this))
                 .catch(function (pdata) {
-                switch (pdata.state) {
-                    case "apierr":
-                        break;
-                }
-                if (!pdata.state)
-                    throw (pdata);
-            })
+                    switch (pdata.state) {
+                        case "apierr":
+                            break;
+                    }
+                    if (!pdata.state)
+                        throw (pdata);
+                })
                 .then(function () {
-                StaticLib_1.AOP.dataAspect.setDataFunction('promise/locationLoad', function (evt) {
-                    evt.done();
+                    StaticLib_1.AOP.dataAspect.setDataFunction('promise/locationLoad', function (evt) {
+                        evt.done();
+                    });
                 });
-            });
         };
         ThhjPlugin.prototype.fromDTO_ = function (obj) {
             var data = {

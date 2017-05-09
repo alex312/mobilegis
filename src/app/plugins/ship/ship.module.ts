@@ -6,6 +6,10 @@ import { IonicModule } from 'ionic-angular';
 
 import { BaseModule } from '../../base';
 
+import { ShipDetailPage } from './page/ship-detail.page';
+import { VesselGroupPage } from "./page/vessel-group.page";
+import { VesselGroupMemberPage } from "./page/vessel-group-member.page";
+
 import { ShipInfoComponent } from './component/ship-info.component';
 import { ShipSummaryComponent } from './component/ship-summary.component';
 import { ShipArchiveComponent } from './component/ship-archive.component';
@@ -17,6 +21,7 @@ import { VesselGroupService } from './service/vessel-group.service';
 
 
 @NgModule({
+    id: "ShipModule",
     imports: [
         CommonModule,
         FormsModule,
@@ -28,17 +33,23 @@ import { VesselGroupService } from './service/vessel-group.service';
         ShipSummaryComponent,
         ShipArchiveComponent,
         NearbyShipComponent,
-        ShipDynamicComponent
+        ShipDynamicComponent,
+
     ],
     entryComponents: [
-
+        ShipDetailPage,
+        VesselGroupPage,
+        VesselGroupMemberPage
     ],
     declarations: [
         ShipInfoComponent,
         ShipSummaryComponent,
         ShipArchiveComponent,
         NearbyShipComponent,
-        ShipDynamicComponent
+        ShipDynamicComponent,
+        ShipDetailPage,
+        VesselGroupPage,
+        VesselGroupMemberPage
     ],
     providers: [
         NearbyShipService,

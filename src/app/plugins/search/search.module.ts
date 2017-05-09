@@ -6,11 +6,15 @@ import { IonicModule } from 'ionic-angular';
 
 import { SearchPage } from './page/search.page';
 
+import { LoadingModule } from '../loading';
+
 @NgModule({
+    id: "SearchModule",
     imports: [
         CommonModule,
         FormsModule,
-        IonicModule
+        IonicModule,
+        LoadingModule
     ],
     exports: [
         SearchPage

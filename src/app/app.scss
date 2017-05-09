@@ -39,6 +39,10 @@
     box-shadow: none;
 }
 
+text.highcharts-credits{
+    display:none;
+}
+
 @font-face {font-family: "iconfont";
   src: url('../assets/fonts/iconfont.eot?t=1492592741831'); /* IE9*/
   src: url('../assets/fonts/iconfont.eot?t=1492592741831#iefix') format('embedded-opentype'), /* IE6-IE8 */

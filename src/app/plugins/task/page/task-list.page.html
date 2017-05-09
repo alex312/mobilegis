@@ -1,0 +1,56 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>执法任务</ion-title>
+		<ion-buttons end>
+			<button (click)="logout()">
+			<span>注销</span>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+<ion-content class="taskList" [ngSwitch]="status">
+	<ion-refresher (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新数据..."></ion-refresher-content>
+	</ion-refresher>
+	<!--未领取-->
+	<div *ngSwitchCase="TaskStatus.PendingReceive">
+		<task-card *ngFor="let task of pendingReceiveTasks.Items" [task]="task" (taskDetail)="gotoDetail($event)" (taskDeal)="nextStatus($event)"
+		 dealButtonText="领取"></task-card>
+	</div>
+
+	<!--未执行-->
+	<div *ngSwitchCase="TaskStatus.PendingExecution">
+		<task-card *ngFor="let task of pendingExecutionTasks.Items" [task]="task" (taskDetail)="gotoDetail($event)" (taskDeal)="execute($event)"
+		 dealButtonText="执行"></task-card>
+	</div>
+
+	<!--执行中-->
+	<div *ngSwitchCase="TaskStatus.BeginExecuted">
+		<task-card *ngFor="let task of beingExecutedTasks.Items" [task]="task" [canRecord]="true" (taskDetail)="gotoDetail($event)"
+		 (taskDeal)="nextStatus($event)" (showTaskRecord)="showRecords($event)" dealButtonText="完成"></task-card>
+	</div>
+
+	<!--已完成-->
+	<div *ngSwitchCase="TaskStatus.Completed">
+		<task-card *ngFor="let task of completedTasks.Items" [task]="task" [canRecord]="true" [canDeal]="false" (taskDetail)="gotoDetail($event)"
+		 (showTaskRecord)="showRecords($event)"></task-card>
+	</div>
+</ion-content>
+<ion-footer class="taskfooter">
+	<ion-segment [(ngModel)]="status" (ionChange)="segmentChanged($event)">
+		<ion-segment-button [value]="TaskStatus.PendingReceive">
+			待领取
+		</ion-segment-button>
+		<ion-segment-button [value]="TaskStatus.PendingExecution">
+			待执行
+		</ion-segment-button>
+		<ion-segment-button [value]="TaskStatus.BeginExecuted">
+			执行中
+		</ion-segment-button>
+		<ion-segment-button [value]="TaskStatus.Completed">
+			已完成
+		</ion-segment-button>
+	</ion-segment>
+
+</ion-footer>
+<!--</div>-->

@@ -9,6 +9,10 @@ export class Format {
         return moment(time).format('YYYY-MM-DD HH:mm:ss');
     }
 
+    static FormatData(time, formatStr) {
+        return moment(time).format(formatStr);
+    }
+
     // 格式化经纬度
     // example: utils.formatDegree(lonLat.lon, 'ddd-cc-mm.mmL')
     // example: utils.formatDegree(lonLat.lat, 'dd-cc-mm.mmB')
