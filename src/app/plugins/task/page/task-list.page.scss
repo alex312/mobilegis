@@ -1,0 +1,78 @@
+.taskpage{
+    height: 100%;
+}
+.taskList{
+    background-color: #eeeeee;
+
+    ion-card{
+        margin:0px 0px 0.5rem 0px;
+        width:100%;
+        box-shadow: none;
+
+        ion-label{
+            margin: 30px 8px 0 0;
+        }
+    }
+
+    ion-row ion-col{
+        padding:0;
+        text-align: center;
+    }
+    ion-row button{
+        font-size:1.6rem;
+        margin-top:5px;
+        margin-bottom:5px;
+    }
+
+    ion-row button i{
+        padding-right:.3em;
+        padding-top: .1em;
+        font-size:1.2em;
+    }
+
+    button[ion-item]{
+        h2{
+            font-size: 2rem;
+            padding-right: 20px
+        }
+        .summary{
+            font-size:1.8rem;
+        }
+        .endtime{
+            font-size:1.6rem;
+            margin-top:0.4rem;
+
+            b{
+                padding-left:0.5rem;
+                padding-right:0.5rem;
+            }
+        }
+        .sendtime{
+            font-size:1.4rem;
+            color:#8d8d8d;
+            text-align: right;
+            padding-right:.5rem;
+        }
+    }
+
+
+
+}
+
+.taskfooter {
+    ion-segment{
+        box-shadow: 0 -1px 4px rgba(170,170,170,.8);
+    }
+    .segment-button{
+        background-color:white;
+        height:4.5rem;
+        line-height:4.5rem;
+        font-size:1.7rem;
+
+          &.segment-activated{
+              border-color: $toolbar-background;
+              color:$toolbar-text-color;
+              background-color:$toolbar-background
+              }
+    }
+}

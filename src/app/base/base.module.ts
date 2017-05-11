@@ -10,8 +10,11 @@ import { ItemComponent } from './component/item.component';
 
 import { ApiClientService } from './service/api-client.service';
 import { WebGISInteractiveService } from './service/webgis-interactive.service';
+import { MessagePupopService } from './service/message-pupop.service';
+
 
 @NgModule({
+    id: "BaseModule",
     imports: [
         CommonModule,
         FormsModule,
@@ -30,7 +33,7 @@ import { WebGISInteractiveService } from './service/webgis-interactive.service';
         ItemComponent,
         ItemButtonComponent
     ],
-    providers: [ApiClientService, WebGISInteractiveService],
+    providers: [ApiClientService, WebGISInteractiveService, MessagePupopService],
 })
 export class BaseModule {
 

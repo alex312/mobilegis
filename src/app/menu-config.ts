@@ -97,7 +97,7 @@ export const MenuConfig: IMenuConfig = {
             {
                 Name: 'CCTV',
                 Page: CCTVComponent,
-                Icon: 'alarm',
+                Icon: 'camera',
                 SubMenuItems: undefined,
                 Params: undefined
             },

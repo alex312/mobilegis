@@ -21,25 +21,40 @@ export class MapHolder {
             container.style.height = "50px";
             container.style.overflow = "hidden";
 
-            return factory.create().then((function () {
+            return factory.create().then(() => {
                 let tool = factory.getApi();
                 let loading = true;
-                tool.bind("selectedFeatureChange", this.onSelecteedFeatureChange.bind(this));
+                tool.bind("selectedFeatureChange", (env: any, data: { type: string, data: any }) => {
+                    for (let action in this.selectFeatureActions) {
+                        this.selectFeatureActions[action](env, data);
+                    }
+                });
+
                 tool.bind("moduledChange", (event, data) => {
                     if (data.type === "map") {
-                        tool = factory.getApi();
                         tool.map.UpdateSize();
                         loading = false;
                     }
                 });
+
+                let shipReadyPromise = new Promise((resolve, reject) => {
+                    tool.bind("moduledChange", (event, data) => {
+                        if (data.type === "shipLayer") {
+                            resolve();
+                        }
+                    });
+                })
+
+
                 return {
                     selectedFeature: this.selectedFeature,
                     mapContainer: container,
                     tool: tool,
-                    isLoading: () => { return loading; }
+                    isLoading: () => { return loading; },
+                    shipLayerReady: () => { return shipReadyPromise }
                 };
 
-            }).bind(this))
+            })
         }.bind(this));
     }
 
@@ -58,13 +73,6 @@ export class MapHolder {
         if (!this.selectFeatureActions)
             this.selectFeatureActions = {};
         this.selectFeatureActions[key] = fun;
-    }
-
-
-    private onSelecteedFeatureChange(env: any, data: { type: string, data: any }) {
-        for (let action in this.selectFeatureActions) {
-            this.selectFeatureActions[action](env, data);
-        }
     }
 }
 

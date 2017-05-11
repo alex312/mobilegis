@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 
 import { IonicModule } from 'ionic-angular';
 
-import { ApiClientService } from '../../base';
+import { BaseModule } from '../../base';
 
 import { ShipDynamicPage } from './page/ship-dynamic.component';
 
@@ -20,10 +20,12 @@ import { DynamicDataService } from './service/dynamic-data.service';
 import { LoadingModule } from '../loading';
 
 @NgModule({
+    id: "ShipDynamicModule",
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
+        BaseModule,
         LoadingModule
     ],
     declarations: [
@@ -37,7 +39,7 @@ import { LoadingModule } from '../loading';
     ],
     exports: [ShipDynamicPage],
     entryComponents: [ShipDynamicPage],
-    providers: [DynamicDataService, ApiClientService]
+    providers: [DynamicDataService]
 })
 export class ShipDynamicModule {
 

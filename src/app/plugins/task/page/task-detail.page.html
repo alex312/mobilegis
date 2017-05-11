@@ -1,0 +1,94 @@
+<ion-header>
+	<ion-navbar>
+		<!--<ion-buttons left>
+			<button (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+
+		</ion-buttons>-->
+		<ion-title>
+			任务详情
+		</ion-title>
+		<ion-buttons right>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+<ion-content class="task-detail">
+	<!--<ion-list no-lines inset *ngIf="task" class="task">
+
+	</ion-list>-->
+
+	<ion-card>
+		<ion-item>
+			<div>
+				<h2>{{task.Name}}</h2>
+				<span>{{task.Type}}</span>
+				<span>{{task.Level}}</span>
+			</div>
+			<p class="endtime" *ngIf="task.RequiredCompletionDate"> 要求<b>{{Util.FormatDate(task.RequiredCompletionDate,'YYYY-MM-DD HH:mm')}}</b>前完成</p>
+			<p class="summary">{{task.Summary}}</p>
+			<p class="sendtime">
+				<span>{{Format.FormatDate(task.Date,'YYYY-MM-DD HH:mm')}}</span>
+			</p>
+		</ion-item>
+	</ion-card>
+
+	<ion-card>
+		<ion-item>
+			<ion-row>
+				<ion-col class="field-name">地点:</ion-col>
+				<ion-col class="field-value">
+					<p class="summary">{{task.Locale}}</p>
+				</ion-col>
+			</ion-row>
+		</ion-item>
+	</ion-card>
+
+	<ion-card>
+		<ion-item>
+			<ion-row>
+				<ion-col class="field-name">状态:</ion-col>
+				<ion-col class="field-value">
+					<p class="summary">{{task.CurrentStatus.description}}</p>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col class="field-name">负责人:</ion-col>
+				<ion-col class="field-value">
+					<p class="summary">{{task.Director.UserName}}</p>
+				</ion-col>
+			</ion-row>
+		</ion-item>
+	</ion-card>
+
+
+	<ion-card>
+		<ion-item-divider light>
+			<ion-buttons item-right>
+				<button (click)="editTaskUnit()" clear>
+                    <ion-icon name="create"></ion-icon>
+                </button>
+			</ion-buttons>
+		</ion-item-divider>
+		<ion-item>
+			<ion-row>
+				<ion-col class="field-name">人员:</ion-col>
+				<ion-col class="field-value">
+					<p *ngFor="let member of task.Members" class="summary">{{member.UserName}}</p>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col class="field-name">车船:</ion-col>
+				<ion-col class="field-value">
+					<p *ngFor="let vehicle of task.Vehicles" class="summary">{{vehicle.Name}}</p>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col class="field-name">装备:</ion-col>
+				<ion-col class="field-value">
+					<p *ngFor="let equipment of task.Equipments" class="summary">{{equipment.Name}}</p>
+				</ion-col>
+			</ion-row>
+		</ion-item>
+	</ion-card>
+</ion-content>

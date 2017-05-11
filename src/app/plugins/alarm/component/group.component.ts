@@ -23,9 +23,8 @@ export class GroupComponent implements OnInit {
         this.changeIcon(group.hidden);
     }
     LocateShip(alarm: Alarm) {
-        let uid = `shipLayer:${alarm.TrackId}`;
-        console.log(uid);
-        this._nav.push(MapPage, { selectedUid: uid });
+        console.log(alarm.TrackId);
+        this._nav.push(MapPage, { type: "shipLayer", selectedUid: alarm.TrackId });
     }
     private changeIcon(hidden: boolean) {
         this.IconName = hidden ? 'arrow-dropdown' : 'arrow-dropup';

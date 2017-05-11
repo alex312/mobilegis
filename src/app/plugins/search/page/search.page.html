@@ -17,10 +17,11 @@
     </ion-segment>
 </ion-header>
 <ion-content class="search-page" [ngSwitch]="switchValue">
+    <loading ion-fixed [timeout]="60000" [enable]="showLoading">查询中，请稍后....</loading>
     <ion-list inset *ngSwitchCase="'shipLayer'">
         <ion-item *ngFor="let feature of shipFeatures">
             <h2>{{feature.name}}</h2>
-            <p><span>{{feature.type}}</span><span *ngIf="feature.mmsi">MMSI:{{feature.mmsi}}</span></p>
+            <p><span *ngIf="feature.mmsi">MMSI:{{feature.mmsi}}</span></p>
             <button ion-button clear item-right (click)="onSelectFeature(feature)">
         <ion-icon name="pin"></ion-icon>
       </button>

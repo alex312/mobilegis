@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 
 import { IonicModule } from 'ionic-angular';
 
-import { ApiClientService } from '../../base';
+import { BaseModule } from '../../base';
 
 import { ArticleHomePage } from './page/article-home.component';
 import { ArticlePage } from './page/article.component';
@@ -23,6 +23,7 @@ import { LoadingModule } from '../loading';
 
 
 @NgModule({
+    id: "ArticleModule",
     declarations: [
         ArtileListComponent,
         ArticleCardListComponent,
@@ -37,7 +38,8 @@ import { LoadingModule } from '../loading';
         CommonModule,
         FormsModule,
         IonicModule,
-        LoadingModule
+        LoadingModule,
+        BaseModule
     ],
     exports: [
         ArticleHomePage,
@@ -45,6 +47,6 @@ import { LoadingModule } from '../loading';
         LawHomePage
     ],
     entryComponents: [ArticleHomePage, ArticlePage, WarningPage, LawPage, LawHomePage],
-    providers: [ArticleService, ApiClientService],
+    providers: [ArticleService],
 })
 export class ArticleModule { }

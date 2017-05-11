@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component, NgZone, OnInit, OnDestroy, ViewChild, ElementRef, Renderer } from '@angular/core';
 
 import { MapHolderImp } from '../service/map-holder';
 

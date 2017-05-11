@@ -1,0 +1,46 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons left>
+			<button (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+		</ion-buttons>
+		<ion-title>
+			执法记录
+		</ion-title>
+	</ion-toolbar>
+</ion-header>
+<ion-content>
+	<ion-list inset no-lines>
+		<ion-item-group>
+			<!--<ion-item-divider light></ion-item-divider>-->
+			<ion-item>
+				<ion-textarea rows="8" placeholder="在此输入执法情况..." [(ngModel)]="record.Description"></ion-textarea>
+			</ion-item>
+		</ion-item-group>
+
+		<ion-item-group>
+			<ion-item-divider light>
+				<b>附件</b>
+				<ion-buttons item-right style="margin:0">
+<button (click)="addAttachment()" clear>
+                        <ion-icon name="add-circle"></ion-icon>
+                    </button>
+</ion-buttons>
+</ion-item-divider>
+<ion-item *ngFor="let attachment of attachmentEditService.currentAttachments;let i = index">
+	<div item-content style="flex-grow:1;align-items:center">
+<img [src]="getAttachmentPath(attachment.FilePath)" *ngIf="!attachment.IsUploading">
+<ion-spinner name="dots" *ngIf="attachment.IsUploading"></ion-spinner>
+<span *ngIf="attachment.IsUploading">{{attachment.UploadedPresent}}%</span>
+</div>
+<button item-right clear (click)="removeAttachment(attachment)">
+                    <ion-icon name="trash"></ion-icon>
+                </button>
+</ion-item>
+</ion-item-group>
+<button block (click)="ok()">
+        <span>确定</span>
+    </button>
+</ion-list>
+</ion-content>

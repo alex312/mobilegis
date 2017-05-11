@@ -1,0 +1,33 @@
+<ion-header>
+	<ion-navbar>
+		<!--<ion-buttons left>
+			<button (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+		</ion-buttons>-->
+		<ion-title>
+			{{task.Name}}
+		</ion-title>
+		<ion-buttons right>
+			<button (click)="addNew()">
+                <ion-icon name="add-circle"></ion-icon>
+            </button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+<ion-content class="record-list">
+	<ion-card *ngFor="let record of records">
+		<ion-item *ngIf="record">
+			<p style="font-size:12px">
+				<span>{{getPersonName(record.Person)}}</span>
+				<span style="margin-left:15px">{{dataFormat(record.Date)}}</span>
+			</p>
+			<p class="summary">
+				{{record.Description}}
+			</p>
+			<ion-buttons item-right>
+				<button clear (click)="editRecord(record)"><ion-icon name="create"></ion-icon></button>
+			</ion-buttons>
+		</ion-item>
+	</ion-card>
+</ion-content>

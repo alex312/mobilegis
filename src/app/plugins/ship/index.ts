@@ -9,3 +9,4 @@ export { ShipArchiveComponent } from './component/ship-archive.component';
 export { NearbyShipComponent } from './component/nearby-ship.component';
 export { ShipDetailPage } from './page/ship-detail.page';
 export { ShipModule } from './ship.module';
+export { VesselGroupMemberPage } from './page/vessel-group-member.page';

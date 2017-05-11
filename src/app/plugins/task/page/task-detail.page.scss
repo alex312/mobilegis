@@ -1,0 +1,57 @@
+.task-detail{
+    background-color: #eeeeee;
+
+    ion-card{
+        margin:0px 0px 0.5rem 0px;
+        width:100%;
+        box-shadow: none;
+
+        .field-name {
+            max-width: 8rem;
+        }
+
+        .field-value {
+            text-align: right;
+            word-wrap: break-word;
+            overflow-wrap: normal;
+            white-space: normal;
+            word-break: break-all;
+        }
+
+        ion-label{
+            margin: 15px 0;
+        }
+
+        ion-item-divider{
+            padding-left:16px;
+            height:2rem;
+        }
+    }
+
+    ion-item{
+        h2{
+            font-size: 2rem;
+            padding-right: 20px
+        }
+        .summary{
+            font-size:1.8rem;
+        }
+        .endtime{
+            font-size:1.6rem;
+            margin-top:0.4rem;
+
+            b{
+                padding-left:0.5rem;
+                padding-right:0.5rem;
+            }
+        }
+        .sendtime{
+            font-size:1.4rem;
+            color:#8d8d8d;
+            text-align: right;
+        }
+    }
+
+
+
+}

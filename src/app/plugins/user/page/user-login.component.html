@@ -1,11 +1,43 @@
-<ion-content>
-    <div ion-fixed style="width:100%">
-        <div ion-item>
-            <ion-input placeholder="用户名"></ion-input>
-        </div>
-        <div ion-item>
-            <ion-input placeholder="密码"></ion-input>
-        </div>
-        <button ion-button full class="full-button"></button>
-    </div>
+<ion-header>
+    <ion-navbar>
+        <ion-title>登录</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content class="login">
+    <ion-row>
+        <ion-col>
+            <ion-list inset>
+
+                <ion-item>
+                    <ion-avatar item-left>
+                        <img src="build/imgs/login/username.png" />
+                    </ion-avatar>
+                    <ion-label>
+                        账号
+                    </ion-label>
+                    <ion-input type="text" [(ngModel)]="userName"></ion-input>
+
+                </ion-item>
+
+                <ion-item>
+                    <ion-avatar item-left>
+                        <img src="build/imgs/login/password.png" />
+                    </ion-avatar>
+
+                    <ion-label>密码</ion-label>
+                    <ion-input type="password" [(ngModel)]="password"></ion-input>
+                </ion-item>
+
+            </ion-list>
+        </ion-col>
+    </ion-row>
+
+    <ion-row>
+        <ion-col>
+            <button mobile-gis class="login-button" (click)="login()">登录</button>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <img style="margin-top:3rem" src="build/imgs/login/map.png" />
+    </ion-row>
 </ion-content>

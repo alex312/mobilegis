@@ -1,0 +1,26 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>
+			编辑备注
+		</ion-title>
+		<!--<ion-buttons right>
+			<button (click)="cancel()">
+                <ion-icon name="close-circle"></ion-icon>
+            </button>
+		</ion-buttons>-->
+	</ion-navbar>
+</ion-header>
+<ion-content>
+	<ion-grid>
+		<ion-row>
+			<ion-col>
+				<ion-textarea rows="10" placeholder="在此输入备注..." [(ngModel)]="note"></ion-textarea>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col>
+				<button block (click)="ok()"><span>确定</span></button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>

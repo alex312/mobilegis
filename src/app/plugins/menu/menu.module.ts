@@ -5,9 +5,10 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
 
 import { MenuPage } from './page/menu.page';
-import { Menu_Config, IMenuConfig } from './service/config';
+import { IMenuConfig, Menu_Config } from './service/config';
 
 @NgModule({
+    id: "MenuModule",
     imports: [
         CommonModule,
         FormsModule,
@@ -28,7 +29,7 @@ export class MenuModule {
         return {
             ngModule: MenuModule,
             providers: [
-                { provide: Menu_Config, useValue: menuConfig }
+                { provide: Menu_Config, useValue: menuConfig },
             ]
         }
     }

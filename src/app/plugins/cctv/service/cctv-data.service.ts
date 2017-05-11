@@ -9,8 +9,8 @@ export class CCTVDataService {
 
     }
     private _dataVersion = 0;
-    private _cctvHierarchyUrl = `http://192.168.9.222:27010/api/StaticInfo/CCTVHierarchy.default?version=`
-    private _cctvPlayParamUrl = `http://192.168.9.222:27010/api/MediaAddress/GetUrl/`
+    private _cctvHierarchyUrl = `api/StaticInfo/CCTVHierarchy.default?version=`
+    private _cctvPlayParamUrl = `api/MediaAddress/GetUrl/`
     getTree() {
         return this._apiClient.get(this._cctvHierarchyUrl + this._dataVersion).then(data => {
             let items = [];

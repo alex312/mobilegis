@@ -1,10 +1,10 @@
-// import {TaskStatus} from './task/service/metadata.service';
+
+import { TaskStatus } from './plugins/task';
+
+declare var appConfig;
 
 export const Config = {
-    // proxy: "http://192.168.13.14:9006/",
-    // proxy: "http://192.168.13.35:9007/",
-    // proxy: "http://192.168.3.23/tjvts/",
-    proxy: "http://60.30.247.211:88/",
+    proxy: `http://${appConfig.apiHostIp}:${appConfig.apiHostPort}${appConfig.app.apiRoot}`,
     CORDOVA_READY: false,
     needLogin: false,
 
@@ -15,12 +15,12 @@ export const Config = {
     //     debug: true, //  enable this hear sounds for background-geolocation life-cycle.
     //     stopOnTerminate: false, // enable this to clear background location settings when the app terminates
     // },
-    // taskConfig: {
-    //     receivedTaskStatus: [TaskStatus.PendingReceive, TaskStatus.PendingExecution, TaskStatus.BeginExecuted, TaskStatus.Completed],
-    //     perBlockSize: 1024
-    // },
     mapConfig: {
         webgisUrl: "wg5/index.html"
+    },
+    taskConfig: {
+        receivedTaskStatus: [TaskStatus.PendingReceive, TaskStatus.PendingExecution, TaskStatus.BeginExecuted, TaskStatus.Completed],
+        perBlockSize: 100 * 1024
     },
     Plugins: {
         Alarm: {
