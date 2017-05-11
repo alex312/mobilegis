@@ -8,7 +8,7 @@ export { RestoreWrapper } from './util/restore-wrapper';
 export { Transition } from './util/transition';
 
 export { ApiClientService } from './service/api-client.service';
-export { MessagePupopService } from './service/message-pupop.service';
+export { MessagePopupService } from './service/message-popup.service';
 export { WebGISInteractiveService } from './service/webgis-interactive.service';
 
 export { ItemLabelComponent } from './component/item-label.component';

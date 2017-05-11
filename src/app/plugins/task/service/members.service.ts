@@ -2,13 +2,18 @@ import { Injectable } from '@angular/core'
 import { ApiClientService, DataManager } from '../../../base';
 import { Member } from '../data/member';
 
+import { UserService } from '../../user';
+
 @Injectable()
 export class MembersService {
 
     allMembers: DataManager<Member> = new DataManager<Member>();
 
-    constructor(private apiClient: ApiClientService) {
-
+    constructor(
+        private apiClient: ApiClientService,
+        private user: UserService
+    ) {
+        user.subjectLogin(this.init.bind(this));
     }
 
     init() {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, App, Tab, Tabs, Nav } from 'ionic-angular';
 
-import { DataManager } from '../../../base';
+import { DataManager, MessagePopupService } from '../../../base';
 
 import { TaskManageService } from '../service/task-manage.service';
 import { ExecuteRecordService } from '../service/execute-record.service';
@@ -14,7 +14,7 @@ import { TaskDetailPage } from './task-detail.page';
 import { Task } from '../data/task';
 import { TaskStatus } from '../data/metadata';
 
-import { UserLoginPage } from '../../user';
+import { UserLoginPage, UserService } from '../../user';
 
 @Component({
     selector: "task-list-page",
@@ -33,7 +33,10 @@ export class TaskListPage {
         private modalCtrl: ModalController,
         private taskManager: TaskManageService,
         private executeUnitService: ExecuteUnitService,
-        private executionRecordService: ExecuteRecordService) {
+        private executionRecordService: ExecuteRecordService,
+        private popup: MessagePopupService,
+        private _user: UserService,
+        private _app: App, ) {
 
         this.pendingReceiveTasks = this.taskManager.getDataManager(TaskStatus.PendingReceive);
         this.pendingExecutionTasks = this.taskManager.getDataManager(TaskStatus.PendingExecution);
@@ -43,7 +46,7 @@ export class TaskListPage {
 
     // 以下与task业务流程操作相关
     showRecords(task) {
-        this.nav.push(RecordListPage, task);
+        this._app.getRootNav().push(RecordListPage, task);
     }
 
     nextStatus(task: Task) {
@@ -68,7 +71,8 @@ export class TaskListPage {
 
     gotoDetail(task: Task) {
         this.taskManager.refreshTask(task.Id).then((data) => {
-            this.nav.push(TaskDetailPage, { task: task });
+            // this.nav.push(TaskDetailPage, { task: task });
+            this._app.getRootNav().push(TaskDetailPage, { task: task });
         })
 
     }
@@ -99,9 +103,7 @@ export class TaskListPage {
         this.nav.pop();
     }
 
-    logout() {
-        this.nav.setRoot(UserLoginPage).then((result) => {
-            this.nav.popToRoot()
-        });
+    ionViewDidEnter() {
+        // this.segmentChanged(null);
     }
 }

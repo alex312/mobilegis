@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core'
 import { ApiClientService, DataManager } from '../../../base';
 import { Equipment } from '../data/equipment';
-// import {AllEquipments} from '../mock/member.mock';
+
+import { UserService } from '../../user';
 
 
 
@@ -9,8 +10,9 @@ import { Equipment } from '../data/equipment';
 export class EquipmentsService {
     allEquipments: DataManager<Equipment> = new DataManager<Equipment>();
 
-    constructor(private apiClient: ApiClientService) {
-
+    constructor(private apiClient: ApiClientService,
+        private user: UserService) {
+        user.subjectLogin(this.init.bind(this));
     }
 
     init() {

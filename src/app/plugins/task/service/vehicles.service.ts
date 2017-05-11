@@ -1,13 +1,15 @@
-import {Injectable} from '@angular/core'
-import {ApiClientService, DataManager} from '../../../base';
-import {Vehicle} from '../data/vehicle';
+import { Injectable } from '@angular/core'
+import { ApiClientService, DataManager } from '../../../base';
+import { Vehicle } from '../data/vehicle';
+import { UserService } from '../../user';
 
 
 @Injectable()
 export class VehiclesService {
     allVehicles: DataManager<Vehicle> = new DataManager<Vehicle>();
-    constructor(private apiClient: ApiClientService) {
-
+    constructor(private apiClient: ApiClientService,
+        private user: UserService) {
+        user.subjectLogin(this.init.bind(this));
     }
 
     init() {

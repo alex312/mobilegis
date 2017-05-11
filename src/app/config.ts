@@ -19,7 +19,7 @@ export const Config = {
         webgisUrl: "wg5/index.html"
     },
     taskConfig: {
-        receivedTaskStatus: [TaskStatus.PendingReceive, TaskStatus.PendingExecution, TaskStatus.BeginExecuted, TaskStatus.Completed],
+        receivedTaskStatus: ["PendingReceive", "PendingExecution", "BeginExecuted", "Completed"],
         perBlockSize: 100 * 1024
     },
     Plugins: {

@@ -1,11 +1,6 @@
 <ion-header>
 	<ion-navbar>
 		<ion-title>执法单元</ion-title>
-		<!--<ion-buttons right>
-			<button (click)="cancel(false)">
-                <ion-icon name="close-circle"></ion-icon>
-            </button>
-		</ion-buttons>-->
 	</ion-navbar>
 </ion-header>
 <ion-content>
@@ -34,7 +29,7 @@
 				<ion-option *ngFor="let equipment of allEquipments.Items" [value]="equipment" [selected]="hasChecked(equipment,equipments)">{{equipment.Name}}</ion-option>
 			</ion-select>
 		</ion-item>
-		<button block (click)="ok()">
+		<button ion-button fixed block (click)="ok()">
         <span>确定</span>
     </button>
 	</ion-list>

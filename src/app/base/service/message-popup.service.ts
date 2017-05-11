@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AlertController, Alert, LoadingController, ToastController } from 'ionic-angular';
 
 @Injectable()
-export class MessagePupopService {
+export class MessagePopupService {
 
     constructor(private alertCtrl: AlertController,
         private loadingCtrl: LoadingController,
@@ -21,33 +21,6 @@ export class MessagePupopService {
         alert.addButton("确定");
 
         alert.present();
-    }
-
-    createConfirm(data) {
-        let confirm = this.alertCtrl.create({
-            title: data.title,
-            subTitle: data.subTitle || "",
-            message: data.message,
-        })
-
-        confirm.addButton({
-            text: data.disagreeText || "取消",
-            handler: () => {
-                if (data.disagreeHandler)
-                    data.disagreeHandler();
-                confirm.dismiss();
-            }
-        })
-
-        confirm.addButton({
-            text: data.agreeText || "确定",
-            handler: () => {
-                if (data.agreeHandler)
-                    data.agreeHandler();
-                confirm.dismiss();
-            }
-        })
-        return confirm;
     }
 
     confirm(data) {

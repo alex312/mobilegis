@@ -2,8 +2,9 @@
     height: 100%;
 }
 .taskList{
-    background-color: #eeeeee;
-
+    .scroll-content{
+        background-color:#eeeeee;
+    }
     ion-card{
         margin:0px 0px 0.5rem 0px;
         width:100%;
@@ -53,26 +54,5 @@
             text-align: right;
             padding-right:.5rem;
         }
-    }
-
-
-
-}
-
-.taskfooter {
-    ion-segment{
-        box-shadow: 0 -1px 4px rgba(170,170,170,.8);
-    }
-    .segment-button{
-        background-color:white;
-        height:4.5rem;
-        line-height:4.5rem;
-        font-size:1.7rem;
-
-          &.segment-activated{
-              border-color: $toolbar-background;
-              color:$toolbar-text-color;
-              background-color:$toolbar-background
-              }
     }
 }

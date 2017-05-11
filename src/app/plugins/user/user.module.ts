@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from 'ionic-angular';
 
-import { ApiClientService } from '../../base';
+import { BaseModule } from '../../base';
 
 import { UserService } from './service/user.service';
 
@@ -16,7 +16,8 @@ import { PasswordReSettingPage } from './page/password-resetting.component';
     imports: [
         CommonModule,
         FormsModule,
-        IonicModule
+        IonicModule,
+        BaseModule
     ],
     exports: [
     ],
@@ -31,8 +32,7 @@ import { PasswordReSettingPage } from './page/password-resetting.component';
         UserLoginPage
     ],
     providers: [
-        ApiClientService
-        // UserService
+        UserService
     ]
 })
 export class UserModule {

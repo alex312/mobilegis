@@ -26,6 +26,7 @@ export class ExecutionRecordModelContentPage {
     record: ExecutionRecord;
 
     description;
+    private restoreWapper: RestoreWrapper<ExecutionRecord> = new RestoreWrapper<ExecutionRecord>();
 
     constructor(private nav: NavController,
         private alertCtrl: AlertController,
@@ -36,7 +37,6 @@ export class ExecutionRecordModelContentPage {
         private attachmentEditService: AttachmentEditService,
         private memberConverter: MemberConverter,
         private userService: UserService,
-        private restoreWapper: RestoreWrapper<ExecutionRecord>,
         private zone: NgZone) {
 
         let oldRecord = navParams.data.record || (() => {

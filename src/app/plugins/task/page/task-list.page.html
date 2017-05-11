@@ -1,12 +1,21 @@
 <ion-header>
 	<ion-navbar>
 		<ion-title>执法任务</ion-title>
-		<ion-buttons end>
-			<button (click)="logout()">
-			<span>注销</span>
-			</button>
-		</ion-buttons>
 	</ion-navbar>
+	<ion-segment [(ngModel)]="status" (ionChange)="segmentChanged($event)">
+		<ion-segment-button [value]="TaskStatus.PendingReceive">
+			待领取
+		</ion-segment-button>
+		<ion-segment-button [value]="TaskStatus.PendingExecution">
+			待执行
+		</ion-segment-button>
+		<ion-segment-button [value]="TaskStatus.BeginExecuted">
+			执行中
+		</ion-segment-button>
+		<ion-segment-button [value]="TaskStatus.Completed">
+			已完成
+		</ion-segment-button>
+	</ion-segment>
 </ion-header>
 <ion-content class="taskList" [ngSwitch]="status">
 	<ion-refresher (ionRefresh)="doRefresh($event)">
@@ -36,21 +45,4 @@
 		 (showTaskRecord)="showRecords($event)"></task-card>
 	</div>
 </ion-content>
-<ion-footer class="taskfooter">
-	<ion-segment [(ngModel)]="status" (ionChange)="segmentChanged($event)">
-		<ion-segment-button [value]="TaskStatus.PendingReceive">
-			待领取
-		</ion-segment-button>
-		<ion-segment-button [value]="TaskStatus.PendingExecution">
-			待执行
-		</ion-segment-button>
-		<ion-segment-button [value]="TaskStatus.BeginExecuted">
-			执行中
-		</ion-segment-button>
-		<ion-segment-button [value]="TaskStatus.Completed">
-			已完成
-		</ion-segment-button>
-	</ion-segment>
-
-</ion-footer>
 <!--</div>-->

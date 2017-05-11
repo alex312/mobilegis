@@ -1,15 +1,10 @@
 <ion-header>
 	<ion-navbar>
-		<!--<ion-buttons left>
-			<button (click)="goBack()">
-                <ion-icon name="arrow-back"></ion-icon>
-            </button>
-		</ion-buttons>-->
 		<ion-title>
 			{{task.Name}}
 		</ion-title>
 		<ion-buttons right>
-			<button (click)="addNew()">
+			<button ion-button (click)="addNew()">
                 <ion-icon name="add-circle"></ion-icon>
             </button>
 		</ion-buttons>
@@ -26,7 +21,7 @@
 				{{record.Description}}
 			</p>
 			<ion-buttons item-right>
-				<button clear (click)="editRecord(record)"><ion-icon name="create"></ion-icon></button>
+				<button ion-button clear (click)="editRecord(record)"><ion-icon name="create"></ion-icon></button>
 			</ion-buttons>
 		</ion-item>
 	</ion-card>

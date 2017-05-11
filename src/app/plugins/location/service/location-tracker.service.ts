@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { BackgroundGeolocation, Geolocation } from 'ionic-native';
 
-import { DeviceInfo, ApiClientService, MessagePupopService } from '../../../base';
+import { DeviceInfo, ApiClientService, MessagePopupService } from '../../../base';
 import { UserService } from '../../user/service/user.service';
 
 import { LocationInfo } from '../data/location-info';
@@ -34,7 +34,7 @@ export class LocationTracker {
         enableHighAccuracy: true
     }
 
-    constructor(private platofrm: Platform, private user: UserService, private apiClient: ApiClientService, private popup: MessagePupopService) {
+    constructor(private platofrm: Platform, private user: UserService, private apiClient: ApiClientService, private popup: MessagePopupService) {
         this._gpsWeakRemindTime = Date.now();
     }
 

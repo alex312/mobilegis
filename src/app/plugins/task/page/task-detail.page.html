@@ -1,11 +1,5 @@
 <ion-header>
 	<ion-navbar>
-		<!--<ion-buttons left>
-			<button (click)="goBack()">
-                <ion-icon name="arrow-back"></ion-icon>
-            </button>
-
-		</ion-buttons>-->
 		<ion-title>
 			任务详情
 		</ion-title>
@@ -25,7 +19,7 @@
 				<span>{{task.Type}}</span>
 				<span>{{task.Level}}</span>
 			</div>
-			<p class="endtime" *ngIf="task.RequiredCompletionDate"> 要求<b>{{Util.FormatDate(task.RequiredCompletionDate,'YYYY-MM-DD HH:mm')}}</b>前完成</p>
+			<p class="endtime" *ngIf="task.RequiredCompletionDate"> 要求<b>{{Format.FormatDate(task.RequiredCompletionDate,'YYYY-MM-DD HH:mm')}}</b>前完成</p>
 			<p class="summary">{{task.Summary}}</p>
 			<p class="sendtime">
 				<span>{{Format.FormatDate(task.Date,'YYYY-MM-DD HH:mm')}}</span>
@@ -65,7 +59,7 @@
 	<ion-card>
 		<ion-item-divider light>
 			<ion-buttons item-right>
-				<button (click)="editTaskUnit()" clear>
+				<button ion-button (click)="editTaskUnit()" clear>
                     <ion-icon name="create"></ion-icon>
                 </button>
 			</ion-buttons>

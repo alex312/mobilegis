@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { NativeStorage } from '@ionic-native/native-storage';
+// import { NativeStorage } from '@ionic-native/native-storage';
 import { Subject } from 'rxjs/Subject';
 
 import { ApiClientService } from '../../../base';
@@ -7,7 +7,9 @@ import { DataManager } from '../../../base';
 import { User } from '../data/user';
 import { Md5 } from 'ts-md5/dist/md5';
 import * as moment from 'moment';
-declare var require: any;
+// declare var require: any;
+// const localforage: LocalForage = require("localforage");
+import * as localforage from 'localforage';
 
 
 @Injectable()
@@ -21,7 +23,7 @@ export class UserService {
         this.Users = new DataManager<User>();
 
     }
-    private nativeStorage: NativeStorage = new NativeStorage();
+    // private nativeStorage: NativeStorage = new NativeStorage();
     private _idSource = new Subject<any>();
     idObservable = this._idSource.asObservable();
     login(username, password) {
@@ -32,7 +34,7 @@ export class UserService {
                     this.Current = <User>user;
                     this.Current.LastUpdateTime = new Date();
                     this.Current.logouted = false;
-                    this.nativeStorage.setItem(this.lastLoginUserKey, this.Current).catch(error => { console.log(error) });
+                    localforage.setItem(this.lastLoginUserKey, this.Current).catch(error => { console.log(error) });
                     this._idSource.next(this.Current.UserId);
                     this.resetAllUsers();
                 }
@@ -41,18 +43,23 @@ export class UserService {
         return promise;
     }
 
+
+    get hasLogined() {
+        return this.Current !== undefined && this.Current !== null && !this.Current.logouted
+    }
+
     autoLogin() {
-        return this.nativeStorage.getItem(this.lastLoginUserKey).then(result => {
-            console.log("autologin", result);
-            let user = <User>result;
-            if (user) {
-                this.Current = user;
-                if (user && !user.logouted) {
-                    let lastLoginTime = moment(user.LastUpdateTime);
+        return localforage.getItem(this.lastLoginUserKey).then(value => {
+            console.log("autologin", value);
+            let lastLogonUser = <User>value;
+            if (lastLogonUser) {
+                this.Current = lastLogonUser;
+                if (lastLogonUser && !lastLogonUser.logouted) {
+                    let lastLoginTime = moment(lastLogonUser.LastUpdateTime);
                     let now = moment(new Date());
                     if (lastLoginTime.add("days", 7) >= now) {
                         this.Current.LastUpdateTime = new Date();
-                        this.nativeStorage.setItem(this.lastLoginUserKey, this.Current);
+                        localforage.setItem(this.lastLoginUserKey, this.Current);
                         this._idSource.next(this.Current.UserId);
                         this.resetAllUsers();
                         return true;
@@ -66,13 +73,13 @@ export class UserService {
 
     logout() {
         this.Current.logouted = true;
-        this.nativeStorage.setItem(this.lastLoginUserKey, this.Current).catch(error => { console.log(error) });
+        localforage.setItem(this.lastLoginUserKey, this.Current).catch(error => { console.log(error) });
 
         this.Current = null;
-        this.nativeStorage.getItem(this.lastLoginUserKey).then(data => {
+        localforage.getItem(this.lastLoginUserKey).then(data => {
             console.log("logout", data);
         })
-        this.runLogoutAction();
+        // this.runLogoutAction();
     }
 
     loginCallbacks: Function[] = [];

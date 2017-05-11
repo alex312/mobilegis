@@ -9,6 +9,7 @@ import { AlarmPage } from "../../plugins/alarm";
 import { SectionObserverPage } from '../../plugins/section-observer';
 import { CCTVComponent } from '../../plugins/cctv';
 import { TaskListPage } from '../../plugins/task';
+import { UserService, UserLoginPage } from '../../plugins/user';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class HomePage {
 
     articleTypes = ARTICLE_TYPES;
     constructor(
-        private _app: App) {
+        private _app: App,
+        private user: UserService) {
     }
 
     showArticle(event, category) {
@@ -47,7 +49,15 @@ export class HomePage {
     }
 
     showTask() {
-        this._app.getRootNav().push(TaskListPage);
+        this.user.autoLogin().then((result) => {
+            this.user.runLoginAction();
+            if (!result)
+                this._app.getRootNav().push(UserLoginPage, { loginSuccess: () => { this._app.getRootNav().push(TaskListPage) } });
+            else
+                this._app.getRootNav().push(TaskListPage);
+        }).catch(error => {
+            console.log(error)
+        });
     }
 }
 

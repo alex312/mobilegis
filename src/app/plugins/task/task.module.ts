@@ -4,6 +4,8 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 
 import { IonicModule } from 'ionic-angular';
 import { BaseModule } from "../../base";
+import { LocationModule } from '../location'
+import { UserModule } from '../user';
 
 import { TaskDataManagerCollection } from './service/task-data-manager-collection.service';
 import { TaskManageService } from './service/task-manage.service';
@@ -21,6 +23,10 @@ import { VehiclesService } from './service/vehicles.service'
 
 import { TaskListPage } from './page/task-list.page';
 import { TaskCardComponent } from './component/task-card.component';
+import { TaskDetailPage } from './page/task-detail.page';
+import { TaskUnionModelContentPage } from './page/task-unit-edit-modal.page';
+import { RecordListPage } from './page/record-list.page';
+import { ExecutionRecordModelContentPage } from './page/execution-record-modal.page';
 
 
 let taskDataManagerCollectionFactory = (taskConfig: TaskConfig) => {
@@ -33,17 +39,27 @@ let taskDataManagerCollectionFactory = (taskConfig: TaskConfig) => {
         CommonModule,
         FormsModule,
         BaseModule,
-        IonicModule
+        IonicModule,
+        LocationModule,
+        UserModule
     ],
     exports: [
 
     ],
     entryComponents: [
-        TaskListPage
+        TaskListPage,
+        TaskDetailPage,
+        TaskUnionModelContentPage,
+        RecordListPage,
+        ExecutionRecordModelContentPage
     ],
     declarations: [
         TaskListPage,
-        TaskCardComponent
+        TaskCardComponent,
+        TaskDetailPage,
+        TaskUnionModelContentPage,
+        RecordListPage,
+        ExecutionRecordModelContentPage
     ],
     providers: [
     ],
@@ -59,16 +75,16 @@ export class TaskModule {
                     useFactory: taskDataManagerCollectionFactory,
                     deps: [TASK_CONFIG]
                 },
-                // MembersService,
-                // ExecuteUnitService,
-                // EquipmentsService,
-                // VehiclesService,
+                MembersService,
+                ExecuteUnitService,
+                EquipmentsService,
+                VehiclesService,
                 TaskManageService,
-                // TaskWorkflowManagerService,
+                TaskWorkflowManagerService,
                 MemberConverter,
                 TaskConverter,
-                // ExecuteRecordService,
-                // AttachmentService,
+                ExecuteRecordService,
+                AttachmentService,
                 AttachmentEditService
             ]
         }

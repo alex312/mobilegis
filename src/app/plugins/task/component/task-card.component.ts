@@ -9,7 +9,8 @@ import { Format, DateUtil } from '../../../base';
     templateUrl: "./task-card.component.html"
 })
 export class TaskCardComponent implements AfterViewInit {
-    Format = Format;
+
+    Format;
 
     private _task: Task;
     get task() {
@@ -40,7 +41,7 @@ export class TaskCardComponent implements AfterViewInit {
     _requireTimeAlarm: ElementRef;
 
     constructor(private _renderer: Renderer) {
-
+        this.Format = Format
     }
 
     ngAfterViewInit() {

@@ -12,7 +12,7 @@ import { DataManager, EnumUtil } from '../../../base'
 @Injectable()
 export class TaskDataManagerCollection {
     dataManagerCollection: { [key: string]: { dataSource: DataManager<Task>, remindCount: number } };
-    constructor(status: TaskStatus[]) {
+    constructor(status: string[]) {
         this.init(status);
     }
 
@@ -49,18 +49,18 @@ export class TaskDataManagerCollection {
         return oldTask.Id === newTask.Id;
     }
 
-    private init(taskStatus: TaskStatus[]) {
+    private init(taskStatus: string[]) {
         this.dataManagerCollection = {};
         taskStatus.map(this.createDataManager.bind(this));
     }
 
-    private createDataManager(taskStatus: TaskStatus) {
-        let propertyName: string = this.getPropertyName(taskStatus);
+    private createDataManager(taskStatus: string) {
+        // let propertyName: string = this.getPropertyName(taskStatus);
         // this[dataSourceName] = new DataManagerService();
-        let obj = this.dataManagerCollection[propertyName];
+        let obj = this.dataManagerCollection[taskStatus];
         if (obj)
-            throw Error(`已经注册了名为${propertyName}的数据源`);
-        this.dataManagerCollection[propertyName] = { dataSource: new DataManager<Task>(), remindCount: 0 };
+            throw Error(`已经注册了名为${taskStatus}的数据源`);
+        this.dataManagerCollection[taskStatus] = { dataSource: new DataManager<Task>(), remindCount: 0 };
     }
 
     private getPropertyName(taskStatus: TaskStatus) {

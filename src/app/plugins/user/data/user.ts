@@ -8,5 +8,5 @@ export class User implements IUser {
     Role: number[]; // 人员权限
 
     LastUpdateTime: Date;
-    logouted: boolean;
+    logouted: boolean = true;
 }

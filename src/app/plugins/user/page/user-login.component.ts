@@ -1,11 +1,11 @@
-
 import { Component, NgZone } from '@angular/core';
-import { NavController, ToastController, Loading, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, Loading, LoadingController } from 'ionic-angular';
 
 import { UserService } from '../service/user.service';
-import { MessagePupopService } from '../../../base';
+import { MessagePopupService } from '../../../base';
 
 @Component({
+    selector: "user-login-page",
     templateUrl: './user-login.component.html'
 })
 export class UserLoginPage {
@@ -20,12 +20,16 @@ export class UserLoginPage {
 
     loading: Loading;
 
+    loginSuccess: Function;
+    cancelLogin: Function;
+
     constructor(private navCtrl: NavController,
+        private navParams: NavParams,
         private toastCtrl: ToastController,
         private loadingCtrl: LoadingController,
         private zone: NgZone,
         private userService: UserService,
-        private popup: MessagePupopService) {
+        private popup: MessagePopupService) {
 
         if (userService.Current.LastUpdateTime)
             this.userName = userService.Current.UserName;
@@ -47,9 +51,15 @@ export class UserLoginPage {
                     this.toastPresent("用户名或密码错误");
                 }
                 else {
-                    this.navCtrl.pop().then(result => {
-                        this.userService.runLoginAction();
-                    })
+                    // this.navCtrl.pop().then(result => {
+                    if (this.navCtrl.canGoBack())
+                        this.navCtrl.pop();
+                    if (this.loginSuccess !== undefined || this.loginSuccess !== null)
+                        this.loginSuccess();
+                    // else
+                    //     this.navCtrl.pop();
+                    this.userService.runLoginAction();
+                    // })
                 }
             }).catch(this.handleError.bind(this));
     }
@@ -87,7 +97,10 @@ export class UserLoginPage {
 
 
     ionViewDidEnter() {
-
+        if (this.navParams.data != undefined && this.navParams.data != null) {
+            this.loginSuccess = this.navParams.data.loginSuccess;
+            this.cancelLogin = this.navParams.data.cancelLogin;
+        }
         this.userService.logout();
     }
 }
