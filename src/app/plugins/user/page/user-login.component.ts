@@ -30,9 +30,8 @@ export class UserLoginPage {
         private zone: NgZone,
         private userService: UserService,
         private popup: MessagePopupService) {
-
-        if (userService.Current.LastUpdateTime)
-            this.userName = userService.Current.UserName;
+        // if (userService.Current.LastUpdateTime)
+        //     this.userName = userService.Current.UserName;    
     }
 
     login() {
@@ -51,15 +50,8 @@ export class UserLoginPage {
                     this.toastPresent("用户名或密码错误");
                 }
                 else {
-                    // this.navCtrl.pop().then(result => {
-                    if (this.navCtrl.canGoBack())
-                        this.navCtrl.pop();
-                    if (this.loginSuccess !== undefined || this.loginSuccess !== null)
-                        this.loginSuccess();
-                    // else
-                    //     this.navCtrl.pop();
+                    this.navTo();
                     this.userService.runLoginAction();
-                    // })
                 }
             }).catch(this.handleError.bind(this));
     }
@@ -83,24 +75,29 @@ export class UserLoginPage {
     startLoading() {
         this.loading = this.loadingCtrl.create({
             content: "请稍后...",
-            // 如果在ngOnInit中显示loading，需要设置为false，否则ngOnInit执行完之后将dismiss loading。
             dismissOnPageChange: false
         });
         this.loading.present(this.loading);
     }
 
     stopLoading() {
-
         return this.loading.dismiss();
-
     }
 
-
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         if (this.navParams.data != undefined && this.navParams.data != null) {
             this.loginSuccess = this.navParams.data.loginSuccess;
             this.cancelLogin = this.navParams.data.cancelLogin;
         }
-        this.userService.logout();
+        if (this.userService.hasLogined) {
+            this.navTo();
+        }
+    }
+
+    navTo() {
+        if (this.navCtrl.canGoBack())
+            this.navCtrl.pop();
+        if (this.loginSuccess !== undefined && this.loginSuccess !== null)
+            this.loginSuccess();
     }
 }

@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 
 import { IonicModule } from 'ionic-angular';
 
 import { LocationTracker } from './service/location-tracker.service';
+import { ILocationConfig, Location_Config, dealConfig } from './service/config';
 
 @NgModule({
     id: "LocationModule",
@@ -22,10 +23,15 @@ import { LocationTracker } from './service/location-tracker.service';
     declarations: [
 
     ],
-    providers: [
-        LocationTracker
-    ],
 })
 export class LocationModule {
-
+    static forRoot(config: ILocationConfig): ModuleWithProviders {
+        return {
+            ngModule: LocationModule,
+            providers: [
+                { provide: Location_Config, useValue: dealConfig(config) },
+                LocationTracker,
+            ]
+        }
+    }
 }

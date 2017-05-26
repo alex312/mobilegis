@@ -13,7 +13,7 @@ export class AlarmPage implements OnInit {
     private _loading: Loading;
     Groups: Group[] = [];
     constructor(private _loadingCtrl: LoadingController, private _trafficEnvService: TrafficEnvService, private _alarmService: AlarmService, @Inject(Alarm_Config) _alarmConfig: IAlarmConfig) {
-        this.Groups = _alarmConfig.Groups;
+        this.Groups = _alarmConfig.groups;
     }
     ngOnInit() {
         this.startLoading();

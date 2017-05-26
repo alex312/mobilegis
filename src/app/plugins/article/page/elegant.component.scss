@@ -1,0 +1,20 @@
+elegant-page{
+    .image{
+        height:calc(60%);
+        background-repeat:no-repeat;
+        background-size:100%;
+        background-position-y:bottom;
+    }
+
+    [ion-fixed]{
+        width:100%;
+        height:calc(100%);
+    }
+
+    .info{
+        padding-top:10px;
+        padding-left:5px;
+        padding-right:5px;
+        height:calc(40%);
+    }
+}

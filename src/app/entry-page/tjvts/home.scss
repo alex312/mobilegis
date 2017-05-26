@@ -28,13 +28,13 @@ page-home {
         border-width:0px;
     }
 
-    .menuimg-small{
+    .menuimg-small {
         background-repeat: no-repeat;
         background-size: auto 37%;
         background-position: calc(50% - 3.5rem) center;
     }
     
-    .menuimg{
+    .menuimg {
         background-repeat: no-repeat;
         background-size: auto 60%;
         background-position: calc(50% - 4.3rem) center;
@@ -42,13 +42,33 @@ page-home {
         font-size:1.8rem;
     }
 
-    .card-header-image{
+    .card-header-image {
         background-repeat: no-repeat;
         background-size: auto 2.5rem;
         background-position: calc(5%) center;
         padding-left: calc(13%);
         font-size:1.8rem;
     }
+
+    ion-card-header{
+        div{
+            display:flex;
+            h2{
+                flex-grow:1;
+
+                span{
+                    display:flex;
+                    align-items:center;
+                    // height:100%;
+                }
+            }
+
+            .button-small-md{
+                margin:0px;
+            }
+        }
+    }
+    
 
     .sub-feature{
         .col{
@@ -83,9 +103,6 @@ page-home {
         img {
             width:40px;
         }
-
-
-
         .item{
             padding-left:calc(35%);
             min-height:7rem;
@@ -101,4 +118,13 @@ page-home {
         }
     }
 
+}
+
+.scroll-msg{
+    .scroll-msg-title{
+        padding-right:15px;
+        border-right:1px solid #dedede;
+        display:flex;
+        align-items:center;
+    }
 }

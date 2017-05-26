@@ -1,35 +1,48 @@
 import { Component, ViewChild, Renderer } from '@angular/core';
 
-import { Content } from 'ionic-angular';
+import { Content, NavController } from 'ionic-angular';
 
 import * as moment from 'moment';
 
-import { DynamicDataService, DynamicDataUrlCreater, IQueryParam } from '../service/dynamic-data.service';
+import { isPresent, isFunction, DateUtil } from '../../../base';
 
-import { QueryParamComponent } from '../component/query-param.component';
+
+
+import { DynamicDataService } from '../service/dynamic-data.service';
+import { IQueryParam, createQueryParam, IUrlFactory, UrlFactorys } from '../service/url-factory';
+
+import { QueryParamComponent } from '../component/condition/query-param.component';
+
+import { ICardSelectorFactory, ICardSelectorInfo, CardSelectorFactorys } from './view-module';
+import { ShipDynamicDetailPage } from './ship-dynamic-detail.component';
 
 @Component({
     selector: 'ship-dynamic-page',
     templateUrl: './ship-dynamic.component.html'
 })
+
 export class ShipDynamicPage {
     _enableRefresher: boolean = true;
     dynamicType: string = "yqb";
     _dataQueryPromiseDict: { [key: string]: DynamicPageModel };
 
-    constructor(_dataService: DynamicDataService, private _renderer: Renderer) {
-        let _urlCreater = new DynamicDataUrlCreater();
-
+    constructor(
+        _dataService: DynamicDataService,
+        private _renderer: Renderer,
+        private _navCtrl: NavController
+    ) {
+        let getDataFunc = _dataService.getData.bind(_dataService);
         this._dataQueryPromiseDict = {
-            "yqb": new DynamicPageModel(_urlCreater.portVisitUrl.bind(_urlCreater), _dataService.getData.bind(_dataService)),
-            "sycb": new DynamicPageModel(_urlCreater.vessDynamicUrl.bind(_urlCreater), _dataService.getData.bind(_dataService)),
-            "xc": new DynamicPageModel(_urlCreater.rawBoatDynamicUrl.bind(_urlCreater), _dataService.getData.bind(_dataService)),
-            "kb": new DynamicPageModel(_urlCreater.berthStateUrl.bind(_urlCreater), _dataService.getData.bind(_dataService)),
-            "mb": new DynamicPageModel(_urlCreater.anchorStateUrl.bind(_urlCreater), _dataService.getData.bind(_dataService))
+            "yqb": new DynamicPageModel(getDataFunc, CardSelectorFactorys.PortVisit, UrlFactorys.PortVisit),
+            "sycb": new DynamicPageModel(getDataFunc, CardSelectorFactorys.VesselDynamic, UrlFactorys.VesselDynamic),
+            "xc": new DynamicPageModel(getDataFunc, CardSelectorFactorys.RawBoatDynamic, UrlFactorys.RawBoatDyanmic),
+            "kb": new DynamicPageModel(getDataFunc, CardSelectorFactorys.Berth, UrlFactorys.Berth),
+            "mb": new DynamicPageModel(getDataFunc, CardSelectorFactorys.Anchor, UrlFactorys.Anchor)
         }
 
         for (let key in this._dataQueryPromiseDict) {
-            this._dataQueryPromiseDict[key].requery().then();
+            // this._dataQueryPromiseDict[this.dynamicType].requery().then(this.setViewDetailAction.bind(this));
+            this.query(this._dataQueryPromiseDict[key], true, true).then(() => this.completeLoading(null));
         }
     }
 
@@ -43,22 +56,20 @@ export class ShipDynamicPage {
     private _isDoingRefresh = false;
     doRefresh(event) {
         this._isDoingRefresh = true;
-        this._dataQueryPromiseDict[this.dynamicType].requery().then(() => {
-            event.complete();
-            this._isDoingRefresh = false;
-        });
+        this.query(this._dataQueryPromiseDict[this.dynamicType], false, true).then(() => this.completeLoading(event));
     }
-
     canInfinite() {
         return this._dataQueryPromiseDict[this.dynamicType].hasMore()
     }
-
     doInfinite(event) {
         this._isDoingRefresh = true;
-        this._dataQueryPromiseDict[this.dynamicType].queryMore().then(() => {
-            event.complete();
-            this._isDoingRefresh = false;
-        });
+        this.query(this._dataQueryPromiseDict[this.dynamicType], false, false).then(() => this.completeLoading(event));
+    }
+
+    private completeLoading(event) {
+        if (isPresent(event) && isPresent(event.complete) && isFunction(event.complete))
+            event.complete()
+        this._isDoingRefresh = false;
     }
 
 
@@ -68,7 +79,7 @@ export class ShipDynamicPage {
     @ViewChild(Content)
     _content: Content;
 
-    queryParamClick(event) {
+    showOrHideConditionPanel(event) {
         if (this._queryParamShowing) {
             this._queryParamPanel.moveOut();
             this._content.setScrollElementStyle("overflow-y", "auto");
@@ -83,70 +94,92 @@ export class ShipDynamicPage {
     }
 
     resetParam() {
-        this.queryParamClick(null);
-        this._dataQueryPromiseDict[this.dynamicType].reset();
-        this._dataQueryPromiseDict[this.dynamicType].requery().then();
+        this.showOrHideConditionPanel(null);
+        // this._dataQueryPromiseDict[this.dynamicType].resetParam();
+        // this._dataQueryPromiseDict[this.dynamicType].requery().then(this.setViewDetailAction.bind(this));
+        this.query(this._dataQueryPromiseDict[this.dynamicType], true, true).then();
     }
 
     setParam() {
-        this.queryParamClick(null);
-        this._dataQueryPromiseDict[this.dynamicType].requery().then();
+        this.showOrHideConditionPanel(null);
+        this.query(this._dataQueryPromiseDict[this.dynamicType], false, true).then();
+    }
+
+    private viewDetail(info: ICardSelectorInfo) {
+        if (isPresent(info) && isPresent(info.detail) && isPresent(info.cardViewModule))
+            this._navCtrl.push(ShipDynamicDetailPage, { component: info.detail, viewModule: info.cardViewModule });
+    }
+
+    query(pageModule: DynamicPageModel, isResetParam: boolean, isRequery: boolean) {
+        if (isResetParam === true)
+            pageModule.resetParam();
+        if (isRequery === true)
+            pageModule.clear();
+
+        return pageModule.queryMore().then(() => this.setViewDetailAction(pageModule));
+    }
+
+
+    private setViewDetailAction(pageModel: DynamicPageModel) {
+        pageModel.itemSource.forEach((item: ICardSelectorInfo) => {
+            item.cardViewModule.viewDetail = item.cardViewModule.viewDetail || (() => this.viewDetail(item));
+        })
     }
 }
 
 class DynamicPageModel {
     itemSource: any[];
     queryParam: IQueryParam;
+
+
     totalCount;
 
 
-    private _urlCreater;
-    get url() {
-        return this._urlCreater(this.queryParam);
-    }
+    private _cardSelectorFactory: ICardSelectorFactory;
+    private _urlFactory: IUrlFactory;
+    private _queryFunc: (IQueryParam, IUrlFactory) => Promise<any>;
 
-    private _queryFunc;
-
-    constructor(urlCreater, queryFunc) {
+    constructor(queryFunc: (IQueryParam, IUrlFactory) => Promise<any>, cardSelectorFactory: ICardSelectorFactory, urlFactory: IUrlFactory) {
         this.itemSource = [];
         this.totalCount = 0
-        this.reset();
-        this._urlCreater = urlCreater;
+        this.resetParam();
+        this._cardSelectorFactory = cardSelectorFactory;
+        this._urlFactory = urlFactory;
         this._queryFunc = queryFunc;
     }
 
-    reset() {
+    resetParam() {
         let startDate = moment(new Date());
         let endDate = moment(new Date()).day(startDate.day() + 1);
 
-        this.queryParam = {
-            shipKeyword: "",
-            startIndex: 0,
-            count: 50,
-            shipTypeCode: "",
-            start: startDate.format("YYYY-MM-DD"),
-            end: endDate.format("YYYY-MM-DD"),
-            source: "",
-            companyId: ""
-        }
+        this.queryParam = createQueryParam();
+        this.queryParam.count = 50;
+        this.queryParam.start = startDate.format("YYYY-MM-DD");
+        this.queryParam.end = endDate.format("YYYY-MM-DD");
     }
 
-    requery() {
+    // requery(): Promise<any> {
+    //     return this.queryMore();
+    // }
+
+    clear() {
         this.itemSource.splice(0, this.itemSource.length);
         this.queryParam.startIndex = 0;
-        return this.queryMore();
-
     }
 
-    queryMore() {
+    queryMore(): Promise<any> {
         this.isLoading = true;
-        return this._queryFunc(this.url).then(result => {
-            this.itemSource.splice(this.itemSource.length, 0, ...result.data);
+        return this._queryFunc(this.queryParam, this._urlFactory).then(result => {
+            this.itemSource.splice(
+                this.itemSource.length,
+                0,
+                ...result.data.map(item => this._cardSelectorFactory.createSelector(item)))
+                .filter((item: ICardSelectorInfo) => isPresent(item) && isPresent(item.card))
+                .sort((a: ICardSelectorInfo, b: ICardSelectorInfo) => DateUtil.complare(b.sortItem, a.sortItem));
             this.totalCount = result.total;
             this.queryParam.startIndex += result.data.length;
             this.isLoading = false;
         });
-
     }
 
     hasMore() {

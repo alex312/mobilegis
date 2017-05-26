@@ -1,18 +1,24 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { ApiClientService } from '../../../base';
 
 import { IArticleInfor } from '../data/article-info';
 
+import { Article_Config, IArticleConfig } from './config'
+
+
 @Injectable()
 export class ArticleService {
-    constructor(private _apiClient: ApiClientService) {
-
-
+    constructor(private _apiClient: ApiClientService,
+        @Inject(Article_Config) private _articleConfig: IArticleConfig) {
     }
 
-    private _articleUrl = "api/articles/items"
+    private get webapi() {
+        return this._articleConfig.webapi;
+    }
+
+    // private _articleUrl = "api/articles/items"
     getArticleList(category: string, index: number, count: number = 30) {
-        return this._apiClient.get(this._articleUrl + "?cat=" + category + "&index=" + index + "&count=" + count).then(result => {
+        return this._apiClient.get(this.webapi.articleItems + "?cat=" + category + "&index=" + index + "&count=" + count).then(result => {
             return {
                 total: result.total,
                 items: result.items.map(item => {
@@ -32,7 +38,7 @@ export class ArticleService {
 
 
     getArticle(articleId: string) {
-        return this._apiClient.get(this._articleUrl + "/" + articleId).then(result => {
+        return this._apiClient.get(this.webapi.articleItems + "/" + articleId).then(result => {
             return <IArticleInfor>{
                 id: result._id,
                 author: result.author,
@@ -46,9 +52,9 @@ export class ArticleService {
         })
     }
 
-    private _warningUrl = "api/warnings";
+    // private _warningUrl = "api/warnings";
     getWarningList(category: string, index: number) {
-        return this._apiClient.get("api/warnings?count=25&startIndex=" + index + "&type=" + category.toUpperCase()).then(result => {
+        return this._apiClient.get(this.webapi.warning + "?count=25&startIndex=" + index + "&type=" + category.toUpperCase()).then(result => {
             return {
                 total: result.total,
                 items: result.data.map(item => {
@@ -65,7 +71,7 @@ export class ArticleService {
     }
 
     getWarning(id) {
-        return this._apiClient.get(this._warningUrl + "/" + id).then(result => {
+        return this._apiClient.get(this.webapi.warning + "/" + id).then(result => {
             return <IArticleInfor>{
                 id: result._id,
                 author: result.unit,
@@ -80,6 +86,27 @@ export class ArticleService {
     }
 
     getElegant() {
-        return this._apiClient.get("api/elegant");
+        return this._apiClient.get(this.webapi.elegant);
+    }
+
+    // private weather = "api/weather";
+    getLastWeather() {
+        return this._apiClient.get(this.webapi.weather + "?startIndex=0&count=1").then(result => {
+            return this.getWeather(result.data[0].key);
+        })
+    }
+
+    getWeather(id) {
+        return this._apiClient.get(this.webapi.weather + "/" + id).then(result => {
+            return <IArticleInfor>{
+                id: id,
+                author: result.source,
+                title: result.title,
+                content: result.content,
+                category: "气象信息",
+                date: new Date(result.date),
+                publish_date: new Date(result.date),
+            }
+        });
     }
 }

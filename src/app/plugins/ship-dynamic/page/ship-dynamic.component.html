@@ -32,29 +32,22 @@
         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="正在刷新...">
         </ion-refresher-content>
     </ion-refresher>
-    <loading [timeout]="3000" [enable]="showLoading"></loading>
-    <div *ngIf="_dataQueryPromiseDict[dynamicType].isEmpty">
-        没有更多数据了
-    </div>
+    <loading [timeout]="3000" fixed [enable]="showLoading"></loading>
     <query-param (reset)="resetParam()" (set)="setParam()" [paramSource]="_dataQueryPromiseDict[dynamicType].queryParam" ion-fixed></query-param>
     <div [ngSwitch]="dynamicType">
         <!--预确报-->
         <port-visit-card-list *ngSwitchCase="'yqb'" [itemSource]="_dataQueryPromiseDict['yqb'].itemSource"></port-visit-card-list>
-
         <!--商业船舶-->
         <vessel-dynamic-card-list *ngSwitchCase="'sycb'" [itemSource]="_dataQueryPromiseDict['sycb'].itemSource"></vessel-dynamic-card-list>
-
         <!--小船-->
         <raw-boat-dynamic-card-list *ngSwitchCase="'xc'" [itemSource]="_dataQueryPromiseDict['xc'].itemSource"></raw-boat-dynamic-card-list>
-
         <!--靠泊-->
         <berth-state-card-list *ngSwitchCase="'kb'" [itemSource]="_dataQueryPromiseDict['kb'].itemSource"></berth-state-card-list>
-
         <!--锚泊-->
         <anchor-state-card-list *ngSwitchCase="'mb'" [itemSource]="_dataQueryPromiseDict['mb'].itemSource"></anchor-state-card-list>
     </div>
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="_dataQueryPromiseDict[dynamicType].hasMore()">
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>
-    <div *ngIf="!_dataQueryPromiseDict[dynamicType].hasMore() && !_dataQueryPromiseDict[dynamicType].isLoading" style="padding-bottom:20px;text-align: center;color:#8e9093">这已经是最底部了</div>
+    <div *ngIf="!_dataQueryPromiseDict[dynamicType].hasMore() && !_dataQueryPromiseDict[dynamicType].isLoading" style="padding-top:10px;padding-bottom:20px;text-align: center;color:#8e9093">这已经是最底部了</div>
 </ion-content>

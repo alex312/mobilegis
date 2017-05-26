@@ -18,7 +18,7 @@ export class UserSettingPage {
     ) {
         this._user.autoLogin().then(success => {
             if (!success)
-                this.relogin();
+                this.logout();
             else
                 this.userName = this._user.Current.RealName;
         })
@@ -28,7 +28,8 @@ export class UserSettingPage {
         this._navCtrl.push(PasswordReSettingPage);
     }
 
-    relogin() {
+    logout() {
+        this._user.logout();
         this._tab.setRoot(UserLoginPage, {
             loginSuccess: () => {
                 this._tab.setRoot(UserSettingPage);

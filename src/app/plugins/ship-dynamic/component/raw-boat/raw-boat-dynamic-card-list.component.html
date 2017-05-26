@@ -1,0 +1,26 @@
+<!--<ion-list>
+    <ion-card *ngFor="let item of itemSource">
+        <ion-item>
+            <div class="ship-name" item-left style="background-image:url('assets/imgs/ship-dynamic/ship@2x.png')">
+                <p>{{item.ShipNameChn}}</p>
+            </div>
+            <p>
+                <span style="min-width:100px;display:inline-block">始发地:</span>
+                <span>{{item.StartLocation}}</span>
+            </p>
+            <p>
+                <span style="min-width:100px;display:inline-block">动向:</span>
+                <span>{{item.ActionTypeName}}</span>
+            </p>
+            <p>
+                <span style="min-width:100px;display:inline-block">目的地:</span>
+                <span>{{item.EndLocation}}</span>
+            </p>
+            <p>
+                <span style="min-width:100px;display:inline-block">计划时间:</span>
+                <span>{{item.PlanTime && _format.FormatDate(item.PlanTime)}}</span>
+            </p>
+        </ion-item>
+    </ion-card>
+</ion-list>-->
+<component-selector *ngFor="let item of itemSource" [component]="item.card" [data]="item.cardViewModule"></component-selector>

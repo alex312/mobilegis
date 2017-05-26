@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { BackgroundGeolocation, Geolocation } from 'ionic-native';
 
@@ -7,42 +7,32 @@ import { UserService } from '../../user/service/user.service';
 
 import { LocationInfo } from '../data/location-info';
 
+import { ILocationConfig, Location_Config } from './config';
+
 @Injectable()
 export class LocationTracker {
 
     private _geolocationWather;
     private _locationEnable: boolean;
     private _userEnableTrack: boolean = true;
-    private _locationStorageUrl: string = "api/Location";
     private _isStarted = false;
-    private _config = {
-        debug: false,
-        desiredAccuracy: 10,
-        stationaryRadius: 0,
-        distanceFilter: 0,
-        maxLocations: 1000,
-        stopOnTerminate: false,
-        locationProvider: 0,
-        interval: 1 * 1000,
-        notificationTitle: '位置跟踪',
-        notificationText: '开启',
-        activityType: "AutomotiveNavigation",
-    };
 
-    private _options = {
-        timeout: 3 * 1000,
-        enableHighAccuracy: true
+    constructor(private platofrm: Platform,
+        private user: UserService,
+        private apiClient: ApiClientService,
+        private popup: MessagePopupService,
+        @Inject(Location_Config) private _config: ILocationConfig) {
+        this._gpsWeakRemindTime = Date.now();
     }
 
-    constructor(private platofrm: Platform, private user: UserService, private apiClient: ApiClientService, private popup: MessagePopupService) {
-        this._gpsWeakRemindTime = Date.now();
+    private get config() {
+        return this._config;
     }
 
     init() {
         this.startWatchLocationMode();
         this.initLocationMode();
         this.gpsStateWatch();
-        //console.log("init: locationEnable = " + this._locationEnable, this._geolocationWather);
     }
 
     enableTrack() {
@@ -57,7 +47,6 @@ export class LocationTracker {
     private startWatchLocationMode() {
         BackgroundGeolocation.watchLocationMode()
             .then(enable => {
-                //console.log("user change location mode to : " + enable);
                 this._locationEnable = enable;
                 this.startTrack();
             })
@@ -74,8 +63,6 @@ export class LocationTracker {
 
     private _isOpeningLocation;
     openLocation() {
-        //console.log("openLocation");
-
         if (!this.isEnableTrack()) {
             this._isOpeningLocation = true;
             this.popup.confirm({
@@ -90,19 +77,12 @@ export class LocationTracker {
                     this._isOpeningLocation = false;
                 },
                 disagreeHandler: () => {
-                    // this.popup.toast({
-                    //     message: '只有在开启定位功能后才能正常记录轨迹,请开启定位功能',
-                    //     duration: 2000
-                    // });
                     this._userEnableTrack = true;
                     this._isOpeningLocation = false;
                 }
             });
         }
     }
-
-
-
 
     isEnableTrack() {
         return this._locationEnable && this._userEnableTrack;
@@ -113,7 +93,7 @@ export class LocationTracker {
         if (this.isEnableTrack() && !this._isStarted) {
             this._isStarted = true;
             //console.log("start Track Location");
-            BackgroundGeolocation.configure(this.savePosition.bind(this), this.handlerError, this._config);
+            BackgroundGeolocation.configure(this.savePosition.bind(this), this.handlerError, this.config.background_geo_config);
             BackgroundGeolocation.start();
 
 
@@ -134,7 +114,7 @@ export class LocationTracker {
     }
 
     private createPositionWather() {
-        this._geolocationWather = Geolocation.watchPosition(this._options).subscribe((p: any) => {
+        this._geolocationWather = Geolocation.watchPosition(this.config.geo_option).subscribe((p: any) => {
             if (p.code === undefined) {
                 // if p is Geoposition
                 this.savePosition(p.coords, p.timestamp);
@@ -172,7 +152,7 @@ export class LocationTracker {
         if (this._userEnableTrack) {
             if (cached)
                 locationInfo.Provider = "cached";
-            this.apiClient.post(this._locationStorageUrl, locationInfo).then(result => {
+            this.apiClient.post(this.config.webapi.storage, locationInfo).then(result => {
                 // console.log("send location success", result)
                 this._lastUpdateTime = Date.now();
             }).catch(error => {
@@ -207,7 +187,7 @@ export class LocationTracker {
     }
 
     private getAndSaveCurrentPosition() {
-        Geolocation.getCurrentPosition(this._options).then(position => {
+        Geolocation.getCurrentPosition(this.config.geo_option).then(position => {
             this.savePosition(position.coords, position.timestamp);
         }).catch(error => {
             // console.log("send cached location:", this._currentLocation);

@@ -95,7 +95,7 @@ export class MapPage implements OnDestroy {
         this._canNotFocuseShip = value;
     }
     ionViewDidEnter() {
-        if (this.holder && this.holder.tool && this.holder.map)
+        if (this.holder && this.holder.tool && this.holder.tool.map)
             this.holder.tool.map.UpdateSize();
         if (this.holder && this.holder.selectedFeature) {
             this.selectFeature(this.holder.selectedFeature.type, this.holder.selectedFeature.feature.uid)

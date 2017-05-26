@@ -2,7 +2,45 @@
     <ion-navbar>
         <ion-title>CCTV</ion-title>
     </ion-navbar>
+    <ion-item class="cctv-node-path">
+        <li item-left style="line-height:20px; text-align:center; display: inline;">
+            <a style="text-decoration:none;color:#666" (click)="resetViewNodePath()">CCTV视频树<i style="font-size:80%" class="iconfont icon-right"></i></a></li>
+        <ul>
+            <li style="line-height:20px; text-align:center; display: inline; " *ngFor="let node of nodePathList;let i = index">
+                <a style="text-decoration:none;color:#666" (click)="viewNodeInPath(i)">{{node.name}}<i style="font-size:80%" class="iconfont icon-right"></i></a>
+            </li>
+        </ul>
+    </ion-item>
 </ion-header>
 <ion-content>
-    <cctv-list [itemSource]="_cctvNodes"></cctv-list>
+    <ion-item-group *ngIf="videoNodes && videoNodes.length && videoNodes.length > 0">
+        <!--<ion-item-divider>
+        Video List
+    </ion-item-divider>-->
+        <button ion-item *ngFor="let video of videoNodes" (click)="openVideo(video)">
+        <i style="font-size:3rem" class="iconfont icon-video" item-left></i>
+        <div>
+        {{video.name}}
+        </div>
+    </button>
+    </ion-item-group>
+    <ion-item-group *ngIf="serverNodes && serverNodes.length && serverNodes.length > 0">
+        <!--<ion-item-divider>
+        Server Node List
+    </ion-item-divider>-->
+
+        <button ion-item *ngFor="let server of serverNodes" (click)="viewChild(server)">
+            <i style="font-size:3rem" class="iconfont icon-home" item-left></i>
+        <div>{{server.name}}</div>
+    </button>
+    </ion-item-group>
+    <ion-item-group *ngIf="frontNodes && frontNodes.length && frontNodes.length > 0">
+        <!--<ion-item-divider>
+        Front Node List
+    </ion-item-divider>-->
+        <button ion-item *ngFor="let front of frontNodes" (click)="viewChild(front)">
+        <i style="font-size:3rem" class="iconfont icon-dvr" item-left></i>
+        <div>{{front.name}}</div>
+    </button>
+    </ion-item-group>
 </ion-content>

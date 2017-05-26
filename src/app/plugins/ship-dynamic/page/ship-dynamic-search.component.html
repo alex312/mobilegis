@@ -1,0 +1,14 @@
+<ion-header>
+    <ion-navbar>
+        <searchbar placeholder="输入英文船名/MMSI/呼号" [showSearchButton]="false" [(searchKey)]="searchKey" (search)="onSearch()"></searchbar>
+        <ion-buttons end>
+            <button ion-button clear (click)="onSearch()">搜索</button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <loading [timeout]="3000" fixed [enable]="showLoading"></loading>
+    <ion-list>
+        <component-selector *ngFor="let item of searchResult" [component]="item.card" [data]="item.cardViewModule"></component-selector>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,28 @@
+<ion-card>
+    <button ion-item (click)="viewModule.viewDetail()">
+        <!--<div class="ship-name" item-left style="background-image:url('assets/imgs/ship-dynamic/ship@2x.png')">
+            <p>{{data.ShipNameChn}}</p>
+        </div>-->
+        <ship-type item-left [shipType]="viewModule.data.ShipTypeCode" style="font-size:3.6rem"></ship-type>
+        <h2 style="display:flex;color:#333">
+            <span style="flex-grow:1">{{viewModule.data.ShipNameChn}}</span>
+            <ion-badge>{{viewModule.group}}</ion-badge>
+        </h2>
+        <p>
+            <span style="min-width:100px;display:inline-block">始发地:</span>
+            <span>{{viewModule.data.StartLocation}}</span>
+        </p>
+        <p>
+            <span style="min-width:100px;display:inline-block">动向:</span>
+            <span>{{viewModule.data.ActionTypeName}}</span>
+        </p>
+        <p>
+            <span style="min-width:100px;display:inline-block">目的地:</span>
+            <span>{{viewModule.data.EndLocation}}</span>
+        </p>
+        <p>
+            <span style="min-width:100px;display:inline-block">计划时间:</span>
+            <span>{{viewModule.data.PlanTime && _format.FormatDate(viewModule.data.PlanTime)}}</span>
+        </p>
+    </button>
+</ion-card>

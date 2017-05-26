@@ -1,0 +1,28 @@
+<ion-card>
+    <ion-card-header>
+        <h1>{{viewModule.data.ShipNameChn}}</h1>
+    </ion-card-header>
+    <ion-card-content class="items">
+        <!--<ion-list>-->
+        <ion-item>
+            <div item-left><span style="flex-grow:1">英文船名</span><span>：</span></div><span>{{viewModule.data.ShipNameEn}}</span></ion-item>
+        <ion-item>
+            <div item-left><span style="flex-grow:1">MMSI</span><span>：</span></div><span>{{viewModule.data.MMSI}}</span></ion-item>
+        <ion-item>
+            <div item-left><span style="flex-grow:1">IMO</span><span>：</span></div><span>{{viewModule.data.IMO}}</span></ion-item>
+        <ion-item>
+            <div item-left><span style="flex-grow:1">呼号</span><span>：</span></div><span>{{viewModule.data.CallSign}}</span></ion-item>
+        <ion-item>
+            <div item-left><span style="flex-grow:1">国籍</span><span>：</span></div><span>{{viewModule.data.Nation}}</span></ion-item>
+        <ion-item>
+            <div item-left><span style="flex-grow:1">船舶类型</span><span>：</span></div><span>{{viewModule.data.ShipType}}</span></ion-item>
+        <ion-item>
+            <div item-left><span style="flex-grow:1">停靠锚地</span><span>：</span></div><span>{{viewModule.data.AnchorageName}}</span></ion-item>
+
+        <ion-item>
+            <div item-left><span style="flex-grow:1">开始锚泊时间</span><span>：</span></div><span>{{format.FormatDate(viewModule.data.AnchorTime)}}</span></ion-item>
+        <ion-item>
+            <div item-left><span style="flex-grow:1">时长</span><span>：</span></div><span>{{getTimeSpan(viewModule.data.AnchorTime,viewModule.data.EndTime)}}</span></ion-item>
+        <!--</ion-list>-->
+    </ion-card-content>
+</ion-card>

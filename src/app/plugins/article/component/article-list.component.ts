@@ -11,7 +11,6 @@ export class ArtileListComponent {
     private _itemSource: IArticleInfor[] = [];
     @Input()
     set itemSource(value) {
-        console.log(value);
         this._itemSource = value;
     }
     get itemSource() {

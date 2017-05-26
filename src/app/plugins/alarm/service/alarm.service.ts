@@ -4,20 +4,20 @@ import { ApiClientService, Format } from '../../../base';
 import { Alarm } from '../data/alarm';
 // import {CableService} from './cable.service';
 import { Alarm_Config, IAlarmConfig } from './config';
-import { Config } from '../../../config';
+// import { Config } from '../../../config';
 import { TrafficEnvService } from '../../traffic-env';
 
 @Injectable()
 export class AlarmService {
     private _typeAlarms: { [type: string]: Alarm[] } = {};
     private _day: number = 1;
-    constructor(private _apiClient: ApiClientService, private _trafficEnvService: TrafficEnvService, @Inject(Alarm_Config) _alarmConfig: IAlarmConfig) {
-        this._day = _alarmConfig.Day;
+    constructor(private _apiClient: ApiClientService, private _trafficEnvService: TrafficEnvService, @Inject(Alarm_Config) private _alarmConfig: IAlarmConfig) {
+        this._day = _alarmConfig.day;
     }
 
     Refresh() {
         var start = new Date(Date.now() - this._day * 24 * 60 * 60 * 1000);
-        let promise = this._apiClient.get(`${Config.Plugins.Alarm.AlarmUrl}?start=${Format.FormatDate(start)}&&rising=${true}`);
+        let promise = this._apiClient.get(`${this._alarmConfig.webapi.alarm}?start=${Format.FormatDate(start)}&&rising=${true}`);
         promise.then(p => {
             for (var type in this._typeAlarms) {
                 this._typeAlarms[type].splice(0, this._typeAlarms[type].length);
@@ -47,4 +47,15 @@ export class AlarmService {
         else
             return [];
     }
+}
+
+
+let alarmServiceFactory = (apiClient: ApiClientService, trafficEnvService: TrafficEnvService, alarmConfig: IAlarmConfig): AlarmService => {
+    return new AlarmService(apiClient, trafficEnvService, alarmConfig);
+}
+
+export const alarmServiceProvider = {
+    provide: AlarmService,
+    useFactory: alarmServiceFactory,
+    deps: [ApiClientService, TrafficEnvService, Alarm_Config]
 }

@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 
-import {Cable} from '../data/cable';
-import {ApiClientService} from '../../../base';
-import {Config} from '../../../config';
+import { Cable } from '../data/cable';
+import { ApiClientService } from '../../../base';
+import { IAlarmConfig, Alarm_Config } from './config';
+// import { Config } from '../../../config';
 
 @Injectable()
 export class CableService {
-    constructor(private _apiClient: ApiClientService) {
+    constructor(private _apiClient: ApiClientService, private _cableUrl: string) {
     }
     private _idCable: { [id: string]: Cable } = {};
     private getCables() {
-        return this._apiClient.get(Config.Plugins.Alarm.CableUrl);
+        return this._apiClient.get(this._cableUrl);
     }
     Init() {
         let promise = this.getCables();
@@ -29,4 +30,14 @@ export class CableService {
         else
             return undefined;
     }
+}
+
+const cableServiceFactory = (_apiClient: ApiClientService, config: IAlarmConfig): CableService => {
+    return new CableService(_apiClient, config.webapi.cable);
+}
+
+export const cableServiceProvider = {
+    provide: CableService,
+    useFactory: cableServiceFactory,
+    deps: [ApiClientService, Alarm_Config]
 }

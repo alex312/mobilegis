@@ -79,7 +79,10 @@ export class UserService {
         localforage.getItem(this.lastLoginUserKey).then(data => {
             console.log("logout", data);
         })
-        // this.runLogoutAction();
+    }
+
+    changePwd(oldPwd, newPwd) {
+
     }
 
     loginCallbacks: Function[] = [];

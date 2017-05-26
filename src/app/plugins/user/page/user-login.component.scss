@@ -10,17 +10,11 @@
         align-items: center;
         text-align: center;
     }
-
-    ion-col{
-        padding-left:9.9%;
-        padding-right:9.9%;
-    }
  
     ion-item {
         color:#ccc;
         border: solid #ccc 1px;
         margin-bottom:1.875rem;
-        border-radius: 10px;
         min-height:3rem;
     }
 
@@ -40,15 +34,11 @@
 
     ion-list[inset] .item:first-child{
         border-top:solid #ccc 1px;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
         margin-top:1.875rem;
     }
 
     ion-list[inset] .item:last-child{
         border-bottom:solid #ccc 1px;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
     }
  
     ion-list {
@@ -57,7 +47,6 @@
  
     .login-button {
         width: 100%;
-        border-radius: 10px;
         min-height:3rem;
     }
 

@@ -48,7 +48,7 @@ export class TaskCardComponent implements AfterViewInit {
         if (!this._requireTimeAlarm)
             return;
         this._renderer.setElementClass(this._requireTimeAlarm.nativeElement, "late", false);
-        if (this._task.RequiredCompletionDate && DateUtil.LateThen(new Date(), this._task.RequiredCompletionDate)) {
+        if (this._task.RequiredCompletionDate && DateUtil.isAfter(new Date(), this._task.RequiredCompletionDate)) {
             this._renderer.setElementClass(this._requireTimeAlarm.nativeElement, "late", true);
         }
     }

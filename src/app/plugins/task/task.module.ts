@@ -4,7 +4,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 
 import { IonicModule } from 'ionic-angular';
 import { BaseModule } from "../../base";
-import { LocationModule } from '../location'
+// import { LocationModule } from '../location'
 import { UserModule } from '../user';
 
 import { TaskDataManagerCollection } from './service/task-data-manager-collection.service';
@@ -40,7 +40,7 @@ let taskDataManagerCollectionFactory = (taskConfig: TaskConfig) => {
         FormsModule,
         BaseModule,
         IonicModule,
-        LocationModule,
+        // LocationModule,
         UserModule
     ],
     exports: [

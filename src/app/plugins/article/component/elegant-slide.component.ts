@@ -1,20 +1,21 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Slides } from 'ionic-angular';
+import { Slides, App } from 'ionic-angular';
 
+import { isBlank } from '../../../base';
 import { Config } from '../../../config';
 
 import { ArticleService } from '../service/article.service';
+
+import { ElegantComponent } from '../page/elegant.component';
 
 @Component({
     selector: 'elegant-slide',
     templateUrl: './elegant-slide.component.html'
 })
 export class ElegantSlideComponent implements OnInit {
-    slideItems = [
-    ]
+    slideItems = []
 
-
-    constructor(private _articleService: ArticleService) {
+    constructor(private _articleService: ArticleService, private _app: App) {
         this._articleService.getElegant().then(result => {
             result.forEach(item => {
                 item.url = Config.proxy + "api/elegant/images/" + item.url;
@@ -37,30 +38,33 @@ export class ElegantSlideComponent implements OnInit {
     @ViewChild(Slides) slides: Slides;
     private _slideIndex = 0;
     private _userDrag = false;
+    private interval: number;
     slidesAutoPlay() {
-        setTimeout(() => {
-            if (this._userDrag === false) {
-                this._slideIndex++;
-                if (this._slideIndex === this.slideItems.length)
-                    this._slideIndex = 0;
-                this.slides.slideTo(this._slideIndex)
-
-                this.slidesAutoPlay();
-            }
+        this.interval = setInterval(() => {
+            this._slideIndex++;
+            if (this._slideIndex === this.slideItems.length)
+                this._slideIndex = 0;
+            this.slides.slideTo(this._slideIndex)
         }, 3000);
     }
 
     slideChange(event: Slides) {
         this._slideIndex = event.getActiveIndex();
-        if (this._userDrag === true) {
-            setTimeout(() => {
-                this._userDrag = false;
+    }
+
+    private _timeout: number;
+    slideDrag(event) {
+        clearInterval(this.interval);
+        if (isBlank(this._timeout)) {
+            this._timeout = setTimeout(() => {
                 this.slidesAutoPlay();
-            }, 15000);
+                clearTimeout(this._timeout);
+                this._timeout = undefined;
+            }, 12000);
         }
     }
 
-    slideDrag(event) {
-        this._userDrag = true;
+    openSlideDetail(item) {
+        this._app.getRootNav().push(ElegantComponent, item);
     }
 }

@@ -1,0 +1,10 @@
+export const isBoolean = (val: any) => typeof val === 'boolean';
+export const isString = (val: any) => typeof val === 'string';
+export const isBlankString = (val: any) => isBlank(val) || (typeof val === 'string' && val === "");
+export const isNumber = (val: any) => typeof val === 'number';
+export const isFunction = (val: any) => typeof val === 'function';
+export const isDefined = (val: any) => typeof val !== 'undefined';
+export const isUndefined = (val: any) => typeof val === 'undefined';
+export const isPresent = (val: any) => val !== undefined && val !== null;
+export const isBlank = (val: any) => val === undefined || val === null;
+export const isObject = (val: any) => typeof val === 'object';

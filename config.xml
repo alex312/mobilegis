@@ -92,6 +92,6 @@
     <plugin name="cordova-plugin-statusbar" spec="2.2.1" />
     <plugin name="cordova-plugin-device" spec="1.1.4" />
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.1" />
-    <plugin name="cordova-plugin-cctv" spec="http://192.168.14.38/cordova/cordova-plugin-cctv.git" />
     <plugin name="cordova-plugin-nativestorage" spec="~2.2.2" />
+    <plugin name="cordova-plugin-app-version" spec="~0.1.9" />
 </widget>

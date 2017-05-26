@@ -31,10 +31,8 @@ export abstract class ArticlePageBase {
             // 手机中运行时需要访问绝对的图片地址
             let imgs = content.getElementsByTagName("img");
             let baseURI = content.baseURI;
-            console.log(baseURI);
             for (let i = 0; i < imgs.length; i++) {
                 imgs[i].src = imgs[i].src.replace("file:///", Config.proxy);
-                console.log(imgs[i].src);
             }
             this.isLoading = false;
         });

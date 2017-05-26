@@ -1,0 +1,19 @@
+searchbar {
+    display:block;
+    .search-item{
+        font-size:1.4rem;
+        padding-left:0;
+        // background-color:transparent;
+
+        ion-searchbar{
+            padding:0;
+        }
+
+        .label-md,
+        .label-ios,
+        .label-wp{
+            margin-top:0;
+            margin-bottom:0;
+        }
+    }
+}

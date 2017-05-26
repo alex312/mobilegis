@@ -1,0 +1,5 @@
+<ion-item class="search-item">
+    <ion-searchbar [placeholder]="placeholder" [(ngModel)]="searchKey" showCancelButton="false">
+    </ion-searchbar>
+    <button *ngIf="showSearchButton" ion-button item-right (click)="onSearch($event)">搜索</button>
+</ion-item>

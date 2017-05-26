@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -10,13 +10,15 @@ import { ArticleHomePage } from './page/article-home.component';
 import { ArticlePage } from './page/article.component';
 import { WarningPage } from './page/warning.component';
 import { LawPage } from './page/law-page.component';
-import { LawHomePage } from './page/law-home.component'
+import { LawHomePage } from './page/law-home.component';
+import { ElegantComponent } from './page/elegant.component';
+import { WeatherPage } from './page/weather.component';
 
 import { ArtileListComponent } from './component/article-list.component';
 import { ArticleCardListComponent } from './component/article-card-list.component';
 import { ElegantSlideComponent } from './component/elegant-slide.component';
 
-
+import { IArticleConfig, Article_Config, dealConfig } from './service/config';
 import { ArticleService } from './service/article.service';
 
 import { LoadingModule } from '../loading';
@@ -32,7 +34,9 @@ import { LoadingModule } from '../loading';
         WarningPage,
         ElegantSlideComponent,
         LawPage,
-        LawHomePage
+        LawHomePage,
+        ElegantComponent,
+        WeatherPage
     ],
     imports: [
         CommonModule,
@@ -42,11 +46,22 @@ import { LoadingModule } from '../loading';
         BaseModule
     ],
     exports: [
-        ArticleHomePage,
         ElegantSlideComponent,
-        LawHomePage
+        ArtileListComponent,
     ],
-    entryComponents: [ArticleHomePage, ArticlePage, WarningPage, LawPage, LawHomePage],
-    providers: [ArticleService],
+    entryComponents: [ArticleHomePage, ArticlePage, WarningPage, LawPage, LawHomePage, ElegantComponent, WeatherPage],
 })
-export class ArticleModule { }
+export class ArticleModule {
+    static forRoot(articleConfig: IArticleConfig): ModuleWithProviders {
+
+        return {
+            ngModule: ArticleModule,
+            providers: [
+                { provide: Article_Config, useValue: dealConfig(articleConfig) },
+                ArticleService
+            ]
+        }
+
+    }
+
+}

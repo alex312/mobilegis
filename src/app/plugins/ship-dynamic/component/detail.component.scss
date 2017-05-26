@@ -1,0 +1,42 @@
+anchor-state-detail,
+berth-state-detail,
+port-visit-detail,
+raw-boat-dynamic-detail,
+vessel-dynamic-detail {
+    ion-card {
+        margin: 0px;
+        box-shadow: none;
+        width: calc(100%);
+    }
+    ion-card-header {
+        border-bottom: 1px solid #eeeeee;
+    }
+    .items {
+        padding: 0px;
+        padding-top: 10px;
+        background-color:white;
+        ion-card {
+            margin-top: 10px;
+            &:first-child {
+                margin-top: 0px;
+            }
+        }
+
+        .item{
+            // background-color:#eeeeee;
+            border-bottom:1px solid #eeeeee;
+        }
+
+        .item-inner{
+            // background-color:white;
+            padding-left:6px;
+            border-left:1px solid #eeeeee;
+        }
+
+        [item-left] {
+            min-width: 10rem;
+            display:flex;
+        }
+
+    }
+}

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, App, Tab, Tabs, Nav } from 'ionic-angular';
+import { NavController, ModalController, App } from 'ionic-angular';
 
 import { DataManager, MessagePopupService } from '../../../base';
 
@@ -13,8 +13,6 @@ import { TaskDetailPage } from './task-detail.page';
 
 import { Task } from '../data/task';
 import { TaskStatus } from '../data/metadata';
-
-import { UserLoginPage, UserService } from '../../user';
 
 @Component({
     selector: "task-list-page",
@@ -35,7 +33,6 @@ export class TaskListPage {
         private executeUnitService: ExecuteUnitService,
         private executionRecordService: ExecuteRecordService,
         private popup: MessagePopupService,
-        private _user: UserService,
         private _app: App, ) {
 
         this.pendingReceiveTasks = this.taskManager.getDataManager(TaskStatus.PendingReceive);

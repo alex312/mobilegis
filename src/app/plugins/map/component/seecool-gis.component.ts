@@ -35,7 +35,6 @@ export class SeecoolGISComponent implements OnInit, OnDestroy {
 
     }
 
-
     ngOnDestroy() {
 
         this.destroyed = true;
@@ -43,7 +42,5 @@ export class SeecoolGISComponent implements OnInit, OnDestroy {
             this.dom.nativeElement.removeChild(this.map);
             (<HTMLElement>this.holder.mapContainer).appendChild(this.map);
         }
-
     }
-
 }

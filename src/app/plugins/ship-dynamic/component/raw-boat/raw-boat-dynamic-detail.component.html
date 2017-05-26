@@ -1,0 +1,31 @@
+<ion-card>
+    <ion-card-header>
+        <h1>{{viewModule.data.ShipNameChn}}</h1>
+    </ion-card-header>
+    <ion-card-content class="items">
+        <!--<ion-list>-->
+        <ion-item>
+            <div item-left><span style="flex-grow:1">英文船名</span><span>：</span></div><span>{{viewModule.data.ShipNameEn}}</span></ion-item>
+        <ion-item>
+            <div item-left><span style="flex-grow:1">MMSI</span><span>：</span></div><span>{{viewModule.data.MMSI}}</span></ion-item>
+        <ion-item>
+            <div item-left><span style="flex-grow:1">呼号</span><span>：</span></div><span>{{viewModule.data.CallSign}}</span></ion-item>
+        <ion-item>
+            <div item-left><span style="flex-grow:1">船舶类型</span><span>：</span></div><span>{{viewModule.data.ShipType}}</span></ion-item>
+        <ion-item>
+            <div item-left><span style="flex-grow:1">小船公司</span><span>：</span></div><span>{{viewModule.data.CompanyName}}</span></ion-item>
+        <ion-item>
+            <div item-left><span style="flex-grow:1">尺寸</span><span>：</span></div><span>{{viewModule.data.ShipLength}} * {{viewModule.data.ShipWidth}}</span></ion-item>
+        <ion-item>
+            <div item-left><span style="flex-grow:1">吃水</span><span>：</span></div><span>{{viewModule.data.Draught}}</span></ion-item>
+        <ion-item>
+            <div item-left><span style="flex-grow:1">起始地点</span><span>：</span></div><span>{{viewModule.data.StartLocation}}</span></ion-item>
+        <ion-item>
+            <div item-left><span style="flex-grow:1">动向</span><span>：</span></div><span>{{viewModule.data.ActionTypeName}}</span></ion-item>
+        <ion-item>
+            <div item-left><span style="flex-grow:1">终止地点</span><span>：</span></div><span>{{viewModule.data.EndLocation}}</span></ion-item>
+        <ion-item>
+            <div item-left><span style="flex-grow:1">计划时间</span><span>：</span></div><span>{{format.FormatDate(viewModule.data.PlanTime)}}</span></ion-item>
+        <!--</ion-list>-->
+    </ion-card-content>
+</ion-card>

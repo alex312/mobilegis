@@ -7,34 +7,27 @@
     <ion-row>
         <ion-col>
             <ion-list inset>
-
                 <ion-item>
                     <ion-avatar item-left>
                         <img src="assets/imgs/user/username.png" />
                     </ion-avatar>
-                    <ion-label>
-                        账号
-                    </ion-label>
+                    <ion-label> 账号 </ion-label>
                     <ion-input type="text" [(ngModel)]="userName"></ion-input>
-
                 </ion-item>
-
                 <ion-item>
                     <ion-avatar item-left>
                         <img src="assets/imgs/user/password.png" />
                     </ion-avatar>
-
                     <ion-label>密码</ion-label>
                     <ion-input type="password" [(ngModel)]="password"></ion-input>
                 </ion-item>
-
             </ion-list>
         </ion-col>
     </ion-row>
 
     <ion-row>
         <ion-col>
-            <button ion-button class="login-button" (click)="login()">登录</button>
+            <button ion-button class="full-button" full (click)="login()">登录</button>
         </ion-col>
     </ion-row>
     <ion-row>

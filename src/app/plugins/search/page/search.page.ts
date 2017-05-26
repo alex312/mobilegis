@@ -1,7 +1,10 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { AlertController, LoadingController, Loading, NavController } from 'ionic-angular';
+
+import { ApiClientService, ShipUtil, THHJUtil } from '../../../base';
+
 import { SearchResultItem, ShipSearchResultItem, TrafficEnvSearchResultItem } from '../data';
-import { ApiClientService } from '../../../base';
+
 import { MapHolderImp } from '../../map';
 import { Config } from '../../../config';
 
@@ -24,7 +27,6 @@ export class SearchPage implements OnInit {
         private alertCtrl: AlertController,
         private zone: NgZone,
         private apiClient: ApiClientService) {
-
     }
 
     onInput(event) {
@@ -37,7 +39,6 @@ export class SearchPage implements OnInit {
 
     onSearch() {
         this.showLoading = true;
-        // this.apiClient.get(`${this.searchUrl}?key=${this.searchKey}`).then(this.onSearchCompleted.bind(this));
         this.apiClient.get(`${Config.Plugins.Search.SearchUrl}?key=${this.searchKey}`).then(this.onSearchCompleted.bind(this));
     }
     onSearchCompleted(data) {
@@ -56,7 +57,6 @@ export class SearchPage implements OnInit {
     }
 
     onSelectFeature(item: SearchResultItem) {
-        // this.webgisInteractive.callWebGISAction("SelectObj", feature.uid);
         this.mapHolder.selectedFeature = {
             feature: item,
             type: this.switchValue
@@ -65,12 +65,9 @@ export class SearchPage implements OnInit {
     }
 
     ngOnInit() {
-        // mapHolder.createHolder();
         MapHolderImp.createHolder();
         MapHolderImp.holder.then((holder) => {
             this.mapHolder = holder;
-            // this.holder.tool.map.UpdateSize();
-            // setTimeout(this.mapHolder.tool.map.UpdateSize.bind(this.mapHolder.tool.map), 300);
         })
 
     }
@@ -113,6 +110,16 @@ export class SearchPage implements OnInit {
     set showLoading(value) {
         this._showLoading = value;
     }
+
+    shipType(ship) {
+        return ShipUtil.GetShipTypeName(ship.type);
+    }
+
+    shipTypeColor(ship) {
+        return ShipUtil.GetShipTypeColor(ship.type);
+    }
+
+    thhjType(thhj) {
+        return THHJUtil.GetTypeDiscribByCode(thhj.type);
+    }
 }
-
-

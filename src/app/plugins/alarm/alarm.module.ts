@@ -8,7 +8,7 @@ import { AlarmPage } from './page/alarm.page';
 
 import { GroupComponent } from './component/group.component';
 
-import { AlarmService } from './service/alarm.service';
+import { alarmServiceProvider } from './service/alarm.service';
 import { Alarm_Config, IAlarmConfig } from './service/config';
 
 @NgModule({
@@ -34,11 +34,12 @@ import { Alarm_Config, IAlarmConfig } from './service/config';
 })
 export class AlarmModule {
     static forRoot(alarmConfig: IAlarmConfig): ModuleWithProviders {
+        console.log("alarm module");
         return {
             ngModule: AlarmModule,
             providers: [
                 { provide: Alarm_Config, useValue: alarmConfig },
-                AlarmService
+                alarmServiceProvider
             ]
         }
     }
